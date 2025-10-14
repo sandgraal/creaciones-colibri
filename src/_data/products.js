@@ -53,8 +53,8 @@ module.exports = [
     benefits: ["anti-inflammatory", "immune-support"],
     heatLevel: 0,
     image: {
-      src: "/img/creaciones_colibri_logo.png",
-      alt: "Bowl of Sunrise Citrus Granola with orange zest and cashews."
+      src: "/img/products/sunrise_citrus_granola.svg",
+      alt: "Abstract sunrise illustration representing Sunrise Citrus Granola packaging."
     }
   },
   {
@@ -81,8 +81,8 @@ module.exports = [
     benefits: ["vitamin-c", "anti-inflammatory"],
     heatLevel: 3,
     image: {
-      src: "/img/creaciones_colibri_logo.png",
-      alt: "Bottle of Mango Guava Fire hot sauce beside sliced mango and guava."
+      src: "/img/products/mango_guava_fire.svg",
+      alt: "Abstract tropical gradient representing Mango Guava Fire hot sauce."
     }
   },
   {
@@ -108,8 +108,8 @@ module.exports = [
     benefits: ["adaptogenic", "brain-support"],
     heatLevel: 0,
     image: {
-      src: "/img/creaciones_colibri_logo.png",
-      alt: "Jar of Selva Noche Cashew Butter with cacao nibs and cashews."
+      src: "/img/products/selva_noche_cashew_butter.svg",
+      alt: "Abstract jungle gradient representing Selva Noche Cashew Butter jar."
     }
   },
   {
@@ -133,8 +133,8 @@ module.exports = [
     benefits: ["hydration-support", "immune-support"],
     heatLevel: 0,
     image: {
-      src: "/img/creaciones_colibri_logo.png",
-      alt: "Glass of hibiscus ginger spritzer with lime slices."
+      src: "/img/products/hibiscus_ginger_spritzer.svg",
+      alt: "Abstract magenta gradient representing the Hibiscus Ginger Spritzer kit."
     }
   },
   {
@@ -161,8 +161,8 @@ module.exports = [
     benefits: ["hydration-support", "adaptogenic"],
     heatLevel: 1,
     image: {
-      src: "/img/creaciones_colibri_logo.png",
-      alt: "Cup of Verde Vibrante Sipping Broth with fresh herbs."
+      src: "/img/products/verde_vibrante_sipping_broth.svg",
+      alt: "Abstract verdant gradient representing Verde Vibrante Sipping Broth."
     }
   }
 ];

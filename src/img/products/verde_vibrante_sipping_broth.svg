@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 400" role="img" aria-labelledby="title desc">
+  <title id="title">Verde Vibrante Sipping Broth Placeholder</title>
+  <desc id="desc">Abstract gradient representing herbal sipping broth</desc>
+  <defs>
+    <linearGradient id="verde" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#96e6a1" />
+      <stop offset="50%" stop-color="#4bc0c8" />
+      <stop offset="100%" stop-color="#11998e" />
+    </linearGradient>
+  </defs>
+  <rect width="320" height="400" rx="32" fill="url(#verde)" />
+  <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="'Josefin Sans',sans-serif" font-size="30" fill="#0b3d3c" letter-spacing="4">VERDE</text>
+  <text x="50%" y="72%" dominant-baseline="middle" text-anchor="middle" font-family="'Josefin Sans',sans-serif" font-size="24" fill="#0b3d3c" letter-spacing="4">VIBRANTE</text>
+</svg>

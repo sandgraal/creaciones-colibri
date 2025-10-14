@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 400" role="img" aria-labelledby="title desc">
+  <title id="title">Selva Noche Cashew Butter Placeholder</title>
+  <desc id="desc">Abstract gradient representing cashew butter packaging</desc>
+  <defs>
+    <linearGradient id="selva" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1f8a70" />
+      <stop offset="50%" stop-color="#355c7d" />
+      <stop offset="100%" stop-color="#6c5b7b" />
+    </linearGradient>
+  </defs>
+  <rect width="320" height="400" rx="32" fill="url(#selva)" />
+  <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="'Josefin Sans',sans-serif" font-size="28" fill="#f7f3eb" letter-spacing="4">SELVA NOCHE</text>
+</svg>

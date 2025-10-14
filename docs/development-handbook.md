@@ -55,6 +55,7 @@ This handbook captures the conventions and best practices for building and maint
 | `src/css/` | Global stylesheets; `main.css` defines design tokens and shared components. |
 | `src/img/` | Optimized site imagery (logo, product photos, etc.). |
 | `docs/` | Documentation for developers and stakeholders (this handbook, design references, operations playbooks). |
+| `docs/design/` | Visual references and image workflow guides. |
 | `.github/workflows/pages.yml` | GitHub Actions workflow that builds and deploys the site to GitHub Pages. |
 
 ---

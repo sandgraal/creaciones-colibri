@@ -14,7 +14,7 @@ _Status legend_
 - [ ] **Define product catalog**
   - [x] Collect and finalize the initial product list based on the categories described in the README (`src/_data/products.js`).
   - [x] Draft product copy: descriptions, ingredient lists, nutrition information, usage tips, and brand story.
-  - [ ] Organize product imagery in `src/img/` with descriptive filenames (e.g., `mango_habanero_hot_sauce.png`); include alt text guidance.
+  - [x] Organize product imagery in `src/img/` with descriptive filenames (SVG placeholders for now) and document workflow in `docs/design/image-workflow.md`.
   - [x] Capture pricing and packaging sizes in product data entries.
   - [x] Research shipping options (domestic vs. international) and compostable/regenerative packaging costs; document recommendations (`docs/operations/shipping.md`).
 
