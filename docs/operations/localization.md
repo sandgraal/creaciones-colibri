@@ -1,0 +1,21 @@
+# Localization Guide
+
+## Overview
+- English (`en`) is the default locale served at `/`.
+- Spanish (`es`) lives under `/es/` with its own Eleventy page (`src/es/index.njk`).
+- Navigation shows an automatic language switcher using `SITE_ALT_LOCALES`.
+
+## Adding Additional Pages
+1. Create a directory `src/{locale}/` (e.g., `src/es/`) and add localized templates mirroring the English structure.
+2. To translate shared copy, update the JSON files under `src/_data/i18n/`.
+3. Reference translations in templates via `collections.i18n[0].data.i18n.{locale}`.
+
+## Environment Variables
+- `SITE_LOCALE`: default locale (fallback for pages without `locale` front matter).
+- `SITE_ALT_LOCALES`: comma-separated list of alternate locales to show in the switcher.
+
+## Workflow Checklist
+- [ ] Translate homepage content (`src/es/index.njk`).
+- [ ] Duplicate additional pages (products, blog) as localization progresses.
+- [ ] Update SEO metadata (language-specific title/description) when launching.
+- [ ] Review content with native speakers.

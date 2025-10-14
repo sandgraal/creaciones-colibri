@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+{% set currentLocale = locale or site.locale or 'en' %}
+<html lang="{{ currentLocale }}">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,6 +30,15 @@
         <a class="nav-link" href="{{ '/blog/' | url }}">Blog</a>
         <a class="nav-link" href="{{ '/' | url }}#newsletter">Stay in Touch</a>
         <a class="nav-link" href="{{ '/contact/' | url }}">Contact</a>
+        {% if site.alternateLocales and site.alternateLocales | length %}
+          <div class="locale-switcher" role="navigation" aria-label="Language selector">
+            {% for localeCode in site.alternateLocales %}
+              {% if localeCode != currentLocale %}
+                <a class="locale-switcher__link" href="/{{ localeCode }}/" hreflang="{{ localeCode }}">{{ localeCode | upper }}</a>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
         {% if site.snipcart.publicKey %}
           <button class="cart-button snipcart-checkout" type="button">
             <span class="cart-button__label">Cart</span>

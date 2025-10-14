@@ -1,0 +1,39 @@
+{
+  "hero": {
+    "title": "Calor botánico y despensa vibrante.",
+    "intro": "Creaciones Colibrí es un estudio culinario artesanal que combina ingredientes tropicales, chiles audaces y prácticas regenerativas en salsas, snacks y bebidas que nutren el cuerpo y la historia detrás de cada frasco.",
+    "cta": "Descubre los sabores"
+  },
+  "vision": {
+    "title": "Enraizados en la historia y la sostenibilidad",
+    "intro": "Desde nuestros huertos en Florida y Costa Rica honramos la biodiversidad centroamericana mientras cuidamos la tierra. Espera empaques compostables, ingredientes de comercio justo y mucho storytelling culinario."
+  },
+  "categories": {
+    "title": "Explora nuestro catálogo",
+    "intro": "Salsas, bocados y básicos de bienestar inspirados en la biodiversidad de Costa Rica y nuestros jardines en Florida.",
+    "items": {
+      "sauces": {
+        "title": "Salsas picantes",
+        "description": "Fermentos frutales, clásicos ahumados y perfiles regionales para capas de sabor y picor.",
+        "cta": "Ver salsas"
+      },
+      "granola": {
+        "title": "Granolas y crujientes",
+        "description": "Granolas y snacks crujientes con adaptógenos, frutas tropicales y hierbas de huerto.",
+        "cta": "Ver granolas"
+      },
+      "wellness": {
+        "title": "Despensa de bienestar",
+        "description": "Infusiones, especias y productos upcycled que resaltan botánicos funcionales.",
+        "cta": "Ver despensa"
+      }
+    }
+  },
+  "newsletter": {
+    "title": "Permanece al tanto",
+    "intro": "Estamos desarrollando nuevas recetas, recopilando historias de nuestros aliados y preparando el lanzamiento. Deja tu correo para enterarte primero.",
+    "label": "Correo electrónico",
+    "cta": "Avisarme",
+    "placeholder": "Pronto activaremos nuestro boletín. Por ahora escríbenos a <a href=\\\"mailto:hola@creacionescolibri.com\\\">hola@creacionescolibri.com</a>."
+  }
+}

@@ -75,6 +75,31 @@ body {
   align-items: center;
 }
 
+.locale-switcher {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.locale-switcher__link {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-secondary);
+  padding: 0.35rem 0.75rem;
+  border: 1px solid rgba(31, 138, 112, 0.3);
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.locale-switcher__link:hover,
+.locale-switcher__link:focus-visible {
+  background: rgba(31, 138, 112, 0.1);
+  border-color: var(--color-secondary);
+}
+
 .nav-link {
   position: relative;
   text-decoration: none;
@@ -983,6 +1008,11 @@ body {
 
   .site-nav {
     flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .locale-switcher {
+    width: 100%;
     justify-content: center;
   }
 

@@ -6,6 +6,15 @@ const getProducts = () => {
   return require("./src/_data/products.js");
 };
 
+const loadTranslations = () => {
+  delete require.cache[require.resolve("./src/_data/i18n/en.json")];
+  delete require.cache[require.resolve("./src/_data/i18n/es.json")];
+  return {
+    en: require("./src/_data/i18n/en.json"),
+    es: require("./src/_data/i18n/es.json")
+  };
+};
+
 const slugifyString = value =>
   value
     .toString()
@@ -81,6 +90,14 @@ module.exports = function(eleventyConfig) {
       .sort((a, b) => a.localeCompare(b))
       .map(tag => ({ tag, slug: slugifyString(tag) }));
   });
+
+  eleventyConfig.addCollection("i18n", () => [
+    {
+      data: {
+        i18n: loadTranslations()
+      }
+    }
+  ]);
 
   eleventyConfig.addFilter("readableDate", dateObj =>
     new Intl.DateTimeFormat("en-US", { dateStyle: "long" }).format(dateObj)

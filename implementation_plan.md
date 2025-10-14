@@ -58,8 +58,8 @@ _Status legend_
 ## Phase 3 — Enhancements & Marketing (Week 5–6)
 
 - [ ] **Localization**
-  - [ ] Add Spanish translations for all content using Eleventy’s i18n plugin or custom data files.
-  - [ ] Provide language toggle in navigation; ensure URLs and metadata localize correctly.
+  - [ ] Add Spanish translations for all content using Eleventy’s i18n plugin or custom data files. _(Home page pilot completed; extend to catalog, blog, and forms.)_
+  - [x] Provide language toggle in navigation; ensure URLs and metadata localize correctly.
   - [ ] Recruit native speakers to review translations for tone and accuracy.
 
 - [ ] **Subscriptions & bundles**

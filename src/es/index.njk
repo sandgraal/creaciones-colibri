@@ -1,0 +1,57 @@
+---
+layout: layouts/base.njk
+title: Inicio
+locale: es
+---
+
+{% set t = collections.i18n[0].data.i18n.es %}
+
+<section class="hero">
+  <div class="hero-media">
+    <img class="hero-logo" src="{{ '/img/creaciones_colibri_logo.png' | url }}" alt="Logotipo de Colibrí">
+  </div>
+  <div class="hero-content">
+    <h1>{{ t.hero.title }}</h1>
+    <p>{{ t.hero.intro }}</p>
+    <a class="button button-primary" href="{{ '/products/' | url }}">{{ t.hero.cta }}</a>
+  </div>
+</section>
+
+<section id="vision" class="content-section">
+  <h2>{{ t.vision.title }}</h2>
+  <p>{{ t.vision.intro }}</p>
+</section>
+
+<section id="catalogo" class="content-section content-grid">
+  <article class="card">
+    <h3>{{ t.categories.items.sauces.title }}</h3>
+    <p>{{ t.categories.items.sauces.description }}</p>
+    <a class="button button-secondary" href="{{ '/products/#category-hot-sauces' | url }}">{{ t.categories.items.sauces.cta }}</a>
+  </article>
+  <article class="card">
+    <h3>{{ t.categories.items.granola.title }}</h3>
+    <p>{{ t.categories.items.granola.description }}</p>
+    <a class="button button-secondary" href="{{ '/products/#category-granola-crunch' | url }}">{{ t.categories.items.granola.cta }}</a>
+  </article>
+  <article class="card">
+    <h3>{{ t.categories.items.wellness.title }}</h3>
+    <p>{{ t.categories.items.wellness.description }}</p>
+    <a class="button button-secondary" href="{{ '/products/#category-wellness-pantry' | url }}">{{ t.categories.items.wellness.cta }}</a>
+  </article>
+</section>
+
+<section id="boletin" class="content-section newsletter">
+  <h2>{{ t.newsletter.title }}</h2>
+  <p>{{ t.newsletter.intro }}</p>
+  {% if site.forms.newsletterAction %}
+    <form class="newsletter-form" action="{{ site.forms.newsletterAction }}" method="POST">
+      <label class="newsletter-form__label" for="newsletter-email-es">{{ t.newsletter.label }}</label>
+      <div class="newsletter-form__controls">
+        <input id="newsletter-email-es" class="newsletter-form__input" type="email" name="email" placeholder="tú@ejemplo.com" autocomplete="email" required>
+        <button class="button button-primary newsletter-form__submit" type="submit">{{ t.newsletter.cta }}</button>
+      </div>
+    </form>
+  {% else %}
+    <p class="newsletter-placeholder">{{ t.newsletter.placeholder | safe }}</p>
+  {% endif %}
+</section>

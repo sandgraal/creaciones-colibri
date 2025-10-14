@@ -59,6 +59,9 @@ This handbook captures the conventions and best practices for building and maint
 | `docs/` | Documentation for developers and stakeholders (this handbook, design references, operations playbooks). |
 | `docs/design/` | Visual references and image workflow guides. |
 | `.github/workflows/pages.yml` | GitHub Actions workflow that builds and deploys the site to GitHub Pages. |
+| `docs/operations/forms.md` | Guidance for contact/newsletter providers (Formspree, etc.). |
+| `docs/operations/analytics-plan.md` | Strategy for Plausible and monitoring. |
+| `docs/operations/localization.md` | Steps for managing multi-language content. |
 
 ---
 
