@@ -35,8 +35,8 @@ _Status legend_
 ## Phase 2 — E-Commerce & Interactivity (Week 3–4)
 
 - [ ] **Select a checkout solution**
-  - [ ] Evaluate Shopify Buy Button, Snipcart, Stripe Checkout, and PayPal for fees, currency support, integration effort, and subscription readiness.
-  - [ ] Record the decision, onboarding requirements, and sandbox credentials in team documentation.
+  - [x] Evaluate Shopify Buy Button, Snipcart, Stripe Checkout, and PayPal for fees, currency support, integration effort, and subscription readiness (`docs/operations/checkout-evaluation.md`).
+  - [x] Record the decision, onboarding requirements, and sandbox credentials in team documentation (`docs/operations/checkout-evaluation.md`).
 
 - [ ] **Integrate cart & checkout**
   - [ ] Add cart triggers to product cards/detail pages, including quantity selectors.
