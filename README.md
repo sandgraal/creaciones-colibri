@@ -68,6 +68,10 @@ npx eleventy --serve
 npx eleventy
 ```
 
+## Deployment
+
+Deployments are handled by GitHub Pages. The workflow in `.github/workflows/pages.yml` builds the Eleventy site and publishes the `_site` output whenever you push to `main`. Make sure the repository’s Pages settings are set to “GitHub Actions,” then the site will update automatically after each successful run.
+
 ## Project Structure
 
 ```
