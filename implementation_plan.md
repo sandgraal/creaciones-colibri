@@ -1,68 +1,105 @@
-## Implementation Plan for Creaciones Colibrí
+# Implementation Plan for Creaciones Colibrí
 
-This plan outlines tasks for turning our Eleventy‑based repository into a full online store.  It’s broken down into phases so we can iterate quickly and prioritize critical functionality like product listings and checkout before tackling extras such as localization and subscriptions.  The timeline is flexible; adjust as resources and feedback dictate.
+This plan tracks the work required to turn our Eleventy-powered repository into a fully featured online store. Phases build on one another so we can launch quickly and iterate with confidence. Checkboxes reflect current status; update them as work progresses or as scope changes.
 
-### Phase 1 – Foundation & Content (Week 1–2)
+_Status legend_
 
-1. **Define product catalog**  
-   * Collect and finalize product list based on the categories proposed in the README.  For each product, draft a description, ingredient list, nutritional information and story.  Organize images in `src/img/` with descriptive filenames (e.g. `mango_habanero_hot_sauce.png`).
-   * Decide on pricing, packaging sizes and shipping options (domestic vs. international).  Research cost of compostable packaging and regenerative certification.
-
-2. **Eleventy structure**  
-   * Create a `src/_includes` directory for layouts and partials.  Develop base layout with header, footer and navigation.  Use [Nunjucks](https://mozilla.github.io/nunjucks/) or [Liquid](https://shopify.github.io/liquid/) templates.
-   * Generate product pages from Markdown or data files (YAML/JSON).  A product template should loop over an array of products and render cards with image, title, price and short description.  A detail page shows full description, nutrition table and call‑to‑action.
-   * Implement a blog section under `src/blog/` for posts (recipes, trends, stories).
-
-3. **Visual design**  
-   * Choose a color palette and typography that reflects our brand (inspired by the hummingbird and tropical origins).  Create a logo (already uploaded) and favicon.
-   * Write global CSS (or use a utility framework like Tailwind CSS).  Keep assets optimized; use responsive images with `srcset` and alt text for accessibility.
-
-### Phase 2 – E‑Commerce & Interactivity (Week 3–4)
-
-1. **Select a checkout solution**  
-   * Evaluate options: **Shopify Buy Button**, **Snipcart**, **Stripe Checkout** or **PayPal**.  Consider transaction fees, currency support and ease of integration.  For a simple launch, Snipcart or Shopify’s Buy Button can turn static HTML into a cart with minimal code.
-
-2. **Integrate cart & checkout**  
-   * Add cart buttons to product cards and product pages.  Include quantity selectors.  Ensure the cart persists between page loads via local storage or the chosen platform’s script.
-   * Configure tax rates, shipping rules and payment methods.  Test end‑to‑end purchase flow in sandbox mode.
-
-3. **Search & filtering**  
-   * Use a client‑side library (e.g. [Fuse.js](https://fusejs.io/) for fuzzy search) or prebuild search indexes during the Eleventy build.  Provide filters for categories (sauce, granola, etc.), dietary tags (vegan, gluten‑free) and benefits (protein‑rich, anti‑inflammatory).
-   * If necessary, create a JSON endpoint with product metadata and implement search on the client.
-
-4. **Contact & newsletter forms**  
-   * Add a contact form; integrate with a service like Formspree or Netlify Forms.  Include fields for name, email and message.
-   * Implement an email signup form using an email marketing platform (e.g. Mailchimp or ConvertKit) to collect subscribers for product launches and blog updates.
-
-### Phase 3 – Enhancements & Marketing (Week 5–6)
-
-1. **Localization**  
-   * Add Spanish translations for all content.  Use Eleventy’s i18n plugin or custom data files to generate English and Spanish versions of each page.  Provide a language toggle in the navigation.
-
-2. **Subscriptions & bundles**  
-   * Define subscription options (e.g. monthly sauce trio, granola subscription).  Configure recurring payments using the chosen e‑commerce platform.  Create dynamic pages that describe each subscription tier.
-   * Build bundle products (gift sets, wellness bundles) using product metadata; ensure they update automatically when underlying products change.
-
-3. **Analytics & SEO**  
-   * Configure basic SEO: meta tags, Open Graph images, structured data (JSON‑LD).  Generate a sitemap and robots.txt during build.
-   * Integrate analytics (e.g. Plausible or Google Analytics) to track visits, conversions and popular products.  Respect user privacy and provide a cookie consent banner if needed.
-
-4. **Performance & accessibility audit**  
-   * Use Lighthouse to audit page performance, accessibility and best practices.  Optimize build times and asset sizes.  Ensure color contrast meets WCAG guidelines and that interactive elements are keyboard navigable.
-
-5. **Deployment & CI**  
-   * Choose hosting (Netlify, Vercel or GitHub Pages).  Configure continuous deployment using GitHub Actions to build the site on push and deploy to the host.  Add environment variables securely for any API keys (e.g. payment gateway).
-
-6. **Post‑launch marketing**  
-   * Plan social media campaigns around product launches and seasonal events.  Collaborate with influencers or local chefs to create recipe content using our products.
-   * Monitor trends such as the sauce explosion, adaptogenic foods and sustainable packaging【205801555446144†L58-L76】【258269947385758†L165-L176】 to inform future product development.  Gather customer feedback via surveys and reviews to refine offerings.
-
-### Phase 4 – Long‑Term Growth (Month 2+)
-
-* **Wholesale & private label** – explore co‑packing or private‑label options if demand grows; this is a growing trend in the hot sauce market【363091106628353†L127-L134】.
-* **Community & events** – host pop‑up tastings or partner with local markets in Florida and Costa Rica.  Consider using the blog to highlight farmers, artisans and craftspeople we work with.
-* **New product development** – continue experimenting with new recipes aligned with emerging trends like cognitive health nutrition, functional desserts and plant‑based aquatic ingredients【977856422785389†L203-L239】【258269947385758†L220-L231】.
+- [x] Completed
+- [ ] Not started (or in progress — see notes)
 
 ---
 
-This roadmap is intentionally ambitious.  It covers the technical tasks to get an Eleventy site running, the e‑commerce infrastructure needed to sell products, and strategic considerations for growth.  Feel free to adapt or reorder tasks based on time constraints and user feedback.
+## Phase 1 — Foundation & Content (Week 1–2)
+
+- [ ] **Define product catalog**
+  - [ ] Collect and finalize the product list based on the categories described in the README.
+  - [ ] Draft product copy: descriptions, ingredient lists, nutrition information, usage tips, and brand story.
+  - [ ] Organize product imagery in `src/img/` with descriptive filenames (e.g., `mango_habanero_hot_sauce.png`); include alt text guidance.
+  - [ ] Decide pricing, packaging sizes, and shipping options (domestic vs. international). Research compostable packaging and regenerative certification costs.
+
+- [ ] **Eleventy structure** _(in progress)_
+  - [x] Create `src/_includes` for layouts/partials and establish a base layout (header, navigation, footer).
+  - [ ] Generate product listing and detail templates from Markdown or data sources (YAML/JSON collections).
+  - [ ] Implement a blog section under `src/blog/` for storytelling, recipes, and market updates.
+  - [ ] Add Eleventy collections/tags to group products by category, dietary preference, and benefits.
+
+- [ ] **Visual design** _(in progress)_
+  - [x] Establish color palette, typography, and foundational styling (`src/css/main.css`).
+  - [ ] Produce favicon set and responsive logo variants; wire them into the base layout.
+  - [ ] Document an image optimization workflow (responsive `srcset`, compression, naming).
+  - [ ] Conduct accessibility review of typography, color contrast, and interactive states.
+
+---
+
+## Phase 2 — E-Commerce & Interactivity (Week 3–4)
+
+- [ ] **Select a checkout solution**
+  - [ ] Evaluate Shopify Buy Button, Snipcart, Stripe Checkout, and PayPal for fees, currency support, integration effort, and subscription readiness.
+  - [ ] Record the decision, onboarding requirements, and sandbox credentials in team documentation.
+
+- [ ] **Integrate cart & checkout**
+  - [ ] Add cart triggers to product cards/detail pages, including quantity selectors.
+  - [ ] Ensure cart persistence between page loads via local storage or platform-provided scripts.
+  - [ ] Configure tax, shipping rules, and payment methods; test end-to-end purchase flow in sandbox mode.
+
+- [ ] **Search & filtering**
+  - [ ] Decide on search strategy: client-side fuzzy search (e.g., [Fuse.js](https://fusejs.io/)) or Eleventy-built JSON indexes.
+  - [ ] Provide filters for categories (sauce, granola, etc.), dietary tags (vegan, gluten-free), and functional benefits (protein-rich, anti-inflammatory).
+  - [ ] Build accessible UI controls for filters and search results; include empty-state messaging.
+
+- [ ] **Contact & newsletter forms**
+  - [ ] Implement contact form via Formspree, Netlify Forms, or another provider; capture name, email, and message.
+  - [ ] Add newsletter signup integrated with an email marketing platform (Mailchimp, ConvertKit, etc.).
+  - [ ] Store API keys securely (Eleventy environment variables, repository secrets) and document configuration.
+
+---
+
+## Phase 3 — Enhancements & Marketing (Week 5–6)
+
+- [ ] **Localization**
+  - [ ] Add Spanish translations for all content using Eleventy’s i18n plugin or custom data files.
+  - [ ] Provide language toggle in navigation; ensure URLs and metadata localize correctly.
+  - [ ] Recruit native speakers to review translations for tone and accuracy.
+
+- [ ] **Subscriptions & bundles**
+  - [ ] Define subscription offerings (e.g., monthly sauce trio, granola of the month).
+  - [ ] Configure recurring payments via chosen e-commerce solution; verify renewal flows.
+  - [ ] Build bundle product templates that dynamically render from shared product data.
+
+- [ ] **Analytics & SEO**
+  - [ ] Configure SEO fundamentals: meta tags, Open Graph, structured data (JSON-LD).
+  - [ ] Generate sitemap and robots.txt during the Eleventy build.
+  - [ ] Integrate analytics (Plausible, Google Analytics) while respecting privacy regulations and consent requirements.
+
+- [ ] **Performance & accessibility audit**
+  - [ ] Run Lighthouse audits for performance, accessibility, best practices, and SEO; document remediation tasks.
+  - [ ] Optimize build times, asset sizes, and caching strategy.
+  - [ ] Verify keyboard navigation, focus states, and semantic markup across pages.
+
+- [ ] **Deployment & CI** _(in progress)_
+  - [x] Choose hosting provider (GitHub Pages) and configure automated deployment (`.github/workflows/pages.yml`).
+  - [x] Ensure Eleventy copies static assets and respects `pathPrefix` for GitHub Pages URLs.
+  - [ ] Add secrets management guidance for future API keys or environment variables needed during build.
+  - [ ] Document rollback/redeployment procedures and monitoring expectations.
+
+- [ ] **Post-launch marketing**
+  - [ ] Plan social media campaigns for product launches and seasonal events.
+  - [ ] Collaborate with partners (chefs, influencers) to generate recipe or storytelling content.
+  - [ ] Monitor market trends—sauce innovation, adaptogens, sustainable packaging—and capture customer feedback loops.
+
+---
+
+## Phase 4 — Long-Term Growth (Month 2+)
+
+- [ ] **Wholesale & private label** — explore co-packing or private-label opportunities as demand grows; assess market fit for hot sauce wholesale.
+- [ ] **Community & events** — host pop-up tastings or partner with local markets in Florida and Costa Rica; feature collaborators on the blog.
+- [ ] **New product development** — experiment with recipes aligned with emerging trends such as cognitive health nutrition, functional desserts, and plant-based aquatic ingredients.
+
+---
+
+## Cross-Cutting Practices
+
+- Keep the Eleventy development workflow documented in `docs/development-handbook.md` (setup, preferred commands, coding standards, review expectations).
+- For every new feature, add or update acceptance criteria and testing notes so incoming contributors can see what “done” looks like.
+- Maintain up-to-date screenshots or design references in the repository (e.g., `docs/design/`) to guide developers and designers.
+- When adding new tasks or changing scope, update this plan so the checkbox status accurately reflects reality.
