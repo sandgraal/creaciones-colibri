@@ -1,11 +1,37 @@
 ---
 layout: layouts/base.njk
 title: Product Catalog
+search: true
 ---
 
 <section class="page-intro">
   <h1 class="page-title">Explore Our Catalog</h1>
   <p class="page-subtitle">Small-batch sauces, snacks, and wellness pantry staples inspired by the biodiversity of Costa Rica and our Florida gardens. Browse by category or dive into each story-rich product.</p>
+</section>
+
+<section
+  class="search-panel"
+  data-search-root
+  data-search-endpoint="{{ '/search.json' | url }}">
+  <div class="search-panel__header">
+    <h2>Search the pantry</h2>
+    <p>Look up ingredients, benefits, or product names to find the perfect match.</p>
+  </div>
+  <div class="search-panel__controls">
+    <label class="search-panel__label" for="catalog-search">Search products</label>
+    <div class="search-panel__input-group">
+      <input
+        id="catalog-search"
+        class="search-panel__input"
+        type="search"
+        name="search"
+        placeholder="Try “ginger”, “vegan”, or “cacao”"
+        autocomplete="off"
+        data-search-input>
+      <button class="button button-secondary search-panel__clear" type="button" data-search-clear>Clear</button>
+    </div>
+  </div>
+  <div class="search-results" data-search-results></div>
 </section>
 
 {% for category in collections.productCategories %}

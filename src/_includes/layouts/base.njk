@@ -40,6 +40,10 @@
       <p>Crafted in Florida &amp; Costa Rica with love for the hummingbird and the people we serve.</p>
       <p class="footer-note">© Creaciones Colibrí</p>
     </footer>
+    {% if search %}
+      <script defer src="{{ '/js/vendor/fuse.min.js' | url }}"></script>
+      <script defer src="{{ '/js/search.js' | url }}"></script>
+    {% endif %}
     {% if site.snipcart.publicKey %}
       <script>
         document.addEventListener("click", function(event) {

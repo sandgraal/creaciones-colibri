@@ -10,6 +10,8 @@ const slugifyString = value =>
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/css": "css" });
   eleventyConfig.addPassthroughCopy({ "src/img": "img" });
+  eleventyConfig.addPassthroughCopy({ "src/js": "js" });
+  eleventyConfig.addPassthroughCopy({ "node_modules/fuse.js/dist/fuse.min.js": "js/vendor/fuse.min.js" });
 
   eleventyConfig.addCollection("products", () => {
     delete require.cache[require.resolve("./src/_data/products.js")];

@@ -1,0 +1,19 @@
+---
+permalink: search.json
+eleventyExcludeFromCollections: true
+---
+[
+{% for product in collections.products %}
+  {{ {
+      id: product.id,
+      name: product.name,
+      category: product.category,
+      shortDescription: product.shortDescription,
+      description: product.description,
+      dietary: product.dietary or [],
+      benefits: product.benefits or [],
+      image: product.image.src | url,
+      url: product.url | url
+    } | dump | safe }}{% if not loop.last %},{% endif %}
+{% endfor %}
+]

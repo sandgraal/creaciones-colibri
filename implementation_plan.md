@@ -44,9 +44,9 @@ _Status legend_
   - [ ] Configure tax, shipping rules, and payment methods; test end-to-end purchase flow in sandbox mode (`docs/operations/snipcart-setup.md`).
 
 - [ ] **Search & filtering**
-  - [ ] Decide on search strategy: client-side fuzzy search (e.g., [Fuse.js](https://fusejs.io/)) or Eleventy-built JSON indexes.
+  - [x] Decide on search strategy: client-side fuzzy search (Fuse.js) with Eleventy-generated JSON index.
   - [ ] Provide filters for categories (sauce, granola, etc.), dietary tags (vegan, gluten-free), and functional benefits (protein-rich, anti-inflammatory).
-  - [ ] Build accessible UI controls for filters and search results; include empty-state messaging.
+  - [x] Build accessible UI controls for search results with empty/error states.
 
 - [ ] **Contact & newsletter forms**
   - [ ] Implement contact form via Formspree, Netlify Forms, or another provider; capture name, email, and message.
