@@ -1,0 +1,34 @@
+---
+layout: layouts/base.njk
+title: Contacto
+description: Escríbenos para colaboraciones, distribución o preguntas sobre nuestros productos artesanales.
+locale: es
+---
+
+<section class="page-intro">
+  <h1 class="page-title">Hablemos</h1>
+  <p class="page-subtitle">Nos encanta escuchar de cocineros, tiendas aliadas y amigas del colibrí. Envíanos un mensaje y responderemos en un plazo de 48 horas.</p>
+</section>
+
+<section class="content-section contact-section">
+  {% if site.forms.contactEndpoint %}
+    <form class="contact-form" action="{{ site.forms.contactEndpoint }}" method="POST">
+      <div class="contact-form__field">
+        <label for="contact-name-es">Nombre</label>
+        <input id="contact-name-es" name="name" type="text" autocomplete="name" required>
+      </div>
+      <div class="contact-form__field">
+        <label for="contact-email-es">Correo electrónico</label>
+        <input id="contact-email-es" name="_replyto" type="email" autocomplete="email" required>
+      </div>
+      <div class="contact-form__field">
+        <label for="contact-message-es">Mensaje</label>
+        <textarea id="contact-message-es" name="message" rows="6" required></textarea>
+      </div>
+      <input type="hidden" name="_subject" value="Nuevo mensaje desde el sitio Creaciones Colibrí">
+      <button class="button button-primary contact-form__submit" type="submit">Enviar mensaje</button>
+    </form>
+  {% else %}
+    <p class="contact-placeholder">Muy pronto activaremos nuestro formulario. Mientras tanto, escríbenos a <a href="mailto:hola@creacionescolibri.com">hola@creacionescolibri.com</a>.</p>
+  {% endif %}
+</section>

@@ -16,6 +16,8 @@
 - `src/es/_data/catalog.js` merges those translations and provides `catalogProductsEs` for detail pages.
 - Spanish catalog listing: `src/es/productos/index.njk`
 - Spanish product detail template: `src/es/productos/product.njk`
+- Spanish blog index lives at `src/es/blog/index.njk` and localized posts mirror `src/blog/posts/...` (use `locale: es` in front matter).
+- Spanish contact page: `src/es/contacto.njk` shares env-driven form endpoints; keep IDs consistent so navigation anchors work.
 
 ## Environment Variables
 - `SITE_LOCALE`: default locale (fallback for pages without `locale` front matter).

@@ -161,6 +161,13 @@ module.exports = function(eleventyConfig) {
       .sort((a, b) => b.date - a.date)
   );
 
+  eleventyConfig.addCollection("posts_es", collectionApi =>
+    collectionApi
+      .getFilteredByGlob("./src/blog/posts/**/*.{md,njk}")
+      .filter(post => post.data.locale === "es")
+      .sort((a, b) => b.date - a.date)
+  );
+
   return {
     pathPrefix: "/creaciones-colibri",
     dir: {

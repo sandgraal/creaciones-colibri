@@ -1,5 +1,29 @@
 <!DOCTYPE html>
-{% set currentLocale = locale or site.locale or 'en' %}
+{% set defaultLocale = site.locale or 'en' %}
+{% set currentLocale = locale or defaultLocale %}
+{% set localePrefix = '' %}
+{% if currentLocale != defaultLocale and currentLocale != 'en' %}
+  {% set localePrefix = '/' ~ currentLocale %}
+{% endif %}
+{% set visionPath = (localePrefix ~ '/#vision') %}
+{% set newsletterPath = (localePrefix ~ '/#newsletter') %}
+{% if currentLocale == 'es' %}
+  {% set productsPath = '/es/productos/' %}
+  {% set blogPath = '/es/blog/' %}
+  {% set contactPath = '/es/contacto/' %}
+  {% set navVisionLabel = 'Nuestra visión' %}
+  {% set navProductsLabel = 'Productos' %}
+  {% set navNewsletterLabel = 'Boletín' %}
+  {% set navContactLabel = 'Contacto' %}
+{% else %}
+  {% set productsPath = '/products/' %}
+  {% set blogPath = '/blog/' %}
+  {% set contactPath = '/contact/' %}
+  {% set navVisionLabel = 'Our Vision' %}
+  {% set navProductsLabel = 'Products' %}
+  {% set navNewsletterLabel = 'Stay in Touch' %}
+  {% set navContactLabel = 'Contact' %}
+{% endif %}
 {% set siteMeta = siteMeta or {} %}
 {% set baseTitle = siteMeta.title or '' %}
 {% set metaTitle = baseTitle %}
@@ -65,11 +89,11 @@
         <span class="brand-title">Creaciones Colibrí</span>
       </a>
       <nav class="site-nav">
-        <a class="nav-link" href="{{ '/' | url }}#vision">Our Vision</a>
-        <a class="nav-link" href="{{ '/products/' | url }}">Products</a>
-        <a class="nav-link" href="{{ '/blog/' | url }}">Blog</a>
-        <a class="nav-link" href="{{ '/' | url }}#newsletter">Stay in Touch</a>
-        <a class="nav-link" href="{{ '/contact/' | url }}">Contact</a>
+        <a class="nav-link" href="{{ visionPath | url }}">{{ navVisionLabel }}</a>
+        <a class="nav-link" href="{{ productsPath | url }}">{{ navProductsLabel }}</a>
+        <a class="nav-link" href="{{ blogPath | url }}">Blog</a>
+        <a class="nav-link" href="{{ newsletterPath | url }}">{{ navNewsletterLabel }}</a>
+        <a class="nav-link" href="{{ contactPath | url }}">{{ navContactLabel }}</a>
     {% if site.alternateLocales and site.alternateLocales | length %}
       <div class="locale-switcher" role="navigation" aria-label="Language selector">
         {% for localeCode in site.alternateLocales %}

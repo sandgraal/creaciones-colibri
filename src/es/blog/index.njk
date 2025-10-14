@@ -1,0 +1,20 @@
+---
+layout: layouts/base.njk
+title: Blog
+locale: es
+---
+
+<section class="page-intro">
+  <h1 class="page-title">Historias del colibrí</h1>
+  <p class="page-subtitle">Notas de fermentación, recetas y relatos de quienes nos inspiran.</p>
+</section>
+
+<section class="post-grid">
+  {% if collections.posts_es | length %}
+    {% for post in collections.posts_es %}
+      {% include "partials/post-card.njk" %}
+    {% endfor %}
+  {% else %}
+    <p class="empty-state">Estamos traduciendo nuestras historias. Vuelve pronto.</p>
+  {% endif %}
+</section>
