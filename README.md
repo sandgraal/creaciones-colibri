@@ -50,6 +50,7 @@ The following categories represent both our current offerings and ideas for futu
 * **Newsletter & social integration** – capture emails for promotional offers and integrate our Instagram feed to showcase behind‑the‑scenes content.
 * **Contact & forms** – `/contact/` uses Formspree (configurable via env vars) and the homepage newsletter form posts to your email provider when `NEWSLETTER_ACTION` is set.
 * **Localization** – support both English (`/`) and Spanish (`/es/`) to better serve customers in the US and Costa Rica.
+* **SEO & telemetry** – global metadata, sitemap, and Plausible toggle are configured in `_data/siteMeta.js`; see `docs/operations/seo.md` for launch checklist.
 * **Accessibility & performance** – ensure semantic HTML, alt text for images and optimized assets.  Eleventy produces static files that are inherently performant.
 
 ## Installation

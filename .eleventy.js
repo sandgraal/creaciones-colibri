@@ -1,6 +1,38 @@
 const path = require("path");
 const generateImage = require("./.eleventy.images");
 
+const absoluteUrl = (path, base) => {
+  try {
+    return new URL(path, base).href;
+  } catch {
+    return path;
+  }
+};
+
+const formatDate = (value, format = "yyyy-MM-dd") => {
+  if (!value) {
+    return "";
+  }
+  const date = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return "";
+  }
+  if (format === "iso" || format === "ISO") {
+    return date.toISOString();
+  }
+  if (format === "yyyy-MM-dd") {
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+    const day = String(date.getUTCDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+  const styles = new Set(["full", "long", "medium", "short"]);
+  if (styles.has(format)) {
+    return new Intl.DateTimeFormat("en-US", { dateStyle: format }).format(date);
+  }
+  return date.toISOString();
+};
+
 const getProducts = () => {
   delete require.cache[require.resolve("./src/_data/products.js")];
   return require("./src/_data/products.js");
@@ -98,6 +130,9 @@ module.exports = function(eleventyConfig) {
       }
     }
   ]);
+
+  eleventyConfig.addFilter("absoluteUrl", (url, base) => absoluteUrl(url, base));
+  eleventyConfig.addFilter("date", (value, format) => formatDate(value, format));
 
   eleventyConfig.addFilter("readableDate", dateObj =>
     new Intl.DateTimeFormat("en-US", { dateStyle: "long" }).format(dateObj)

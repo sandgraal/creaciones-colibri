@@ -23,6 +23,7 @@ This handbook captures the conventions and best practices for building and maint
    ```
 
    Add your Snipcart public API key to `SNIPCART_PUBLIC_KEY`. Without it, cart buttons will fall back to “View details.”  
+   Set `SITE_URL` to the deployed domain so canonical URLs, sitemap, and social tags point to the right host.  
    If you plan to enable Plausible analytics, set `PLAUSIBLE_DOMAIN` (e.g., `creaciones-colibri.com`) once tracking consent is approved.
 
 4. Run the Eleventy dev server:

@@ -1,10 +1,50 @@
 <!DOCTYPE html>
 {% set currentLocale = locale or site.locale or 'en' %}
+{% set siteMeta = siteMeta or {} %}
+{% set baseTitle = siteMeta.title or '' %}
+{% set metaTitle = baseTitle %}
+{% if title %}
+  {% if baseTitle %}
+    {% set metaTitle = title ~ ' · ' ~ baseTitle %}
+  {% else %}
+    {% set metaTitle = title %}
+  {% endif %}
+{% endif %}
+{% set metaDescription = description or siteMeta.description %}
+{% set canonicalUrl = '' %}
+{% if siteMeta.url %}
+  {% set canonicalUrl = page.url | url | absoluteUrl(siteMeta.url) %}
+{% endif %}
 <html lang="{{ currentLocale }}">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% if title %}{{ title }} · {% endif %}Creaciones Colibrí</title>
+    <title>{{ metaTitle }}</title>
+    <meta name="description" content="{{ metaDescription }}">
+    {% if canonicalUrl %}
+      <link rel="canonical" href="{{ canonicalUrl }}">
+      <meta property="og:url" content="{{ canonicalUrl }}">
+    {% endif %}
+    {% if siteMeta.url and site.alternateLocales %}
+      <link rel="alternate" hreflang="x-default" href="{{ '/' | absoluteUrl(siteMeta.url) }}">
+      {% for localeCode in site.alternateLocales %}
+        {% if localeCode == site.locale or localeCode == 'en' %}
+          {% set localePath = '/' %}
+        {% else %}
+          {% set localePath = '/' ~ localeCode ~ '/' %}
+        {% endif %}
+        <link rel="alternate" hreflang="{{ localeCode }}" href="{{ localePath | absoluteUrl(siteMeta.url) }}">
+      {% endfor %}
+    {% endif %}
+    <meta property="og:title" content="{{ metaTitle }}">
+    <meta property="og:description" content="{{ metaDescription }}">
+    <meta property="og:site_name" content="{{ siteMeta.title }}">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{{ siteMeta.socialImage | url | absoluteUrl(siteMeta.url) }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ metaTitle }}">
+    <meta name="twitter:description" content="{{ metaDescription }}">
+    <meta name="twitter:image" content="{{ siteMeta.socialImage | url | absoluteUrl(siteMeta.url) }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -30,12 +70,12 @@
         <a class="nav-link" href="{{ '/blog/' | url }}">Blog</a>
         <a class="nav-link" href="{{ '/' | url }}#newsletter">Stay in Touch</a>
         <a class="nav-link" href="{{ '/contact/' | url }}">Contact</a>
-        {% if site.alternateLocales and site.alternateLocales | length %}
-          <div class="locale-switcher" role="navigation" aria-label="Language selector">
-            {% for localeCode in site.alternateLocales %}
-              {% if localeCode != currentLocale %}
-                <a class="locale-switcher__link" href="/{{ localeCode }}/" hreflang="{{ localeCode }}">{{ localeCode | upper }}</a>
-              {% endif %}
+    {% if site.alternateLocales and site.alternateLocales | length %}
+      <div class="locale-switcher" role="navigation" aria-label="Language selector">
+        {% for localeCode in site.alternateLocales %}
+          {% if localeCode != currentLocale %}
+            <a class="locale-switcher__link" href="/{{ localeCode }}/" hreflang="{{ localeCode }}">{{ localeCode | upper }}</a>
+          {% endif %}
             {% endfor %}
           </div>
         {% endif %}
