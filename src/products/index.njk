@@ -1,0 +1,22 @@
+---
+layout: layouts/base.njk
+title: Product Catalog
+---
+
+<section class="page-intro">
+  <h1 class="page-title">Explore Our Catalog</h1>
+  <p class="page-subtitle">Small-batch sauces, snacks, and wellness pantry staples inspired by the biodiversity of Costa Rica and our Florida gardens. Browse by category or dive into each story-rich product.</p>
+</section>
+
+{% for category in collections.productCategories %}
+  <section class="product-category" id="category-{{ category.slug }}">
+    <div class="product-category__headline">
+      <h2>{{ category.name }}</h2>
+    </div>
+    <div class="product-grid">
+      {% for product in category.items %}
+        {% include "partials/product-card.njk" %}
+      {% endfor %}
+    </div>
+  </section>
+{% endfor %}

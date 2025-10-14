@@ -1,0 +1,19 @@
+---
+layout: layouts/base.njk
+title: Journal
+---
+
+<section class="page-intro">
+  <h1 class="page-title">Stories from the Colibrí Kitchen</h1>
+  <p class="page-subtitle">Follow our journey through regenerative farms, fermentation experiments, and the inventive recipes that power Creaciones Colibrí.</p>
+</section>
+
+<section class="post-grid">
+  {% if collections.posts | length %}
+    {% for post in collections.posts %}
+      {% include "partials/post-card.njk" %}
+    {% endfor %}
+  {% else %}
+    <p class="empty-state">Stories are steeping. Check back soon!</p>
+  {% endif %}
+</section>

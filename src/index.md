@@ -10,7 +10,7 @@ title: Home
   <div class="hero-content">
     <h1>Botanical heat and vibrant pantry creations.</h1>
     <p>Creaciones Colibrí is a small-batch food studio blending tropical ingredients, bold chiles, and regenerative sourcing into sauces, snacks, and sips that nourish the body and the story behind every jar.</p>
-    <a class="button button-primary" href="#catalog">Explore the flavors</a>
+    <a class="button button-primary" href="{{ '/products/' | url }}">Explore the flavors</a>
   </div>
 </section>
 
@@ -23,14 +23,17 @@ title: Home
   <article class="card">
     <h3>Hot Sauces</h3>
     <p>Fruit-forward ferments, smoky classics, and adventurous regional profiles designed to layer heat with complexity.</p>
+    <a class="button button-secondary" href="{{ '/products/#category-hot-sauces' | url }}">Shop sauces</a>
   </article>
   <article class="card">
     <h3>Granola &amp; Crunch</h3>
     <p>Crunchy granolas and snack clusters infused with adaptogens, tropical fruits, and garden herbs.</p>
+    <a class="button button-secondary" href="{{ '/products/#category-granola-crunch' | url }}">Shop granola</a>
   </article>
   <article class="card">
     <h3>Wellness Pantry</h3>
     <p>Teas, spice blends, and upcycled treats that highlight functional botanicals and reduce waste.</p>
+    <a class="button button-secondary" href="{{ '/products/#category-wellness-pantry' | url }}">Shop wellness</a>
   </article>
 </section>
 

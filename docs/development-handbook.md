@@ -41,6 +41,9 @@ This handbook captures the conventions and best practices for building and maint
 | `.eleventy.js` | Eleventy configuration (path prefix, passthrough copy, directories). |
 | `src/` | Source content and templates. |
 | `src/_includes/` | Layouts, partials, and reusable components. |
+| `src/_data/` | Global data files (e.g., `products.js`) shared across templates and collections. |
+| `src/products/` | Product catalog listing and the paginated detail template. |
+| `src/blog/` | Journal index and long-form posts living under `src/blog/posts/`. |
 | `src/css/` | Global stylesheets; `main.css` defines design tokens and shared components. |
 | `src/img/` | Optimized site imagery (logo, product photos, etc.). |
 | `docs/` | Documentation for developers and stakeholders (this handbook, design references). |

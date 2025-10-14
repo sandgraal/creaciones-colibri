@@ -19,9 +19,9 @@ _Status legend_
 
 - [ ] **Eleventy structure** _(in progress)_
   - [x] Create `src/_includes` for layouts/partials and establish a base layout (header, navigation, footer).
-  - [ ] Generate product listing and detail templates from Markdown or data sources (YAML/JSON collections).
-  - [ ] Implement a blog section under `src/blog/` for storytelling, recipes, and market updates.
-  - [ ] Add Eleventy collections/tags to group products by category, dietary preference, and benefits.
+  - [x] Generate product listing and detail templates from shared data sources.
+  - [x] Implement a blog section under `src/blog/` for storytelling, recipes, and market updates.
+  - [x] Add Eleventy collections/tags to group products by category, dietary preference, and benefits.
 
 - [ ] **Visual design** _(in progress)_
   - [x] Establish color palette, typography, and foundational styling (`src/css/main.css`).

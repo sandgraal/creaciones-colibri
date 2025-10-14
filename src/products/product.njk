@@ -1,0 +1,63 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: products
+  size: 1
+  alias: product
+permalink: "products/{{ product.id }}/"
+eleventyComputed:
+  title: "{{ product.name }}"
+  tags: ["product", "{{ product.category | slugify }}"]
+---
+
+<article class="product-detail">
+  <header class="product-detail__header">
+    <a class="product-detail__back" href="{{ '/products/' | url }}">← Back to catalog</a>
+    <h1>{{ product.name }}</h1>
+    <p class="product-detail__summary">{{ product.shortDescription }}</p>
+    <div class="product-detail__meta">
+      <span class="product-detail__price">${{ product.price }} <small>{{ product.unit }}</small></span>
+      <span class="product-detail__category">{{ product.category }}</span>
+      {% if product.heatLevel is defined %}
+        <span class="product-detail__heat">Heat: {{ product.heatLevel }}/5</span>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="product-detail__body">
+    <figure class="product-detail__figure">
+      <img src="{{ product.image.src | url }}" alt="{{ product.image.alt }}">
+    </figure>
+    <section class="product-detail__content">
+      <h2>About this product</h2>
+      <p>{{ product.description }}</p>
+
+      {% if product.ingredients and product.ingredients | length %}
+        <h3>Ingredients</h3>
+        <ul class="product-detail__list">
+          {% for ingredient in product.ingredients %}
+            <li>{{ ingredient }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% if product.dietary and product.dietary | length %}
+        <h3>Dietary Notes</h3>
+        <ul class="product-detail__tags">
+          {% for tag in product.dietary %}
+            <li>{{ tag }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% if product.benefits and product.benefits | length %}
+        <h3>Functional Highlights</h3>
+        <ul class="product-detail__tags">
+          {% for benefit in product.benefits %}
+            <li>{{ benefit }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </section>
+  </div>
+</article>

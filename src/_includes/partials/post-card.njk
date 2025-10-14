@@ -1,0 +1,10 @@
+<article class="post-card">
+  <a class="post-card__link" href="{{ post.url | url }}">
+    <header class="post-card__header">
+      <p class="post-card__date">{{ post.date | readableDate }}</p>
+      <h2 class="post-card__title">{{ post.data.title }}</h2>
+    </header>
+    <p class="post-card__summary">{{ post.data.excerpt | default(post.templateContent | striptags | truncate(160, true, '...')) }}</p>
+    <span class="post-card__cta">Read more →</span>
+  </a>
+</article>
