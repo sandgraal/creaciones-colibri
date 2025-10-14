@@ -33,11 +33,7 @@ Follow these steps to connect Snipcart to the Eleventy storefront.
 - Optional: configure webhooks (under **Store settings → Webhooks**) to notify a fulfillment service or spreadsheet.
 
 ## 7. QA Checklist
-- Enable **Test mode** and run through:
-  - Domestic order with Stripe test card.
-  - International order (verify rate, customs info captured in notes).
-  - Discount code application.
-  - Cart persistence: add items, refresh, confirm items still present.
+- Enable **Test mode** in Snipcart and complete the scenarios outlined in `docs/operations/qa-checklist.md`.
 - Once satisfied, disable test mode, clear test orders, and switch the API key in `.env` if Snipcart provided separate live credentials.
 
 Document the date of completion and any deviations here:
