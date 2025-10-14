@@ -40,5 +40,15 @@ title: Home
 <section id="newsletter" class="content-section newsletter">
   <h2>Stay in the Loop</h2>
   <p>We’re developing new recipes, gathering stories from our community partners, and preparing for launch. Drop your email to be first in line when the shop opens.</p>
-  <a class="button button-secondary" href="mailto:hola@creacionescolibri.com">Email Us</a>
+  {% if site.forms.newsletterAction %}
+    <form class="newsletter-form" action="{{ site.forms.newsletterAction }}" method="POST">
+      <label class="newsletter-form__label" for="newsletter-email">Email address</label>
+      <div class="newsletter-form__controls">
+        <input id="newsletter-email" class="newsletter-form__input" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+        <button class="button button-primary newsletter-form__submit" type="submit">Notify me</button>
+      </div>
+    </form>
+  {% else %}
+    <p class="newsletter-placeholder">We’re setting up our newsletter service. Until then, email us at <a href="mailto:hola@creacionescolibri.com">hola@creacionescolibri.com</a>.</p>
+  {% endif %}
 </section>

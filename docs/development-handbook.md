@@ -125,6 +125,7 @@ This handbook captures the conventions and best practices for building and maint
   2. GitHub Actions installs dependencies, runs `npm run build`, and publishes `_site` to the `gh-pages` environment.
   3. Monitor the Action run for failures. If a build breaks, fix on a branch and merge again; avoid force-pushing to history.
 - Keep environment variables (API keys, form endpoints) in repository or organization secrets. Update this handbook whenever new secrets are introduced.
+- Contact and newsletter forms look for `FORMSPREE_ENDPOINT` and `NEWSLETTER_ACTION`; see `docs/operations/forms.md` for provider-specific notes.
 
 ---
 

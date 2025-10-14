@@ -49,9 +49,9 @@ _Status legend_
   - [x] Build accessible UI controls for search results with empty/error states.
 
 - [ ] **Contact & newsletter forms**
-  - [ ] Implement contact form via Formspree, Netlify Forms, or another provider; capture name, email, and message.
-  - [ ] Add newsletter signup integrated with an email marketing platform (Mailchimp, ConvertKit, etc.).
-  - [ ] Store API keys securely (Eleventy environment variables, repository secrets) and document configuration.
+  - [x] Implement contact form via Formspree (toggle via `FORMSPREE_ENDPOINT`), capturing name, email, and message.
+  - [x] Add newsletter signup form with provider action configurable by `NEWSLETTER_ACTION`.
+  - [x] Store API endpoints via environment variables and document setup in `.env.example` and handbook.
 
 ---
 
