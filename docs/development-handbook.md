@@ -54,7 +54,7 @@ This handbook captures the conventions and best practices for building and maint
 | `src/blog/` | Journal index and long-form posts living under `src/blog/posts/`. |
 | `src/css/` | Global stylesheets; `main.css` defines design tokens and shared components. |
 | `src/img/` | Optimized site imagery (logo, product photos, etc.). |
-| `docs/` | Documentation for developers and stakeholders (this handbook, design references). |
+| `docs/` | Documentation for developers and stakeholders (this handbook, design references, operations playbooks). |
 | `.github/workflows/pages.yml` | GitHub Actions workflow that builds and deploys the site to GitHub Pages. |
 
 ---

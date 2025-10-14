@@ -93,6 +93,8 @@ creaciones-colibri/
 
 Contributions are welcome!  Review `docs/development-handbook.md` for workflow conventions, consult `docs/catalog-playbook.md` when touching product data, and check the live status in `implementation_plan.md`.  Feel free to open issues or submit pull requests for bug fixes, new features or documentation improvements.  Please keep commit messages clear and descriptive.
 
+Operational guides live under `docs/operations/` (shipping, checkout, Snipcart setup) and should be reviewed before deploying commerce changes.
+
 ## License
 
 This project is licensed under the MIT License.  See `LICENSE` for details (to be added).

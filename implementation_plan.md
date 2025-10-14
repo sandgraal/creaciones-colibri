@@ -40,8 +40,8 @@ _Status legend_
 
 - [ ] **Integrate cart & checkout**
   - [x] Add cart triggers to product cards/detail pages, including quantity selectors.
-  - [ ] Ensure cart persistence between page loads via local storage or platform-provided scripts.
-  - [ ] Configure tax, shipping rules, and payment methods; test end-to-end purchase flow in sandbox mode.
+  - [x] Ensure cart persistence between page loads via local storage or platform-provided scripts (handled by Snipcart).
+  - [ ] Configure tax, shipping rules, and payment methods; test end-to-end purchase flow in sandbox mode (`docs/operations/snipcart-setup.md`).
 
 - [ ] **Search & filtering**
   - [ ] Decide on search strategy: client-side fuzzy search (e.g., [Fuse.js](https://fusejs.io/)) or Eleventy-built JSON indexes.
