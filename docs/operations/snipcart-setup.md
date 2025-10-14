@@ -33,8 +33,8 @@ Follow these steps to connect Snipcart to the Eleventy storefront.
 - Optional: configure webhooks (under **Store settings → Webhooks**) to notify a fulfillment service or spreadsheet.
 
 ## 7. QA Checklist
-- Enable **Test mode** in Snipcart and complete the scenarios outlined in `docs/operations/qa-checklist.md`.
-- Once satisfied, disable test mode, clear test orders, and switch the API key in `.env` if Snipcart provided separate live credentials.
+- Enable **Test mode** in Snipcart and complete the scenarios outlined in `docs/operations/qa-checklist.md`. Use sandbox cards (Stripe: `4242 4242 4242 4242`, PayPal sandbox accounts) and record outcomes in the checklist.
+- Once satisfied, disable test mode, clear test orders, and switch the API key in `.env` if Snipcart provided separate live credentials. Capture the go-live date and responsible operator in the log below.
 
 Document the date of completion and any deviations here:
 
