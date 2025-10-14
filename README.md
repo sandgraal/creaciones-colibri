@@ -44,7 +44,7 @@ The following categories represent both our current offerings and ideas for futu
 ## Features & User Experience
 
 * **Product pages** – include ingredient lists, nutrition facts, usage suggestions and the product story.  Transparent sourcing and fair trade details build trust【363091106628353†L137-L140】.
-* **Shopping cart & checkout** – integrate a third‑party e‑commerce platform (e.g. Shopify or Stripe) for secure payments.  Consider support for multiple currencies and shipping to the US and Costa Rica.
+* **Shopping cart & checkout** – integrate Snipcart (with Stripe/PayPal gateways) for secure payments while supporting multiple currencies and shipping to the US and Costa Rica.
 * **Search & filter** – allow users to filter products by category (sauce, granola, etc.), dietary preferences (gluten‑free, vegan) or benefits (anti‑inflammatory, protein‑rich).
 * **Blog & recipes** – publish blog posts about food trends, product origin stories and recipes using our products.  Tie posts to trending topics like spicy foods, upcycled ingredients or farm‑to‑table cooking.
 * **Newsletter & social integration** – capture emails for promotional offers and integrate our Instagram feed to showcase behind‑the‑scenes content.
@@ -60,6 +60,10 @@ cd creaciones-colibri
 
 # install dependencies
 npm install
+
+# configure environment variables (Snipcart public key)
+cp .env.example .env
+# then edit .env and set SNIPCART_PUBLIC_KEY
 
 # run the development server
 npx eleventy --serve

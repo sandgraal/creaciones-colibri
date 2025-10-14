@@ -49,7 +49,7 @@ _\*Rates are US-based as of July 2024. Check regional pricing for Costa Rica and
 
 ## Next Steps
 
-1. Create Snipcart account and configure Stripe as primary payment gateway.
+1. Create Snipcart account and configure Stripe as primary payment gateway. Add the public API key to `.env` (`SNIPCART_PUBLIC_KEY`).
 2. Define shipping tables in Snipcart to match `docs/operations/shipping.md` (flat US rate, thresholds, international tiers).
 3. Add Snipcart script and `div id="snipcart"` container to the base layout; expose product data attributes on catalog buttons.
 4. Implement success/cancel pages (`/checkout/success`, `/checkout/cancel`) explaining order follow-up.

@@ -10,6 +10,9 @@
       href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&family=Work+Sans:wght@300;400;500&display=swap"
       rel="stylesheet">
     <link rel="stylesheet" href="{{ '/css/main.css' | url }}">
+    {% if site.snipcart.publicKey %}
+      <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.0.33/default/snipcart.css">
+    {% endif %}
   </head>
   <body class="site">
     <header class="site-header">
@@ -22,6 +25,12 @@
         <a class="nav-link" href="{{ '/products/' | url }}">Products</a>
         <a class="nav-link" href="{{ '/blog/' | url }}">Blog</a>
         <a class="nav-link" href="{{ '/' | url }}#newsletter">Stay in Touch</a>
+        {% if site.snipcart.publicKey %}
+          <button class="cart-button snipcart-checkout" type="button">
+            <span class="cart-button__label">Cart</span>
+            <span class="cart-button__count snipcart-items-count">0</span>
+          </button>
+        {% endif %}
       </nav>
     </header>
     <main class="site-main">
@@ -31,5 +40,24 @@
       <p>Crafted in Florida &amp; Costa Rica with love for the hummingbird and the people we serve.</p>
       <p class="footer-note">© Creaciones Colibrí</p>
     </footer>
+    {% if site.snipcart.publicKey %}
+      <script>
+        document.addEventListener("click", function(event) {
+          const button = event.target.closest(".snipcart-add-item[data-quantity-input]");
+          if (!button) return;
+          const inputId = button.getAttribute("data-quantity-input");
+          const quantityInput = document.getElementById(inputId);
+          if (!quantityInput) return;
+          const quantity = parseInt(quantityInput.value, 10);
+          if (!Number.isFinite(quantity) || quantity <= 0) {
+            button.setAttribute("data-item-quantity", "1");
+            return;
+          }
+          button.setAttribute("data-item-quantity", quantity.toString());
+        });
+      </script>
+      <script async src="https://cdn.snipcart.com/themes/v3.0.33/default/snipcart.js"></script>
+      <div hidden id="snipcart" data-api-key="{{ site.snipcart.publicKey }}" data-currency="{{ site.snipcart.currency }}"></div>
+    {% endif %}
   </body>
 </html>

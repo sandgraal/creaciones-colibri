@@ -20,9 +20,27 @@
         {% endif %}
       </dl>
     </div>
+  </a>
+  <div class="product-card__footer">
     <div class="product-card__price">
       <span class="product-card__amount">${{ product.price }}</span>
       <span class="product-card__unit">{{ product.unit }}</span>
     </div>
-  </a>
+    {% if site.snipcart.publicKey %}
+      <button
+        class="button button-primary product-card__cart snipcart-add-item"
+        type="button"
+        data-item-id="{{ product.id }}"
+        data-item-name="{{ product.name }}"
+        data-item-price="{{ product.price }}"
+        data-item-url="{{ product.url | url }}"
+        data-item-description="{{ product.shortDescription }}"
+        data-item-image="{{ product.image.src | url }}"
+        data-item-quantity="1">
+        Add to cart
+      </button>
+    {% else %}
+      <a class="button button-secondary product-card__cart" href="{{ product.url | url }}">View details</a>
+    {% endif %}
+  </div>
 </article>

@@ -18,10 +18,36 @@ eleventyComputed:
     <div class="product-detail__meta">
       <span class="product-detail__price">${{ product.price }} <small>{{ product.unit }}</small></span>
       <span class="product-detail__category">{{ product.category }}</span>
-      {% if product.heatLevel is defined %}
+      {% if product.heatLevel != nil %}
         <span class="product-detail__heat">Heat: {{ product.heatLevel }}/5</span>
       {% endif %}
     </div>
+    {% if site.snipcart.publicKey %}
+      <div class="product-detail__purchase">
+        <label class="product-detail__quantity-label" for="quantity-{{ product.id }}">Quantity</label>
+        <input
+          id="quantity-{{ product.id }}"
+          class="product-detail__quantity"
+          type="number"
+          min="1"
+          value="1"
+          inputmode="numeric"
+          autocomplete="off">
+        <button
+          class="button button-primary product-detail__cart snipcart-add-item"
+          type="button"
+          data-item-id="{{ product.id }}"
+          data-item-name="{{ product.name }}"
+          data-item-price="{{ product.price }}"
+          data-item-url="{{ page.url | url }}"
+          data-item-description="{{ product.shortDescription }}"
+          data-item-image="{{ product.image.src | url }}"
+          data-item-quantity="1"
+          data-quantity-input="quantity-{{ product.id }}">
+          Add to cart
+        </button>
+      </div>
+    {% endif %}
   </header>
 
   <div class="product-detail__body">

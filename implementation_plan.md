@@ -39,7 +39,7 @@ _Status legend_
   - [x] Record the decision, onboarding requirements, and sandbox credentials in team documentation (`docs/operations/checkout-evaluation.md`).
 
 - [ ] **Integrate cart & checkout**
-  - [ ] Add cart triggers to product cards/detail pages, including quantity selectors.
+  - [x] Add cart triggers to product cards/detail pages, including quantity selectors.
   - [ ] Ensure cart persistence between page loads via local storage or platform-provided scripts.
   - [ ] Configure tax, shipping rules, and payment methods; test end-to-end purchase flow in sandbox mode.
 

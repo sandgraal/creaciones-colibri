@@ -16,7 +16,15 @@ This handbook captures the conventions and best practices for building and maint
    npm install
    ```
 
-3. Run the Eleventy dev server:
+3. Copy environment variables:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   Add your Snipcart public API key to `SNIPCART_PUBLIC_KEY`. Without it, cart buttons will fall back to “View details.”
+
+4. Run the Eleventy dev server:
 
    ```bash
    npm start
@@ -24,7 +32,7 @@ This handbook captures the conventions and best practices for building and maint
 
    The site will be available at `http://localhost:8080/creaciones-colibri/`. Eleventy watches files and rebuilds on change.
 
-4. Build for production when you need a static output:
+5. Build for production when you need a static output:
 
    ```bash
    npm run build
