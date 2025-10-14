@@ -4,7 +4,9 @@ title: Inicio
 locale: es
 ---
 
-{% set t = collections.i18n[0].data.i18n.es %}
+{% set translations = collections.i18n[0].data.i18n %}
+{% set t = translations.es %}
+{% set catalog = translations.catalog.es %}
 
 <section class="hero">
   <div class="hero-media">
@@ -23,21 +25,13 @@ locale: es
 </section>
 
 <section id="catalogo" class="content-section content-grid">
-  <article class="card">
-    <h3>{{ t.categories.items.sauces.title }}</h3>
-    <p>{{ t.categories.items.sauces.description }}</p>
-    <a class="button button-secondary" href="{{ '/products/#category-hot-sauces' | url }}">{{ t.categories.items.sauces.cta }}</a>
-  </article>
-  <article class="card">
-    <h3>{{ t.categories.items.granola.title }}</h3>
-    <p>{{ t.categories.items.granola.description }}</p>
-    <a class="button button-secondary" href="{{ '/products/#category-granola-crunch' | url }}">{{ t.categories.items.granola.cta }}</a>
-  </article>
-  <article class="card">
-    <h3>{{ t.categories.items.wellness.title }}</h3>
-    <p>{{ t.categories.items.wellness.description }}</p>
-    <a class="button button-secondary" href="{{ '/products/#category-wellness-pantry' | url }}">{{ t.categories.items.wellness.cta }}</a>
-  </article>
+  {% for category in catalog.categories %}
+    <article class="card">
+      <h3>{{ category.name }}</h3>
+      <p>{{ category.products[0].shortDescription }}</p>
+      <a class="button button-secondary" href="{{ '/products/#category-' ~ category.id | replace('_', '-') | url }}">Ver {{ category.name | lower }}</a>
+    </article>
+  {% endfor %}
 </section>
 
 <section id="boletin" class="content-section newsletter">

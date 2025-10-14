@@ -1,0 +1,112 @@
+{
+  "categories": [
+    {
+      "id": "hot_sauces",
+      "name": "Salsas picantes",
+      "products": [
+        {
+          "id": "salsa-picante-chocolate-habanero",
+          "name": "Salsa Picante Chocolate Habanero",
+          "shortDescription": "Smoky chocolate habaneros balanced with pineapple and cacao nibs for a layered heat.",
+          "price": 14,
+          "unit": "5 oz bottle",
+          "dietary": [
+            "vegan",
+            "gluten-free"
+          ],
+          "benefits": [
+            "anti-inflammatory",
+            "metabolism-support"
+          ]
+        },
+        {
+          "id": "mango-guava-fire",
+          "name": "Mango Guava Fire",
+          "shortDescription": "Bright mango and guava sweetness layered with charred Scotch bonnet heat.",
+          "price": 16,
+          "unit": "5 oz bottle",
+          "dietary": [
+            "vegan",
+            "gluten-free"
+          ],
+          "benefits": [
+            "vitamin-c",
+            "anti-inflammatory"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "granola_crunch",
+      "name": "Granolas y crujientes",
+      "products": [
+        {
+          "id": "sunrise-citrus-granola",
+          "name": "Sunrise Citrus Granola",
+          "shortDescription": "Crunchy oats, sprouted cashews, and candied orange peel with a hint of cardamom.",
+          "price": 12,
+          "unit": "12 oz bag",
+          "dietary": [
+            "gluten-free"
+          ],
+          "benefits": [
+            "anti-inflammatory",
+            "immune-support"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wellness_pantry",
+      "name": "Despensa de bienestar",
+      "products": [
+        {
+          "id": "selva-noche-cashew-butter",
+          "name": "Selva Noche Cashew Butter",
+          "shortDescription": "Stone-ground cashew butter with cacao, cardamom, and adaptogenic lion’s mane.",
+          "price": 15,
+          "unit": "9 oz jar",
+          "dietary": [
+            "vegan",
+            "gluten-free"
+          ],
+          "benefits": [
+            "adaptogenic",
+            "brain-support"
+          ]
+        },
+        {
+          "id": "hibiscus-ginger-spritzer-kit",
+          "name": "Hibiscus Ginger Spritzer Kit",
+          "shortDescription": "Tart hibiscus, fresh ginger, and pink peppercorn sachets for sparkling refrescos.",
+          "price": 22,
+          "unit": "6 sachets",
+          "dietary": [
+            "vegan",
+            "gluten-free"
+          ],
+          "benefits": [
+            "hydration-support",
+            "immune-support"
+          ]
+        },
+        {
+          "id": "verde-vibrante-sipping-broth",
+          "name": "Verde Vibrante Sipping Broth",
+          "shortDescription": "Herbal sipping broth packed with chayote greens, moringa, and lime leaf.",
+          "price": 18,
+          "unit": "8 sachets",
+          "dietary": [
+            "vegan",
+            "gluten-free",
+            "keto-friendly"
+          ],
+          "benefits": [
+            "hydration-support",
+            "adaptogenic"
+          ]
+        }
+      ]
+    }
+  ]
+}
