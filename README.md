@@ -1,15 +1,15 @@
 # Creaciones Colibrí
 
-Creaciones Colibrí is a small‑batch food brand and online shop run by my wife and me.  Our focus is on **flavorful, handcrafted products** inspired by the biodiversity of Central America and our home gardens in Florida and Costa Rica.  The site is built with [Eleventy](https://www.11ty.dev/), a fast static‑site generator that outputs clean HTML from Markdown and templating.
+Creaciones Colibrí is a small‑batch food brand and online shop run by my wife and I.  Our focus is on **flavorful, handcrafted products** inspired by the biodiversity of Costa Rica.  The site is built with [Eleventy](https://www.11ty.dev/), a fast static‑site generator that outputs clean HTML from Markdown and templating.
 
 ## Vision
 
 We want Creaciones Colibrí to feel like a modern farmers’ market: personal, transparent and rooted in nature.  Our catalog will start with the items we already make—**hot sauces**, **granola** and other natural pantry goods—but will expand into new categories as we develop recipes.  Key principles guiding this project:
 
-* **Culinary storytelling** – each product page will include the story behind the item (e.g., how we source chiles for our *salsa picante chocolate habanero*, or why our granola uses local honey rather than refined sugar).
+* **Culinary storytelling** – each product page will include the story behind the item (how we source chiles for our *salsa picante chocolate habanero*, or why our granola uses local honey rather than refined sugar).
 * **Sustainability** – we prefer compostable or reusable packaging and work with suppliers that practice regenerative agriculture【258269947385758†L165-L176】.  Upcycled ingredients such as spent grains or fruit pulp may be incorporated when possible【977856422785389†L266-L269】.
-* **Health & functionality** – besides being delicious, many products will highlight functional ingredients: adaptogens like lion’s mane or ashwagandha【205801555446144†L58-L63】, anti‑inflammatory herbs like turmeric and ginger【977856422785389†L232-L239】, and protein‑rich inclusions when appropriate【258269947385758†L242-L249】.
-* **Bold flavors** – consumers increasingly crave smoky ferments, fruit crossovers (mango‑habanero, pineapple‑chili) and regional sauces【363091106628353†L111-L117】.  Expect our lineup to feature both traditional recipes (e.g. salsa verde, peri‑peri, harissa) and creative blends.
+* **Health & functionality** – besides being delicious, many products will highlight functional ingredients, anti‑inflammatory herbs like turmeric and ginger【977856422785389†L232-L239】, and protein‑rich inclusions when appropriate【258269947385758†L242-L249】.
+* **Bold flavors** – consumers increasingly crave smoky ferments, fruit crossovers (mango‑habanero, pineapple‑chili) and regional sauces【363091106628353†L111-L117】.  Expect our lineup to feature both traditional recipes (salsa verde, peri‑peri, harissa) and creative blends.
 
 ## Proposed Product Categories
 
