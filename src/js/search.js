@@ -4,11 +4,101 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
   const searchInput = searchRoot.querySelector("[data-search-input]");
   const resultsContainer = searchRoot.querySelector("[data-search-results]");
   const clearButton = searchRoot.querySelector("[data-search-clear]");
+  const filterInputs = Array.from(searchRoot.querySelectorAll("[data-filter-checkbox]"));
   const endpoint = searchRoot.dataset.searchEndpoint || "/search.json";
 
   if (!searchInput || !resultsContainer) {
     return;
   }
+
+  const hasFiltersSelected = filters =>
+    Object.values(filters).some(values => values.length > 0);
+
+  const getSelectedFilters = () => {
+    return filterInputs.reduce(
+      (acc, input) => {
+        if (input.checked) {
+          const type = input.dataset.filterType;
+          if (type && Array.isArray(acc[type])) {
+            acc[type].push(input.value);
+          }
+        }
+        return acc;
+      },
+      { category: [], dietary: [], benefits: [] }
+    );
+  };
+
+  const applyFilters = (items, filters) =>
+    items.filter(item => {
+      if (filters.category.length && !filters.category.includes(item.category)) {
+        return false;
+      }
+
+      if (
+        filters.dietary.length &&
+        !filters.dietary.every(tag => Array.isArray(item.dietary) && item.dietary.includes(tag))
+      ) {
+        return false;
+      }
+
+      if (
+        filters.benefits.length &&
+        !filters.benefits.every(tag => Array.isArray(item.benefits) && item.benefits.includes(tag))
+      ) {
+        return false;
+      }
+
+      return true;
+    });
+
+  const renderResults = items => {
+    resultsContainer.innerHTML = "";
+
+    if (!items.length) {
+      resultsContainer.innerHTML = "<p class='search-empty'>No products match your criteria right now. Try adjusting filters or search terms.</p>";
+      return;
+    }
+
+    const list = document.createElement("div");
+    list.classList.add("search-results-list");
+
+    items.forEach(item => {
+      const card = document.createElement("article");
+      card.className = "search-result-card";
+      card.innerHTML = `
+        <a href="${item.url}" class="search-result-card__link">
+          <div class="search-result-card__image">
+            <img src="${item.image}" alt="${item.name}">
+          </div>
+          <div class="search-result-card__content">
+            <h3>${item.name}</h3>
+            <p>${item.shortDescription}</p>
+            <span class="search-result-card__meta">${item.category}</span>
+          </div>
+        </a>
+      `;
+      list.appendChild(card);
+    });
+
+    resultsContainer.appendChild(list);
+  };
+
+  const updateResults = (products, fuse) => {
+    const query = searchInput.value.trim();
+    const filters = getSelectedFilters();
+    const hasQuery = Boolean(query);
+    const hasFilters = hasFiltersSelected(filters);
+
+    if (!hasQuery && !hasFilters) {
+      resultsContainer.innerHTML = "";
+      return;
+    }
+
+    const baseItems = hasQuery ? fuse.search(query).map(result => result.item) : products;
+    const filteredItems = applyFilters(baseItems, filters);
+    renderResults(filteredItems.slice(0, 12));
+  };
 
   fetch(endpoint)
     .then(response => response.json())
@@ -19,50 +109,14 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
         ignoreLocation: true
       });
 
-      const renderResults = entries => {
-        resultsContainer.innerHTML = "";
-        if (!entries.length) {
-          resultsContainer.innerHTML = "<p class='search-empty'>No products match your search yet. Try another ingredient, benefit, or flavor.</p>";
-          return;
-        }
+      const handleUpdate = () => updateResults(products, fuse);
 
-        const list = document.createElement("div");
-        list.classList.add("search-results-list");
-        entries.forEach(({ item }) => {
-          const card = document.createElement("article");
-          card.className = "search-result-card";
-          card.innerHTML = `
-            <a href="${item.url}" class="search-result-card__link">
-              <div class="search-result-card__image">
-                <img src="${item.image}" alt="${item.name}">
-              </div>
-              <div class="search-result-card__content">
-                <h3>${item.name}</h3>
-                <p>${item.shortDescription}</p>
-                <span class="search-result-card__meta">${item.category}</span>
-              </div>
-            </a>
-          `;
-          list.appendChild(card);
-        });
-        resultsContainer.appendChild(list);
-      };
-
-      const handleSearch = () => {
-        const value = searchInput.value.trim();
-        if (!value) {
-          resultsContainer.innerHTML = "";
-          return;
-        }
-        const matches = fuse.search(value).slice(0, 8);
-        renderResults(matches);
-      };
-
-      searchInput.addEventListener("input", handleSearch);
+      searchInput.addEventListener("input", handleUpdate);
+      filterInputs.forEach(input => input.addEventListener("change", handleUpdate));
 
       clearButton?.addEventListener("click", () => {
         searchInput.value = "";
-        searchInput.dispatchEvent(new Event("input"));
+        handleUpdate();
         searchInput.focus();
       });
     })

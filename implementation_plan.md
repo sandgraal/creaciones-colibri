@@ -45,7 +45,7 @@ _Status legend_
 
 - [ ] **Search & filtering**
   - [x] Decide on search strategy: client-side fuzzy search (Fuse.js) with Eleventy-generated JSON index.
-  - [ ] Provide filters for categories (sauce, granola, etc.), dietary tags (vegan, gluten-free), and functional benefits (protein-rich, anti-inflammatory).
+  - [x] Provide filters for categories (sauce, granola, etc.), dietary tags (vegan, gluten-free), and functional benefits (protein-rich, anti-inflammatory).
   - [x] Build accessible UI controls for search results with empty/error states.
 
 - [ ] **Contact & newsletter forms**

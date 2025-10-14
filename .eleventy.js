@@ -1,6 +1,11 @@
 const path = require("path");
 const generateImage = require("./.eleventy.images");
 
+const getProducts = () => {
+  delete require.cache[require.resolve("./src/_data/products.js")];
+  return require("./src/_data/products.js");
+};
+
 const slugifyString = value =>
   value
     .toString()
@@ -26,18 +31,15 @@ module.exports = function(eleventyConfig) {
     return generateImage(normalizedSrc, alt, className);
   });
 
-  eleventyConfig.addCollection("products", () => {
-    delete require.cache[require.resolve("./src/_data/products.js")];
-    const products = require("./src/_data/products.js");
-    return products.map(product => ({
+  eleventyConfig.addCollection("products", () =>
+    getProducts().map(product => ({
       ...product,
       url: `/products/${product.id}/`
-    }));
-  });
+    }))
+  );
 
   eleventyConfig.addCollection("productCategories", () => {
-    delete require.cache[require.resolve("./src/_data/products.js")];
-    const products = require("./src/_data/products.js");
+    const products = getProducts();
     const categories = new Map();
     for (const product of products) {
       const entry = categories.get(product.category) ?? [];
@@ -52,6 +54,26 @@ module.exports = function(eleventyConfig) {
       slug: slugifyString(name),
       items
     }));
+  });
+
+  eleventyConfig.addCollection("productDietaryTags", () => {
+    const tags = new Set();
+    for (const product of getProducts()) {
+      (product.dietary || []).forEach(tag => tags.add(tag));
+    }
+    return Array.from(tags)
+      .sort((a, b) => a.localeCompare(b))
+      .map(tag => ({ tag, slug: slugifyString(tag) }));
+  });
+
+  eleventyConfig.addCollection("productBenefitTags", () => {
+    const tags = new Set();
+    for (const product of getProducts()) {
+      (product.benefits || []).forEach(tag => tags.add(tag));
+    }
+    return Array.from(tags)
+      .sort((a, b) => a.localeCompare(b))
+      .map(tag => ({ tag, slug: slugifyString(tag) }));
   });
 
   eleventyConfig.addFilter("readableDate", dateObj =>

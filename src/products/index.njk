@@ -31,6 +31,70 @@ search: true
       <button class="button button-secondary search-panel__clear" type="button" data-search-clear>Clear</button>
     </div>
   </div>
+  <div class="search-filters">
+    {% if collections.productCategories | length %}
+      <fieldset class="filter-group">
+        <legend class="filter-group__title">Categories</legend>
+        <div class="filter-list">
+          {% for category in collections.productCategories %}
+            {% set inputId = "filter-category-" + category.slug %}
+            <label class="filter-chip" for="{{ inputId }}">
+              <input
+                id="{{ inputId }}"
+                class="filter-chip__input"
+                type="checkbox"
+                value="{{ category.name }}"
+                data-filter-checkbox
+                data-filter-type="category">
+              <span class="filter-chip__label">{{ category.name }}</span>
+            </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+    {% endif %}
+
+    {% if collections.productDietaryTags | length %}
+      <fieldset class="filter-group">
+        <legend class="filter-group__title">Dietary</legend>
+        <div class="filter-list">
+          {% for tag in collections.productDietaryTags %}
+            {% set inputId = "filter-dietary-" + tag.slug %}
+            <label class="filter-chip" for="{{ inputId }}">
+              <input
+                id="{{ inputId }}"
+                class="filter-chip__input"
+                type="checkbox"
+                value="{{ tag.tag }}"
+                data-filter-checkbox
+                data-filter-type="dietary">
+              <span class="filter-chip__label">{{ tag.tag }}</span>
+            </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+    {% endif %}
+
+    {% if collections.productBenefitTags | length %}
+      <fieldset class="filter-group">
+        <legend class="filter-group__title">Benefits</legend>
+        <div class="filter-list">
+          {% for tag in collections.productBenefitTags %}
+            {% set inputId = "filter-benefit-" + tag.slug %}
+            <label class="filter-chip" for="{{ inputId }}">
+              <input
+                id="{{ inputId }}"
+                class="filter-chip__input"
+                type="checkbox"
+                value="{{ tag.tag }}"
+                data-filter-checkbox
+                data-filter-type="benefits">
+              <span class="filter-chip__label">{{ tag.tag }}</span>
+            </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+    {% endif %}
+  </div>
   <div class="search-results" data-search-results></div>
 </section>
 
