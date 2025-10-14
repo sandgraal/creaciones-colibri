@@ -10,6 +10,9 @@
       href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&family=Work+Sans:wght@300;400;500&display=swap"
       rel="stylesheet">
     <link rel="stylesheet" href="{{ '/css/main.css' | url }}">
+    {% if analytics %}
+      {{ analytics() | safe }}
+    {% endif %}
     {% if site.snipcart.publicKey %}
       <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.0.33/default/snipcart.css">
     {% endif %}

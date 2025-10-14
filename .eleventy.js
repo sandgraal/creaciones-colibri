@@ -31,6 +31,12 @@ module.exports = function(eleventyConfig) {
     return generateImage(normalizedSrc, alt, className);
   });
 
+  eleventyConfig.addNunjucksAsyncShortcode("analytics", async () => {
+    return process.env.PLAUSIBLE_DOMAIN
+      ? `<script defer data-domain="${process.env.PLAUSIBLE_DOMAIN}" src="https://plausible.io/js/script.js"></script>`
+      : "";
+  });
+
   eleventyConfig.addCollection("products", () =>
     getProducts().map(product => ({
       ...product,

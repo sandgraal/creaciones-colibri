@@ -22,7 +22,8 @@ This handbook captures the conventions and best practices for building and maint
    cp .env.example .env
    ```
 
-   Add your Snipcart public API key to `SNIPCART_PUBLIC_KEY`. Without it, cart buttons will fall back to “View details.”
+   Add your Snipcart public API key to `SNIPCART_PUBLIC_KEY`. Without it, cart buttons will fall back to “View details.”  
+   If you plan to enable Plausible analytics, set `PLAUSIBLE_DOMAIN` (e.g., `creaciones-colibri.com`) once tracking consent is approved.
 
 4. Run the Eleventy dev server:
 

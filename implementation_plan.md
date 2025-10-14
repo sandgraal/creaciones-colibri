@@ -70,7 +70,7 @@ _Status legend_
 - [ ] **Analytics & SEO**
   - [ ] Configure SEO fundamentals: meta tags, Open Graph, structured data (JSON-LD).
   - [ ] Generate sitemap and robots.txt during the Eleventy build.
-  - [ ] Integrate analytics (Plausible, Google Analytics) while respecting privacy regulations and consent requirements.
+  - [x] Draft analytics plan and integrate Plausible toggle (requires `PLAUSIBLE_DOMAIN` to activate). Final hookup pending account creation and domain configuration.
 
 - [ ] **Performance & accessibility audit**
   - [ ] Run Lighthouse audits for performance, accessibility, best practices, and SEO; document remediation tasks.
