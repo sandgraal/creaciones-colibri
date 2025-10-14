@@ -10,7 +10,7 @@ This guide explains how we manage product imagery while we gather final photogra
 ## 2. Replacing with Final Photography
 1. Export product shots at multiple widths (e.g., 480px, 960px, 1440px) and convert to `.webp`.
 2. Place the files in `src/img/products/` and update the `image.src` path in the corresponding product entry.
-3. Add responsive markup later (e.g., `srcset`) once we finalize template updates; placeholders ensure layout remains stable meanwhile.
+3. The `responsiveImage` shortcode (powered by Eleventy Image) will automatically generate responsive `webp/jpeg` variants—no need to hand-write `srcset` attributes.
 
 ## 3. Optimization Tips
 - Use [Squoosh](https://squoosh.app/) or `cwebp` CLI for compression.

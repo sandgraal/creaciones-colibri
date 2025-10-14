@@ -1,3 +1,6 @@
+const path = require("path");
+const generateImage = require("./.eleventy.images");
+
 const slugifyString = value =>
   value
     .toString()
@@ -12,6 +15,16 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/img": "img" });
   eleventyConfig.addPassthroughCopy({ "src/js": "js" });
   eleventyConfig.addPassthroughCopy({ "node_modules/fuse.js/dist/fuse.min.js": "js/vendor/fuse.min.js" });
+
+  eleventyConfig.addFilter("isSvg", value =>
+    typeof value === "string" && value.toLowerCase().endsWith(".svg")
+  );
+
+  eleventyConfig.addNunjucksAsyncShortcode("responsiveImage", async (src, alt, className) => {
+    const normalizedSrc = src.startsWith("/img/") ? src.replace("/img/", "img/") : src;
+    const localPath = path.join("src", normalizedSrc);
+    return generateImage(normalizedSrc, alt, className);
+  });
 
   eleventyConfig.addCollection("products", () => {
     delete require.cache[require.resolve("./src/_data/products.js")];

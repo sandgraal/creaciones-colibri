@@ -1,9 +1,12 @@
 <article class="product-card">
   <a class="product-card__link" href="{{ product.url | url }}">
-    <img
-      class="product-card__image"
-      src="{{ product.image.src | url }}"
-      alt="{{ product.image.alt }}">
+    <div class="product-card__media">
+      {% if product.image.src | isSvg %}
+        <img src="{{ product.image.src | url }}" alt="{{ product.image.alt }}" loading="lazy" decoding="async">
+      {% else %}
+        {% responsiveImage product.image.src, product.image.alt, 'product-card__image' %}
+      {% endif %}
+    </div>
     <div class="product-card__content">
       <h3 class="product-card__title">{{ product.name }}</h3>
       <p class="product-card__summary">{{ product.shortDescription }}</p>

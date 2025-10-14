@@ -82,6 +82,7 @@ This handbook captures the conventions and best practices for building and maint
 - **Collections:** Register Eleventy collections in `.eleventy.js` when you need custom sorting or grouping (e.g., products by category). Accompany each collection with inline comments or a short doc entry.
 - **Front matter:** Prefer YAML front matter for pages and posts. Include `title`, `layout`, and any page-specific metadata.
 - **Filters & shortcodes:** Define reusable filters/shortcodes in `.eleventy.js`. Document the purpose and usage in this handbook so others can adopt them without spelunking through templates.
+  * Use the `responsiveImage` Nunjucks shortcode for product photography; it leverages Eleventy Image to output optimized `webp/jpeg` variants and should be favored over manual `<img>` tags for raster assets.
 - **Path prefix:** Because we deploy to GitHub Pages under `/creaciones-colibri`, always reference assets via the Eleventy `url` filter (e.g., `{{ '/css/main.css' | url }}`) to keep paths correct in every environment.
 - **Static assets:** Register new static directories with `addPassthroughCopy` in `.eleventy.js`. Keep the source tree organized (e.g., `src/fonts`, `src/js`).
 

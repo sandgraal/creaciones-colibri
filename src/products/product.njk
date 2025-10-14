@@ -52,7 +52,11 @@ eleventyComputed:
 
   <div class="product-detail__body">
     <figure class="product-detail__figure">
-      <img src="{{ product.image.src | url }}" alt="{{ product.image.alt }}">
+      {% if product.image.src | isSvg %}
+        <img src="{{ product.image.src | url }}" alt="{{ product.image.alt }}" loading="lazy" decoding="async">
+      {% else %}
+        {% responsiveImage product.image.src, product.image.alt, 'product-detail__image' %}
+      {% endif %}
     </figure>
     <section class="product-detail__content">
       <h2>About this product</h2>
