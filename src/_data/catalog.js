@@ -2,7 +2,11 @@ const products = require("./products");
 const categories = {};
 
 for (const product of products) {
-  const key = product.category.toLowerCase().replace(/[^\w]+/g, "_").replace(/^_|_$/g, "");
+  const key = product.category
+    .toLowerCase()
+    .replace(/[^\w]+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
   if (!categories[key]) {
     categories[key] = {
       id: key,

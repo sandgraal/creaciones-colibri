@@ -6,7 +6,7 @@ locale: es
 
 {% set translations = collections.i18n[0].data.i18n %}
 {% set t = translations.es %}
-{% set catalog = translations.catalog.es %}
+{% set catalogData = catalog %}
 
 <section class="hero">
   <div class="hero-media">
@@ -25,11 +25,11 @@ locale: es
 </section>
 
 <section id="catalogo" class="content-section content-grid">
-  {% for category in catalog.categories %}
+  {% for category in catalogData.categories %}
     <article class="card">
       <h3>{{ category.name }}</h3>
       <p>{{ category.products[0].shortDescription }}</p>
-      <a class="button button-secondary" href="{{ '/products/#category-' ~ category.id | replace('_', '-') | url }}">Ver {{ category.name | lower }}</a>
+      <a class="button button-secondary" href="{{ '/es/productos/#categoria-' ~ category.id | url }}">Ver {{ category.name | lower }}</a>
     </article>
   {% endfor %}
 </section>

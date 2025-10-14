@@ -1,0 +1,144 @@
+{
+  "salsa-picante-chocolate-habanero": {
+    "name": "Salsa Picante Chocolate Habanero",
+    "shortDescription": "Habaneros chocolate ahumados equilibrados con piña y nibs de cacao para un picor en capas.",
+    "description": "Nuestra salsa insignia infunde habaneros chocolate cultivados localmente con nibs de cacao tostados, piña y panela. El resultado es un calor profundo, con notas de melaza que se transforman en un brillo tropical. Pruébala sobre vegetales asados, bowls de arroz o un ceviche fresco.",
+    "unit": "Botella de 147 ml",
+    "ingredients": [
+      "Chiles habaneros chocolate",
+      "Nibs de cacao tostados",
+      "Piña",
+      "Vinagre de sidra de manzana",
+      "Panela (azúcar de caña sin refinar)",
+      "Sal marina",
+      "Ajo",
+      "Agua infusionada con cáscara de cacao"
+    ],
+    "dietary": [
+      "vegana",
+      "sin gluten"
+    ],
+    "benefits": [
+      "antiinflamatorio",
+      "apoyo al metabolismo"
+    ]
+  },
+  "sunrise-citrus-granola": {
+    "name": "Granola Sunrise Citrus",
+    "shortDescription": "Avena crujiente con anacardos germinados y piel de naranja confitada con un toque de cardamomo.",
+    "description": "Inspirada en las mañanas de café en San José, esta granola sin gluten combina anacardos germinados, quinua inflada, piel de naranja confitada y miel local. La cúrcuma y el jengibre aportan calidez antiinflamatoria mientras el cardamomo mantiene el final brillante.",
+    "unit": "Bolsa de 340 g",
+    "ingredients": [
+      "Avena sin gluten",
+      "Anacardos germinados",
+      "Quinua inflada",
+      "Piel de naranja confitada",
+      "Miel silvestre local",
+      "Cúrcuma",
+      "Jengibre",
+      "Cardamomo verde",
+      "Aceite de coco",
+      "Sal marina"
+    ],
+    "dietary": [
+      "sin gluten"
+    ],
+    "benefits": [
+      "antiinflamatorio",
+      "refuerzo inmunológico"
+    ]
+  },
+  "mango-guava-fire": {
+    "name": "Mango Guayaba Fire",
+    "shortDescription": "Dulzor de mango y guayaba con el calor de chiles Scotch bonnet carbonizados.",
+    "description": "Fruta tropical y chiles tostados se encuentran en esta salsa que empieza dulce y termina con un picor satisfactorio. Puré de mango y guayaba rosa enfrían la primera mordida mientras los Scotch bonnet carbonizados, la pimienta de Jamaica y la panela aportan profundidad. Ideal para camarones a la parrilla, tacos al pastor o empanadas de plátano.",
+    "unit": "Botella de 147 ml",
+    "ingredients": [
+      "Mango",
+      "Guayaba rosa",
+      "Chiles Scotch bonnet carbonizados",
+      "Vinagre de sidra de manzana",
+      "Panela (azúcar de caña sin refinar)",
+      "Pimienta de Jamaica",
+      "Jugo de lima",
+      "Sal marina"
+    ],
+    "dietary": [
+      "vegana",
+      "sin gluten"
+    ],
+    "benefits": [
+      "vitamina C",
+      "antiinflamatorio"
+    ]
+  },
+  "selva-noche-cashew-butter": {
+    "name": "Mantequilla de Anacardo Selva Noche",
+    "shortDescription": "Anacardos molidos con cacao, cardamomo y melena de león adaptógena.",
+    "description": "Una mantequilla aterciopelada con anacardos, cacao crudo, plátano asado y hongo melena de león para apoyar la claridad mental. Toques de vainilla y jarabe de caña la vuelven indulgente pero equilibrada. Úntala sobre masa madre, mézclala en tu avena o combínala con manzanas crujientes.",
+    "unit": "Frasco de 255 g",
+    "ingredients": [
+      "Anacardos",
+      "Cacao en polvo crudo",
+      "Plátano asado",
+      "Melena de león en polvo",
+      "Vaina de vainilla",
+      "Jarabe de caña",
+      "Sal marina"
+    ],
+    "dietary": [
+      "vegana",
+      "sin gluten"
+    ],
+    "benefits": [
+      "adaptógeno",
+      "apoyo cognitivo"
+    ]
+  },
+  "hibiscus-ginger-spritzer-kit": {
+    "name": "Kit Spritzer de Hibisco y Jengibre",
+    "shortDescription": "Sobres de hibisco, jengibre y pimienta rosa para refrescos espumosos.",
+    "description": "Cada sobre se transforma en un concentrado rubí con pétalos de hibisco, jengibre y pimienta rosa. Mézclalo con agua con gas, agua de coco o tus mocktails favoritos para un impulso antioxidante. Inspirado en las ferias de San Ramón, naturalmente sin cafeína y perfecto para el verano.",
+    "unit": "6 sobres",
+    "ingredients": [
+      "Pétalos de hibisco",
+      "Jengibre fresco",
+      "Pimienta rosa",
+      "Ralladura de lima",
+      "Azúcar de caña crudo"
+    ],
+    "dietary": [
+      "vegana",
+      "sin gluten"
+    ],
+    "benefits": [
+      "hidratación",
+      "refuerzo inmunológico"
+    ]
+  },
+  "verde-vibrante-sipping-broth": {
+    "name": "Caldo para Sorber Verde Vibrante",
+    "shortDescription": "Caldo herbal con hoja de chayote, moringa y hoja de lima.",
+    "description": "Un caldo restaurador que combina hoja de chayote, moringa y lemongrass de granjas regenerativas en Guanacaste. Se termina con hoja de lima y un toque de lechuga de mar para una salinidad suave. Perfecto para recargar la tarde o reconectar después de tu práctica de yoga.",
+    "unit": "8 sobres",
+    "ingredients": [
+      "Hoja de chayote",
+      "Moringa",
+      "Lemongrass",
+      "Hoja de lima",
+      "Lechuga de mar",
+      "Pimienta rosa",
+      "Jengibre",
+      "Sal marina"
+    ],
+    "dietary": [
+      "vegana",
+      "sin gluten",
+      "apta para keto"
+    ],
+    "benefits": [
+      "hidratación",
+      "adaptógeno"
+    ]
+  }
+}

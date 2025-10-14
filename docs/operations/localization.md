@@ -10,6 +10,13 @@
 2. To translate shared copy, update the JSON files under `src/_data/i18n/`.
 3. Reference translations in templates via `collections.i18n[0].data.i18n.{locale}`.
 
+### Product Catalog
+- English product data lives in `src/_data/catalog.js` (built from `products.js`).
+- Spanish translations for product copy are stored in `src/_data/i18n/products.es.json`.
+- `src/es/_data/catalog.js` merges those translations and provides `catalogProductsEs` for detail pages.
+- Spanish catalog listing: `src/es/productos/index.njk`
+- Spanish product detail template: `src/es/productos/product.njk`
+
 ## Environment Variables
 - `SITE_LOCALE`: default locale (fallback for pages without `locale` front matter).
 - `SITE_ALT_LOCALES`: comma-separated list of alternate locales to show in the switcher.

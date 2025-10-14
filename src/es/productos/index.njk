@@ -2,19 +2,19 @@
 layout: layouts/base.njk
 title: Productos
 locale: es
-search: true
+search: false
 ---
 
 {% set translations = collections.i18n[0].data.i18n %}
 {% set t = translations.es %}
-{% set catalog = require('../../_data/catalog.json') %}
+{% set catalogData = catalog %}
 
 <section class="page-intro">
   <h1 class="page-title">Nuestra despensa</h1>
   <p class="page-subtitle">Selecciona tu categoría favorita o usa la búsqueda para encontrar sabores, ingredientes o beneficios en español.</p>
 </section>
 
-{% for category in catalog.categories %}
+{% for category in catalogData.categories %}
   <section class="product-category" id="categoria-{{ category.id }}">
     <div class="product-category__headline">
       <h2>{{ category.name }}</h2>
@@ -22,7 +22,7 @@ search: true
     <div class="product-grid">
       {% for product in category.products %}
         <article class="product-card">
-          <a class="product-card__link" href="{{ '/products/' ~ product.id ~ '/' | url }}">
+          <a class="product-card__link" href="{{ '/es/productos/' ~ product.id ~ '/' | url }}">
             <div class="product-card__media">
               <img src="{{ product.image.src | url }}" alt="{{ product.image.alt }}">
             </div>
@@ -36,7 +36,7 @@ search: true
               <span class="product-card__amount">${{ product.price }}</span>
               <span class="product-card__unit">{{ product.unit }}</span>
             </div>
-            <a class="button button-secondary product-card__cart" href="{{ '/products/' ~ product.id ~ '/' | url }}">Ver detalles</a>
+            <a class="button button-secondary product-card__cart" href="{{ '/es/productos/' ~ product.id ~ '/' | url }}">Ver detalles</a>
           </div>
         </article>
       {% endfor %}

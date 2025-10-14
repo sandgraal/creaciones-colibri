@@ -39,11 +39,28 @@ const getProducts = () => {
 };
 
 const loadTranslations = () => {
-  delete require.cache[require.resolve("./src/_data/i18n/en.json")];
-  delete require.cache[require.resolve("./src/_data/i18n/es.json")];
+  const files = [
+    "./src/_data/i18n/en.json",
+    "./src/_data/i18n/es.json",
+    "./src/_data/i18n/catalog.en.json",
+    "./src/_data/i18n/catalog.es.json",
+    "./src/_data/i18n/products.es.json"
+  ];
+
+  for (const file of files) {
+    delete require.cache[require.resolve(file)];
+  }
+
   return {
     en: require("./src/_data/i18n/en.json"),
-    es: require("./src/_data/i18n/es.json")
+    es: require("./src/_data/i18n/es.json"),
+    catalog: {
+      en: require("./src/_data/i18n/catalog.en.json"),
+      es: require("./src/_data/i18n/catalog.es.json")
+    },
+    products: {
+      es: require("./src/_data/i18n/products.es.json")
+    }
   };
 };
 
