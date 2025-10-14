@@ -92,6 +92,7 @@ This handbook captures the conventions and best practices for building and maint
 - Draft content in Markdown (English by default). When localization begins, add translated files in language-specific directories (e.g., `src/es/`) or leverage Eleventy’s i18n plugin.
 - Keep a glossary of key product terms in `docs/localization.md` (to be created) so translations stay consistent.
 - For long-form posts, place assets next to the entry (`src/blog/post-slug/`).
+- Follow `docs/catalog-playbook.md` when editing product data to keep copy, pricing, and imagery standards consistent.
 
 ---
 

@@ -58,6 +58,86 @@ module.exports = [
     }
   },
   {
+    id: "mango-guava-fire",
+    name: "Mango Guava Fire",
+    category: "Hot Sauces",
+    price: 16,
+    unit: "5 oz bottle",
+    shortDescription:
+      "Bright mango and guava sweetness layered with charred Scotch bonnet heat.",
+    description:
+      "Tropical fruit meets roasted chiles in this sauce that starts sweet and finishes with a satisfying burn. Mango and pink guava puree cool the initial bite, while charred Scotch bonnets, allspice, and panela create depth. Try it on grilled shrimp, tacos al pastor, or plantain empanadas.",
+    ingredients: [
+      "Mango",
+      "Pink guava",
+      "Charred Scotch bonnet chiles",
+      "Apple cider vinegar",
+      "Panela (unrefined cane sugar)",
+      "Allspice",
+      "Lime juice",
+      "Sea salt"
+    ],
+    dietary: ["vegan", "gluten-free"],
+    benefits: ["vitamin-c", "anti-inflammatory"],
+    heatLevel: 3,
+    image: {
+      src: "/img/creaciones_colibri_logo.png",
+      alt: "Bottle of Mango Guava Fire hot sauce beside sliced mango and guava."
+    }
+  },
+  {
+    id: "selva-noche-cashew-butter",
+    name: "Selva Noche Cashew Butter",
+    category: "Wellness Pantry",
+    price: 15,
+    unit: "9 oz jar",
+    shortDescription:
+      "Stone-ground cashew butter with cacao, cardamom, and adaptogenic lion’s mane.",
+    description:
+      "A velvety cashew butter infused with raw cacao, roasted plantain, and lion’s mane mushroom for cognitive support. Touches of vanilla bean and cane syrup make it decadent yet balanced. Spread over toasted sourdough, swirl into oatmeal, or pair with crisp apples.",
+    ingredients: [
+      "Cashews",
+      "Raw cacao powder",
+      "Roasted plantain",
+      "Lion's mane mushroom powder",
+      "Vanilla bean",
+      "Cane syrup",
+      "Sea salt"
+    ],
+    dietary: ["vegan", "gluten-free"],
+    benefits: ["adaptogenic", "brain-support"],
+    heatLevel: 0,
+    image: {
+      src: "/img/creaciones_colibri_logo.png",
+      alt: "Jar of Selva Noche Cashew Butter with cacao nibs and cashews."
+    }
+  },
+  {
+    id: "hibiscus-ginger-spritzer-kit",
+    name: "Hibiscus Ginger Spritzer Kit",
+    category: "Wellness Pantry",
+    price: 22,
+    unit: "6 sachets",
+    shortDescription:
+      "Tart hibiscus, fresh ginger, and pink peppercorn sachets for sparkling refrescos.",
+    description:
+      "Each sachet steeps into a vibrant ruby concentrate powered by hibiscus petals, ginger, and pink peppercorn. Blend with sparkling water, coconut water, or mocktails for antioxidant-rich fizz. Inspired by ferias in San Ramón, it’s naturally caffeine-free and perfect for summer gatherings.",
+    ingredients: [
+      "Hibiscus petals",
+      "Fresh ginger",
+      "Pink peppercorn",
+      "Lime zest",
+      "Raw cane sugar"
+    ],
+    dietary: ["vegan", "gluten-free"],
+    benefits: ["hydration-support", "immune-support"],
+    heatLevel: 0,
+    image: {
+      src: "/img/creaciones_colibri_logo.png",
+      alt: "Glass of hibiscus ginger spritzer with lime slices."
+    }
+  },
+  {
     id: "verde-vibrante-sipping-broth",
     name: "Verde Vibrante Sipping Broth",
     category: "Wellness Pantry",
