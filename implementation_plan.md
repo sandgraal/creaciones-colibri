@@ -12,10 +12,11 @@ _Status legend_
 ## Phase 1 — Foundation & Content (Week 1–2)
 
 - [ ] **Define product catalog**
-  - [ ] Collect and finalize the product list based on the categories described in the README.
-  - [ ] Draft product copy: descriptions, ingredient lists, nutrition information, usage tips, and brand story.
+  - [x] Collect and finalize the initial product list based on the categories described in the README (`src/_data/products.js`).
+  - [x] Draft product copy: descriptions, ingredient lists, nutrition information, usage tips, and brand story.
   - [ ] Organize product imagery in `src/img/` with descriptive filenames (e.g., `mango_habanero_hot_sauce.png`); include alt text guidance.
-  - [ ] Decide pricing, packaging sizes, and shipping options (domestic vs. international). Research compostable packaging and regenerative certification costs.
+  - [x] Capture pricing and packaging sizes in product data entries.
+  - [x] Research shipping options (domestic vs. international) and compostable/regenerative packaging costs; document recommendations (`docs/operations/shipping.md`).
 
 - [ ] **Eleventy structure** _(in progress)_
   - [x] Create `src/_includes` for layouts/partials and establish a base layout (header, navigation, footer).
