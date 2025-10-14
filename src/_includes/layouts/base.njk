@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if title %}{{ title }} · {% endif %}Creaciones Colibrí</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&family=Work+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body class="site">
+    <header class="site-header">
+      <a class="brand" href="/">
+        <img class="brand-logo" src="/img/creaciones_colibri_logo.png" alt="Creaciones Colibrí logo">
+        <span class="brand-title">Creaciones Colibrí</span>
+      </a>
+      <nav class="site-nav">
+        <a class="nav-link" href="#vision">Our Vision</a>
+        <a class="nav-link" href="#catalog">Catalog</a>
+        <a class="nav-link" href="#newsletter">Stay in Touch</a>
+      </nav>
+    </header>
+    <main class="site-main">
+      {{ content | safe }}
+    </main>
+    <footer class="site-footer">
+      <p>Crafted in Florida &amp; Costa Rica with love for the hummingbird and the people we serve.</p>
+      <p class="footer-note">© Creaciones Colibrí</p>
+    </footer>
+  </body>
+</html>
