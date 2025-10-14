@@ -5,7 +5,7 @@ title: Home
 
 <section class="hero">
   <div class="hero-media">
-    <img class="hero-logo" src="/img/creaciones_colibri_logo.png" alt="Creaciones Colibrí hummingbird logo">
+    <img class="hero-logo" src="{{ '/img/creaciones_colibri_logo.png' | url }}" alt="Creaciones Colibrí hummingbird logo">
   </div>
   <div class="hero-content">
     <h1>Botanical heat and vibrant pantry creations.</h1>
