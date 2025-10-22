@@ -6,48 +6,25 @@ pagination:
   alias: baseProduct
 permalink: "es/productos/{{ baseProduct.id }}/"
 locale: es
-eleventyComputed:
-  title: >-
-    {% set translations = collections.i18n and collections.i18n[0].data.i18n %}
-    {% set productTranslations = translations and translations.products and translations.products['es'] %}
-    {% set translation = productTranslations and productTranslations[baseProduct.id] %}
-    {{ (translation and translation.name) or baseProduct.name }}
-  description: >-
-    {% set translations = collections.i18n and collections.i18n[0].data.i18n %}
-    {% set productTranslations = translations and translations.products and translations.products['es'] %}
-    {% set translation = productTranslations and productTranslations[baseProduct.id] %}
-    {{ (translation and translation.shortDescription) or baseProduct.shortDescription or baseProduct.description }}
-  localeLinks:
-    en: "/products/{{ baseProduct.id }}/"
 ---
 
-{% set translations = collections.i18n[0].data.i18n %}
-{% set localeStrings = translations.es %}
-{% set productTranslations = translations.products.es %}
-{% set translation = productTranslations and productTranslations[baseProduct.id] %}
-{% set product_name = (translation and translation.name) or baseProduct.name %}
-{% set product_short = (translation and translation.shortDescription) or baseProduct.shortDescription %}
-{% set product_description = (translation and translation.description) or baseProduct.description %}
-{% set product_unit = (translation and translation.unit) or baseProduct.unit %}
-{% set product_ingredients = (translation and translation.ingredients) or baseProduct.ingredients %}
-{% set product_dietary = (translation and translation.dietary) or baseProduct.dietary %}
-{% set product_benefits = (translation and translation.benefits) or baseProduct.benefits %}
-{% set product_labels = (translation and translation.labels) or baseProduct.labels %}
-{% set product_included_heading = (translation and translation.includedHeading) or baseProduct.includedHeading %}
-{% set product_included = (translation and translation.includedProducts) or baseProduct.includedProducts %}
-{% set product_bundle_extras_heading = (translation and translation.bundleExtrasHeading) or baseProduct.bundleExtrasHeading %}
-{% set product_bundle_extras = (translation and translation.bundleExtras) or baseProduct.bundleExtras %}
-{% set product_subscription = (translation and translation.subscription) or baseProduct.subscription %}
-{% set product_shipping_note = (translation and translation.shippingNote) or baseProduct.shippingNote %}
-{% set product_category = baseProduct.category %}
-{% if product_category == 'Hot Sauces' %}
-  {% set product_category = 'Salsas picantes' %}
-{% elif product_category == 'Granola & Crunch' %}
-  {% set product_category = 'Granolas y crujientes' %}
-{% elif product_category == 'Wellness Pantry' %}
-  {% set product_category = 'Despensa de bienestar' %}
-{% endif %}
-{% set product_heat = baseProduct.heatLevel %}
+{% set productData = product or baseProduct %}
+{% set product_name = productData.name %}
+{% set product_short = productData.shortDescription %}
+{% set product_description = productData.description %}
+{% set product_unit = productData.unit %}
+{% set product_ingredients = productData.ingredients %}
+{% set product_dietary = productData.dietary %}
+{% set product_benefits = productData.benefits %}
+{% set product_labels = productData.labels %}
+{% set product_included_heading = productData.includedHeading %}
+{% set product_included = productData.includedProducts %}
+{% set product_bundle_extras_heading = productData.bundleExtrasHeading %}
+{% set product_bundle_extras = productData.bundleExtras %}
+{% set product_subscription = productData.subscription %}
+{% set product_shipping_note = productData.shippingNote %}
+{% set product_category = productData.category or baseProduct.category %}
+{% set product_heat = productData.heatLevel if productData.heatLevel is defined else baseProduct.heatLevel %}
 
 <article class="product-detail">
   <header class="product-detail__header">
@@ -62,7 +39,7 @@ eleventyComputed:
       </ul>
     {% endif %}
     <div class="product-detail__meta">
-      <span class="product-detail__price">${{ baseProduct.price }} <small>{{ product_unit }}</small></span>
+      <span class="product-detail__price">${{ productData.price }} <small>{{ product_unit }}</small></span>
       <span class="product-detail__category">{{ product_category }}</span>
       {% if product_heat != null %}
         <span class="product-detail__heat">Picor: {{ product_heat }}/5</span>
@@ -84,10 +61,10 @@ eleventyComputed:
           type="button"
           data-item-id="{{ baseProduct.id }}"
           data-item-name="{{ product_name }}"
-          data-item-price="{{ baseProduct.price }}"
+          data-item-price="{{ productData.price }}"
           data-item-url="{{ page.url | url }}"
           data-item-description="{{ product_short }}"
-          data-item-image="{{ baseProduct.image.src | url }}"
+          data-item-image="{{ productData.image.src | url }}"
           data-item-quantity="1"
           data-quantity-input="quantity-{{ baseProduct.id }}">
           Agregar al carrito
@@ -105,10 +82,10 @@ eleventyComputed:
 
   <div class="product-detail__body">
     <figure class="product-detail__figure">
-      {% if baseProduct.image.src | isSvg %}
-        <img src="{{ baseProduct.image.src | url }}" alt="{{ baseProduct.image.alt }}" loading="lazy" decoding="async">
+      {% if productData.image.src | isSvg %}
+        <img src="{{ productData.image.src | url }}" alt="{{ productData.image.alt }}" loading="lazy" decoding="async">
       {% else %}
-        {% responsiveImage baseProduct.image.src, baseProduct.image.alt, 'product-detail__image' %}
+        {% responsiveImage productData.image.src, productData.image.alt, 'product-detail__image' %}
       {% endif %}
     </figure>
     <section class="product-detail__content">
