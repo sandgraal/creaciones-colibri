@@ -50,6 +50,12 @@
 {% if footerStrings == null and fallbackUi and fallbackUi.footer %}
   {% set footerStrings = fallbackUi.footer %}
 {% endif %}
+{% if footerStrings == null %}
+  {% set footerStrings = {} %}
+{% endif %}
+{% set footerLegalLabel = footerStrings.legalLabel | default('Legal') %}
+{% set footerLinks = footerStrings.links | default({}) %}
+{% set footerPrivacyLabel = footerLinks.privacy | default('Privacy Policy') %}
 {% set cartStrings = null %}
 {% if uiStrings and uiStrings.cart %}
   {% set cartStrings = uiStrings.cart %}
@@ -95,11 +101,13 @@
   {% set bundlesPath = '/es/suscripciones/' %}
   {% set blogPath = '/es/blog/' %}
   {% set contactPath = '/es/contacto/' %}
+  {% set privacyPath = '/es/privacidad/' %}
 {% else %}
   {% set productsPath = '/products/' %}
   {% set bundlesPath = '/bundles/' %}
   {% set blogPath = '/blog/' %}
   {% set contactPath = '/contact/' %}
+  {% set privacyPath = '/privacy/' %}
 {% endif %}
 {% set homePath = '/' %}
 {% if localePrefix != '' %}
@@ -408,7 +416,12 @@
     </main>
     <footer class="site-footer">
       <p>{{ footerTagline }}</p>
-      <p class="footer-note">{{ footerNote }}</p>
+      <div class="site-footer__meta">
+        <p class="footer-note">{{ footerNote }}</p>
+        <nav class="footer-links" aria-label="{{ footerLegalLabel }}">
+          <a class="footer-link" href="{{ privacyPath | url }}">{{ footerPrivacyLabel }}</a>
+        </nav>
+      </div>
     </footer>
     {% if search %}
       <script defer src="{{ '/js/vendor/fuse.min.js' | url }}"></script>

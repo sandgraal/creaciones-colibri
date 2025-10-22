@@ -72,7 +72,11 @@
     },
     "footer": {
       "tagline": "Crafted in Florida & Costa Rica with love for the hummingbird and the people we serve.",
-      "note": "© Creaciones Colibrí"
+      "note": "© Creaciones Colibrí",
+      "legalLabel": "Legal",
+      "links": {
+        "privacy": "Privacy Policy"
+      }
     },
     "localeSwitcher": {
       "ariaLabel": "Language selector"

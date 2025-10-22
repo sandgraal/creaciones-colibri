@@ -72,7 +72,11 @@
     },
     "footer": {
       "tagline": "Elaborado en Florida y Costa Rica con amor por el colibrí y las personas a quienes servimos.",
-      "note": "© Creaciones Colibrí"
+      "note": "© Creaciones Colibrí",
+      "legalLabel": "Legal",
+      "links": {
+        "privacy": "Política de privacidad"
+      }
     },
     "localeSwitcher": {
       "ariaLabel": "Selector de idioma"
