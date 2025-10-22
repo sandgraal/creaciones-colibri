@@ -11,27 +11,26 @@ eleventyComputed:
     en: "/products/{{ baseProduct.id }}/"
 ---
 
-{% assign translations = collections.i18n[0].data.i18n %}
-{% assign localeStrings = translations.es %}
-{% assign productTranslations = translations.products.es %}
-{% assign translation = productTranslations[baseProduct.id] %}
-{% assign product_name = translation.name | default: baseProduct.name %}
-{% assign product_short = translation.shortDescription | default: baseProduct.shortDescription %}
-{% assign product_description = translation.description | default: baseProduct.description %}
-{% assign product_unit = translation.unit | default: baseProduct.unit %}
-{% assign product_ingredients = translation.ingredients | default: baseProduct.ingredients %}
-{% assign product_dietary = translation.dietary | default: baseProduct.dietary %}
-{% assign product_benefits = translation.benefits | default: baseProduct.benefits %}
-{% assign product_category = baseProduct.category %}
-{% case product_category %}
-  {% when 'Hot Sauces' %}
-    {% assign product_category = 'Salsas picantes' %}
-  {% when 'Granola & Crunch' %}
-    {% assign product_category = 'Granolas y crujientes' %}
-  {% when 'Wellness Pantry' %}
-    {% assign product_category = 'Despensa de bienestar' %}
-{% endcase %}
-{% assign product_heat = baseProduct.heatLevel %}
+{% set translations = collections.i18n[0].data.i18n %}
+{% set localeStrings = translations.es %}
+{% set productTranslations = translations.products.es %}
+{% set translation = productTranslations and productTranslations[baseProduct.id] %}
+{% set product_name = (translation and translation.name) or baseProduct.name %}
+{% set product_short = (translation and translation.shortDescription) or baseProduct.shortDescription %}
+{% set product_description = (translation and translation.description) or baseProduct.description %}
+{% set product_unit = (translation and translation.unit) or baseProduct.unit %}
+{% set product_ingredients = (translation and translation.ingredients) or baseProduct.ingredients %}
+{% set product_dietary = (translation and translation.dietary) or baseProduct.dietary %}
+{% set product_benefits = (translation and translation.benefits) or baseProduct.benefits %}
+{% set product_category = baseProduct.category %}
+{% if product_category == 'Hot Sauces' %}
+  {% set product_category = 'Salsas picantes' %}
+{% elif product_category == 'Granola & Crunch' %}
+  {% set product_category = 'Granolas y crujientes' %}
+{% elif product_category == 'Wellness Pantry' %}
+  {% set product_category = 'Despensa de bienestar' %}
+{% endif %}
+{% set product_heat = baseProduct.heatLevel %}
 
 <article class="product-detail">
   <header class="product-detail__header">

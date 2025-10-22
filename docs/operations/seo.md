@@ -12,6 +12,7 @@
 - Individual pages can set `title` and `description` in front matter.
 - The layout combines them as `{{ title }} · {{ siteMeta.title }}` and falls back to the global description.
 - Localized templates (e.g., files under `src/es/`) should include a language-specific `description` so Open Graph and Twitter cards match the locale.
+- Global fallbacks can also be localized by editing `src/_data/siteMeta.js` → `locales`. Spanish metadata (title, description) powers Open Graph/Twitter defaults and the Spanish web manifest.
 - Add `socialImage` in front matter if a page needs a unique preview image.
 
 ## Sitemap & Robots

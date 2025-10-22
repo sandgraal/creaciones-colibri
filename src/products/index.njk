@@ -40,7 +40,7 @@ localeLinks:
         <legend class="filter-group__title">Categories</legend>
         <div class="filter-list">
           {% for category in collections.productCategories %}
-            {% assign inputId = 'filter-category-' | append: category.slug %}
+            {% set inputId = 'filter-category-' ~ category.slug %}
             <label class="filter-chip" for="{{ inputId }}">
               <input
                 id="{{ inputId }}"
@@ -61,7 +61,7 @@ localeLinks:
         <legend class="filter-group__title">Dietary</legend>
         <div class="filter-list">
           {% for tag in collections.productDietaryTags %}
-            {% assign inputId = 'filter-dietary-' | append: tag.slug %}
+            {% set inputId = 'filter-dietary-' ~ tag.slug %}
             <label class="filter-chip" for="{{ inputId }}">
               <input
                 id="{{ inputId }}"
@@ -82,7 +82,7 @@ localeLinks:
         <legend class="filter-group__title">Benefits</legend>
         <div class="filter-list">
           {% for tag in collections.productBenefitTags %}
-            {% assign inputId = 'filter-benefit-' | append: tag.slug %}
+            {% set inputId = 'filter-benefit-' ~ tag.slug %}
             <label class="filter-chip" for="{{ inputId }}">
               <input
                 id="{{ inputId }}"

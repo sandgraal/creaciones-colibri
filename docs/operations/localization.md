@@ -27,6 +27,10 @@
 - `DEEPL_API_KEY`: API key for the DeepL translator (required when `TRANSLATION_PROVIDER=deepl`).
 - `DEEPL_SOURCE_LANG`: optional source language override (defaults to English when omitted).
 
+## Metadata & Manifests
+- Global metadata translations live in `src/_data/siteMeta.js` under the `locales` key. Update `locales.es.description` (and other locales) so Open Graph/Twitter tags inherit the right language.
+- The base layout automatically chooses the localized manifest: `/site.webmanifest` for the default locale and `/es/site.webmanifest` for Spanish. Update or add `{locale}/site.webmanifest.njk` when introducing new languages.
+
 ## Workflow Checklist
 - [ ] Translate homepage content (`src/es/index.njk`).
 - [ ] Duplicate additional pages (products, blog) as localization progresses.

@@ -1,48 +1,56 @@
 <!DOCTYPE html>
-{% assign defaultLocale = site.locale | default: 'en' %}
-{% assign currentLocale = locale | default: defaultLocale %}
-{% assign localePrefix = '' %}
+{% set defaultLocale = site.locale | default('en') %}
+{% set currentLocale = locale | default(defaultLocale) %}
+{% set localePrefix = '' %}
 {% if currentLocale != defaultLocale and currentLocale != 'en' %}
-  {% assign localePrefix = '/' | append: currentLocale %}
+  {% set localePrefix = '/' ~ currentLocale %}
 {% endif %}
-{% assign visionPath = localePrefix | append: '/#vision' %}
-{% assign newsletterPath = localePrefix | append: '/#newsletter' %}
+{% set visionPath = localePrefix ~ '/#vision' %}
+{% set newsletterPath = localePrefix ~ '/#newsletter' %}
 {% if currentLocale == 'es' %}
-  {% assign productsPath = '/es/productos/' %}
-  {% assign blogPath = '/es/blog/' %}
-  {% assign contactPath = '/es/contacto/' %}
-  {% assign navVisionLabel = 'Nuestra visión' %}
-  {% assign navProductsLabel = 'Productos' %}
-  {% assign navNewsletterLabel = 'Boletín' %}
-  {% assign navContactLabel = 'Contacto' %}
-  {% assign navBlogLabel = 'Blog' %}
-  {% assign cartLabel = 'Carrito' %}
+  {% set productsPath = '/es/productos/' %}
+  {% set blogPath = '/es/blog/' %}
+  {% set contactPath = '/es/contacto/' %}
+  {% set navVisionLabel = 'Nuestra visión' %}
+  {% set navProductsLabel = 'Productos' %}
+  {% set navNewsletterLabel = 'Boletín' %}
+  {% set navContactLabel = 'Contacto' %}
+  {% set navBlogLabel = 'Blog' %}
+  {% set cartLabel = 'Carrito' %}
 {% else %}
-  {% assign productsPath = '/products/' %}
-  {% assign blogPath = '/blog/' %}
-  {% assign contactPath = '/contact/' %}
-  {% assign navVisionLabel = 'Our Vision' %}
-  {% assign navProductsLabel = 'Products' %}
-  {% assign navNewsletterLabel = 'Stay in Touch' %}
-  {% assign navContactLabel = 'Contact' %}
-  {% assign navBlogLabel = 'Blog' %}
-  {% assign cartLabel = 'Cart' %}
+  {% set productsPath = '/products/' %}
+  {% set blogPath = '/blog/' %}
+  {% set contactPath = '/contact/' %}
+  {% set navVisionLabel = 'Our Vision' %}
+  {% set navProductsLabel = 'Products' %}
+  {% set navNewsletterLabel = 'Stay in Touch' %}
+  {% set navContactLabel = 'Contact' %}
+  {% set navBlogLabel = 'Blog' %}
+  {% set cartLabel = 'Cart' %}
 {% endif %}
-{% assign localeLinksMap = localeLinks %}
-{% assign siteMeta = siteMeta %}
-{% assign baseTitle = siteMeta.title | default: '' %}
-{% assign metaTitle = baseTitle %}
+{% set localeLinksMap = localeLinks %}
+{% set siteMeta = siteMeta %}
+{% set localizedMeta = siteMeta.locales and siteMeta.locales[currentLocale] %}
+{% if localizedMeta %}
+  {% set localizedTitle = localizedMeta.title or siteMeta.title or '' %}
+  {% set localizedDescription = localizedMeta.description or siteMeta.description %}
+{% else %}
+  {% set localizedTitle = siteMeta.title or '' %}
+  {% set localizedDescription = siteMeta.description %}
+{% endif %}
+{% set baseTitle = localizedTitle %}
+{% set metaTitle = baseTitle %}
 {% if title %}
   {% if baseTitle %}
-    {% assign metaTitle = title | append: ' · ' | append: baseTitle %}
+    {% set metaTitle = title ~ ' · ' ~ baseTitle %}
   {% else %}
-    {% assign metaTitle = title %}
+    {% set metaTitle = title %}
   {% endif %}
 {% endif %}
-{% assign metaDescription = description | default: siteMeta.description %}
-{% assign canonicalUrl = '' %}
+{% set metaDescription = description | default(localizedDescription) %}
+{% set canonicalUrl = '' %}
 {% if siteMeta.url %}
-  {% assign canonicalUrl = page.url | url | absoluteUrl(siteMeta.url) %}
+  {% set canonicalUrl = page.url | url | absoluteUrl(siteMeta.url) %}
 {% endif %}
 <html lang="{{ currentLocale }}">
   <head>
@@ -51,7 +59,7 @@
     <title>{{ metaTitle }}</title>
     <meta name="description" content="{{ metaDescription }}">
     <meta name="theme-color" content="#f16745">
-    <meta name="application-name" content="Creaciones Colibrí">
+    <meta name="application-name" content="{{ localizedTitle }}">
     {% if canonicalUrl %}
       <link rel="canonical" href="{{ canonicalUrl }}">
       <meta property="og:url" content="{{ canonicalUrl }}">
@@ -60,9 +68,9 @@
       <link rel="alternate" hreflang="x-default" href="{{ '/' | absoluteUrl(siteMeta.url) }}">
       {% for localeCode in site.alternateLocales %}
         {% if localeCode == site.locale or localeCode == 'en' %}
-          {% assign localePath = '/' %}
+          {% set localePath = '/' %}
         {% else %}
-          {% assign localePath = '/' | append: localeCode | append: '/' %}
+          {% set localePath = '/' ~ localeCode ~ '/' %}
         {% endif %}
         <link rel="alternate" hreflang="{{ localeCode }}" href="{{ localePath | absoluteUrl(siteMeta.url) }}">
       {% endfor %}
@@ -73,7 +81,7 @@
     {% endif %}
     <meta property="og:title" content="{{ metaTitle }}">
     <meta property="og:description" content="{{ metaDescription }}">
-    <meta property="og:site_name" content="{{ siteMeta.title }}">
+    <meta property="og:site_name" content="{{ localizedTitle }}">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="{{ ogLocale }}">
     {% if site.alternateLocales and site.alternateLocales | length %}
@@ -95,7 +103,11 @@
     <link rel="icon" type="image/svg+xml" href="{{ '/img/branding/creaciones-colibri-logo.svg' | url }}">
     <link rel="icon" type="image/svg+xml" sizes="any" href="{{ '/img/branding/maskable-icon.svg' | url }}">
     <link rel="apple-touch-icon" type="image/svg+xml" href="{{ '/img/branding/maskable-icon.svg' | url }}">
-    <link rel="manifest" href="{{ '/site.webmanifest' | url }}">
+    {% if currentLocale == 'es' %}
+      <link rel="manifest" href="{{ '/es/site.webmanifest' | url }}">
+    {% else %}
+      <link rel="manifest" href="{{ '/site.webmanifest' | url }}">
+    {% endif %}
     <link rel="mask-icon" href="{{ '/img/branding/maskable-icon.svg' | url }}" color="#f16745">
     <meta name="msapplication-TileColor" content="#f16745">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -130,7 +142,7 @@
         {% if site.alternateLocales and site.alternateLocales | length %}
           <div class="locale-switcher" role="navigation" aria-label="Language selector">
             {% for localeCode in site.alternateLocales %}
-              {% assign alternateHref = localeLinksMap[localeCode] %}
+              {% set alternateHref = localeLinksMap[localeCode] %}
               {% if localeCode != currentLocale and alternateHref %}
                 <a class="locale-switcher__link" href="{{ alternateHref | url }}" hreflang="{{ localeCode }}">{{ localeCode | upper }}</a>
               {% endif %}
@@ -149,8 +161,13 @@
       {{ content | safe }}
     </main>
     <footer class="site-footer">
-      <p>Crafted in Florida &amp; Costa Rica with love for the hummingbird and the people we serve.</p>
-      <p class="footer-note">© Creaciones Colibrí</p>
+      {% if currentLocale == 'es' %}
+        <p>Elaborado en Florida y Costa Rica con amor por el colibrí y la comunidad a la que servimos.</p>
+        <p class="footer-note">© {{ localizedTitle }}</p>
+      {% else %}
+        <p>Crafted in Florida &amp; Costa Rica with love for the hummingbird and the people we serve.</p>
+        <p class="footer-note">© {{ localizedTitle }}</p>
+      {% endif %}
     </footer>
     {% if search %}
       <script defer src="{{ '/js/vendor/fuse.min.js' | url }}"></script>
