@@ -56,6 +56,13 @@ eleventyComputed:
           Add to cart
         </button>
       </div>
+    {% else %}
+      <div class="product-detail__purchase product-detail__purchase--disabled" role="note">
+        <p class="product-detail__availability">
+          Online ordering is coming soon. Email us to reserve a batch or ask about availability.
+        </p>
+        <a class="button button-secondary" href="{{ '/contact/' | url }}">Contact us</a>
+      </div>
     {% endif %}
   </header>
 
