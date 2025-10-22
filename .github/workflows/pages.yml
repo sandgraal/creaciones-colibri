@@ -37,17 +37,10 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Build Pages artifact with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          source: ./_site-eleventy
-          destination: ./_site
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./_site
+          path: ./_site-eleventy
 
   deploy:
     name: Deploy to GitHub Pages
