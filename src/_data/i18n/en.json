@@ -40,6 +40,7 @@
     "nav": {
       "vision": "Our Vision",
       "products": "Products",
+      "bundles": "Bundles",
       "blog": "Blog",
       "newsletter": "Stay in Touch",
       "contact": "Contact"
@@ -57,5 +58,17 @@
     "localeSwitcher": {
       "ariaLabel": "Language selector"
     }
+  },
+  "bundles": {
+    "title": "Bundles & Subscriptions",
+    "intro": "Curated sets for gifting, self-care, and monthly rituals. Choose a bundle for one-time delivery or join a subscription to stay stocked.",
+    "bundlesHeading": "Curated bundles",
+    "subscriptionsHeading": "Subscriptions",
+    "bundleCta": "View details",
+    "subscriptionCta": "View subscription",
+    "subscriptionBadge": "Subscription",
+    "bundleContents": "What's inside",
+    "perks": "Why you'll love it",
+    "subscriptionBilling": "Billing cadence"
   }
 }

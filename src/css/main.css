@@ -979,6 +979,282 @@ body {
   text-transform: uppercase;
 }
 
+.bundle-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.bundle-section + .bundle-section {
+  margin-top: 1rem;
+}
+
+.bundle-section__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2rem);
+  color: var(--color-secondary);
+}
+
+.bundle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.bundle-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-medium);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bundle-card:hover,
+.bundle-card:focus-within {
+  transform: translateY(-4px);
+  box-shadow: 0 26px 46px rgba(31, 138, 112, 0.18);
+}
+
+.bundle-card__link {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  flex: 1;
+}
+
+.bundle-card__media {
+  position: relative;
+  width: 100%;
+  height: clamp(200px, 24vw, 240px);
+  background: rgba(31, 138, 112, 0.08);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(31, 138, 112, 0.08);
+  overflow: hidden;
+}
+
+.bundle-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bundle-card__badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: linear-gradient(135deg, rgba(31, 138, 112, 0.92), rgba(241, 103, 69, 0.92));
+  color: #ffffff;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  box-shadow: 0 12px 24px rgba(31, 138, 112, 0.18);
+}
+
+.bundle-card__content {
+  padding: clamp(1.5rem, 3vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.bundle-card__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+  color: var(--color-secondary);
+}
+
+.bundle-card__summary {
+  margin: 0;
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+.bundle-card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1.5rem 1.75rem;
+}
+
+.bundle-card__price {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  color: var(--color-primary-dark);
+  font-weight: 600;
+}
+
+.bundle-card__amount {
+  font-size: 1.2rem;
+}
+
+.bundle-card__unit {
+  font-size: 0.85rem;
+  color: rgba(47, 43, 40, 0.7);
+}
+
+.bundle-card__cta {
+  white-space: nowrap;
+}
+
+.bundle-detail {
+  background: var(--color-surface);
+  border-radius: var(--radius-large);
+  box-shadow: var(--shadow-soft);
+  padding: clamp(2rem, 5vw, 3.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.75rem, 4vw, 3rem);
+}
+
+.bundle-detail__header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.bundle-detail__back {
+  align-self: flex-start;
+  text-decoration: none;
+  font-size: 0.9rem;
+  color: var(--color-secondary);
+  font-weight: 600;
+}
+
+.bundle-detail__back:hover {
+  text-decoration: underline;
+}
+
+.bundle-detail__back:focus-visible {
+  text-decoration: underline;
+  outline: 3px solid rgba(31, 138, 112, 0.35);
+  outline-offset: 4px;
+}
+
+.bundle-detail__summary {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.bundle-detail__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  font-weight: 600;
+}
+
+.bundle-detail__billing {
+  background: rgba(31, 138, 112, 0.12);
+  color: var(--color-secondary);
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.bundle-detail__purchase {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.bundle-detail__purchase--info {
+  background: rgba(31, 138, 112, 0.08);
+  border-radius: var(--radius-medium);
+  padding: 1rem 1.25rem;
+  color: rgba(47, 43, 40, 0.85);
+  line-height: 1.6;
+}
+
+.bundle-detail__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.bundle-detail__figure {
+  margin: 0;
+  background: rgba(241, 103, 69, 0.08);
+  border-radius: var(--radius-medium);
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bundle-detail__figure img {
+  width: 100%;
+  max-width: 360px;
+  object-fit: cover;
+}
+
+.bundle-detail__content h2,
+.bundle-detail__content h3 {
+  font-family: var(--font-display);
+  color: var(--color-secondary);
+}
+
+.bundle-detail__content p {
+  color: var(--color-muted);
+  line-height: 1.7;
+}
+
+.bundle-detail__list {
+  padding-left: 1.25rem;
+  margin: 0 0 1.25rem;
+}
+
+.bundle-detail__list li {
+  margin-bottom: 0.5rem;
+}
+
+.bundle-detail__item-name {
+  font-weight: 600;
+}
+
+.bundle-detail__item-unit {
+  margin-left: 0.35rem;
+  color: rgba(47, 43, 40, 0.7);
+  font-size: 0.9rem;
+}
+
+.bundle-detail__item-notes {
+  display: block;
+  font-size: 0.85rem;
+  color: rgba(47, 43, 40, 0.7);
+  margin-top: 0.2rem;
+}
+
+.bundle-detail__perks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.bundle-detail__perks li {
+  background: rgba(247, 186, 42, 0.16);
+  border-radius: var(--radius-small);
+  padding: 0.75rem 1rem;
+  color: rgba(47, 43, 40, 0.9);
+  font-weight: 500;
+}
+
 .post-grid {
   display: grid;
   gap: clamp(1.5rem, 3vw, 2.5rem);
@@ -1115,6 +1391,30 @@ body {
 
   .product-detail__quantity {
     width: 100%;
+  }
+
+  .bundle-card__footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .bundle-card__cta {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .bundle-detail__body {
+    grid-template-columns: 1fr;
+  }
+
+  .bundle-detail__figure {
+    padding: 1rem;
+  }
+
+  .bundle-detail__purchase {
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .search-panel__input-group {

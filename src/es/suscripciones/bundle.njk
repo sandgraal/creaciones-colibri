@@ -1,0 +1,102 @@
+---
+layout: layouts/base.njk
+locale: es
+pagination:
+  data: bundles
+  size: 1
+  alias: baseBundle
+permalink: "es/suscripciones/{{ baseBundle.id }}/"
+eleventyComputed:
+  localeLinks:
+    en: "/bundles/{{ baseBundle.id }}/"
+---
+
+{% set currentLocale = 'es' %}
+{% set translations = collections.i18n and collections.i18n[0].data.i18n %}
+{% set bundleStrings = translations and translations['es'] and translations['es'].bundles %}
+{% set fallbackBundleStrings = translations and translations['en'] and translations['en'].bundles %}
+{% set strings = bundleStrings or fallbackBundleStrings %}
+{% set bundleTranslation = baseBundle.translations and baseBundle.translations['es'] %}
+{% set productTranslations = translations and translations.products and translations.products['es'] %}
+{% set bundleName = bundleTranslation and bundleTranslation.name or baseBundle.name %}
+{% set bundleSummary = bundleTranslation and bundleTranslation.shortDescription or baseBundle.shortDescription %}
+{% set bundleDescription = bundleTranslation and bundleTranslation.description or baseBundle.description %}
+{% set bundleUnit = bundleTranslation and bundleTranslation.unit or baseBundle.unit %}
+{% set bundlePerks = bundleTranslation and bundleTranslation.perks or baseBundle.perks %}
+
+<article class="bundle-detail">
+  <header class="bundle-detail__header">
+    <a class="bundle-detail__back" href="{{ '/es/suscripciones/' | url }}">← {{ 'Volver a combos' }}</a>
+    <h1>{{ bundleName }}</h1>
+    <p class="bundle-detail__summary">{{ bundleSummary }}</p>
+    <div class="bundle-detail__meta">
+      <span class="bundle-detail__price">${{ baseBundle.price }} <small>{{ bundleUnit }}</small></span>
+      {% if baseBundle.type == 'subscription' and baseBundle.billing %}
+        <span class="bundle-detail__billing">{{ strings.subscriptionBilling if strings else 'Frecuencia de cobro' }}: {{ baseBundle.billing.intervalCount }} {{ baseBundle.billing.interval }}</span>
+      {% endif %}
+    </div>
+    {% if baseBundle.type == 'bundle' and site.snipcart.publicKey %}
+      <div class="bundle-detail__purchase">
+        <button
+          class="button button-primary bundle-detail__cart snipcart-add-item"
+          type="button"
+          data-item-id="bundle-{{ baseBundle.id }}"
+          data-item-name="{{ bundleName }}"
+          data-item-price="{{ baseBundle.price }}"
+          data-item-url="{{ page.url | url }}"
+          data-item-description="{{ bundleSummary }}"
+          data-item-image="{{ baseBundle.image.src | url }}">
+          Agregar al carrito
+        </button>
+      </div>
+    {% elseif baseBundle.type == 'subscription' %}
+      <div class="bundle-detail__purchase bundle-detail__purchase--info">
+        <p>Estamos finalizando la facturación automática vía Snipcart. Escríbenos para unirte: <a href="mailto:hola@creacionescolibri.com?subject={{ bundleName | urlencode }}">hola@creacionescolibri.com</a></p>
+      </div>
+    {% endif %}
+  </header>
+
+  <div class="bundle-detail__body">
+    <figure class="bundle-detail__figure">
+      <img src="{{ baseBundle.image.src | url }}" alt="{{ baseBundle.image.alt }}" loading="lazy" decoding="async">
+    </figure>
+    <section class="bundle-detail__content">
+      <h2>Descripción</h2>
+      <p>{{ bundleDescription }}</p>
+
+      {% if baseBundle.contents and baseBundle.contents | length %}
+        <h3>{{ strings.bundleContents if strings else 'Qué incluye' }}</h3>
+        <ul class="bundle-detail__list">
+          {% for item in baseBundle.contents %}
+            {% set product = item.product %}
+            {% set productTranslation = productTranslations and productTranslations[item.productId] %}
+            {% set productName = productTranslation and productTranslation.name or (product and product.name) or item.name %}
+            {% set quantityLabel = '' %}
+            {% if item.quantity > 1 %}
+              {% set quantityLabel = item.quantity ~ '× ' %}
+            {% endif %}
+            {% set itemUnit = productTranslation and productTranslation.unit or (product and product.unit) or item.unit %}
+            <li>
+              <span class="bundle-detail__item-name">{{ quantityLabel }}{{ productName }}</span>
+              {% if itemUnit %}
+                <span class="bundle-detail__item-unit">{{ itemUnit }}</span>
+              {% endif %}
+              {% if item.notes %}
+                <span class="bundle-detail__item-notes">{{ item.notes }}</span>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% if bundlePerks and bundlePerks | length %}
+        <h3>{{ strings.perks if strings else 'Por qué te encantará' }}</h3>
+        <ul class="bundle-detail__perks">
+          {% for perk in bundlePerks %}
+            <li>{{ perk }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </section>
+  </div>
+</article>

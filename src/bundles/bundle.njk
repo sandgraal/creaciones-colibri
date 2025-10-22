@@ -1,0 +1,114 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: bundles
+  size: 1
+  alias: bundle
+permalink: "bundles/{{ bundle.id }}/"
+eleventyComputed:
+  title: "{{ (bundle.translations and bundle.translations[locale] and bundle.translations[locale].name) or bundle.name }}"
+  tags: ["bundle", "{{ bundle.type }}"]
+  localeLinks:
+    es: "/es/suscripciones/{{ bundle.id }}/"
+---
+
+{% set currentLocale = locale or site.locale or 'en' %}
+{% set translations = collections.i18n and collections.i18n[0].data.i18n %}
+{% set bundleStrings = translations and translations[currentLocale] and translations[currentLocale].bundles %}
+{% set fallbackBundleStrings = translations and translations['en'] and translations['en'].bundles %}
+{% set strings = bundleStrings or fallbackBundleStrings %}
+{% set bundleTranslation = bundle.translations and bundle.translations[currentLocale] %}
+{% set productTranslations = translations and translations.products and translations.products[currentLocale] %}
+{% set bundleName = bundleTranslation and bundleTranslation.name or bundle.name %}
+{% set bundleSummary = bundleTranslation and bundleTranslation.shortDescription or bundle.shortDescription %}
+{% set bundleDescription = bundleTranslation and bundleTranslation.description or bundle.description %}
+{% set bundleUnit = bundleTranslation and bundleTranslation.unit or bundle.unit %}
+{% set bundlePerks = bundleTranslation and bundleTranslation.perks or bundle.perks %}
+{% if currentLocale == 'es' %}
+  {% set backLabel = 'Volver a combos' %}
+  {% set backPath = '/es/suscripciones/' %}
+  {% set addToCartLabel = 'Agregar al carrito' %}
+  {% set subscriptionInfoText = 'Próximamente habilitaremos la suscripción automática via Snipcart. Mientras tanto, escríbenos para unirte:' %}
+{% else %}
+  {% set backLabel = 'Back to bundles' %}
+  {% set backPath = '/bundles/' %}
+  {% set addToCartLabel = 'Add to cart' %}
+  {% set subscriptionInfoText = 'We are finalizing automatic billing via Snipcart. Email us to join the subscription:' %}
+{% endif %}
+
+<article class="bundle-detail">
+  <header class="bundle-detail__header">
+    <a class="bundle-detail__back" href="{{ backPath | url }}">← {{ backLabel }}</a>
+    <h1>{{ bundleName }}</h1>
+    <p class="bundle-detail__summary">{{ bundleSummary }}</p>
+    <div class="bundle-detail__meta">
+      <span class="bundle-detail__price">${{ bundle.price }} <small>{{ bundleUnit }}</small></span>
+      {% if bundle.type == 'subscription' and bundle.billing %}
+        <span class="bundle-detail__billing">{{ strings.subscriptionBilling if strings else ('Frecuencia de cobro' if currentLocale == 'es' else 'Billing cadence') }}: {{ bundle.billing.intervalCount }} {{ bundle.billing.interval }}</span>
+      {% endif %}
+    </div>
+    {% if bundle.type == 'bundle' and site.snipcart.publicKey %}
+      <div class="bundle-detail__purchase">
+        <button
+          class="button button-primary bundle-detail__cart snipcart-add-item"
+          type="button"
+          data-item-id="bundle-{{ bundle.id }}"
+          data-item-name="{{ bundleName }}"
+          data-item-price="{{ bundle.price }}"
+          data-item-url="{{ page.url | url }}"
+          data-item-description="{{ bundleSummary }}"
+          data-item-image="{{ bundle.image.src | url }}">
+          {{ addToCartLabel }}
+        </button>
+      </div>
+    {% elseif bundle.type == 'subscription' %}
+      <div class="bundle-detail__purchase bundle-detail__purchase--info">
+        <p>{{ subscriptionInfoText }} <a href="mailto:hola@creacionescolibri.com?subject={{ bundleName | urlencode }}">hola@creacionescolibri.com</a></p>
+      </div>
+    {% endif %}
+  </header>
+
+  <div class="bundle-detail__body">
+    <figure class="bundle-detail__figure">
+      <img src="{{ bundle.image.src | url }}" alt="{{ bundle.image.alt }}" loading="lazy" decoding="async">
+    </figure>
+    <section class="bundle-detail__content">
+      <h2>{{ 'Descripción' if currentLocale == 'es' else 'About this bundle' }}</h2>
+      <p>{{ bundleDescription }}</p>
+
+      {% if bundle.contents and bundle.contents | length %}
+        <h3>{{ strings.bundleContents if strings else ('Qué incluye' if currentLocale == 'es' else "What's inside") }}</h3>
+        <ul class="bundle-detail__list">
+          {% for item in bundle.contents %}
+            {% set product = item.product %}
+            {% set productTranslation = productTranslations and productTranslations[item.productId] %}
+            {% set productName = productTranslation and productTranslation.name or (product and product.name) or item.name %}
+            {% set quantityLabel = '' %}
+            {% if item.quantity > 1 %}
+              {% set quantityLabel = item.quantity ~ '× ' %}
+            {% endif %}
+            {% set itemUnit = productTranslation and productTranslation.unit or (product and product.unit) or item.unit %}
+            <li>
+              <span class="bundle-detail__item-name">{{ quantityLabel }}{{ productName }}</span>
+              {% if itemUnit %}
+                <span class="bundle-detail__item-unit">{{ itemUnit }}</span>
+              {% endif %}
+              {% if item.notes %}
+                <span class="bundle-detail__item-notes">{{ item.notes }}</span>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% if bundlePerks and bundlePerks | length %}
+        <h3>{{ strings.perks if strings else ('Por qué te encantará' if currentLocale == 'es' else "Why you'll love it") }}</h3>
+        <ul class="bundle-detail__perks">
+          {% for perk in bundlePerks %}
+            <li>{{ perk }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </section>
+  </div>
+</article>
