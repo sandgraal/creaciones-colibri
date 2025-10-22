@@ -6,10 +6,13 @@ localeLinks:
   en: /
 ---
 
-{% set translations = collections.i18n[0].data.i18n %}
-{% set t = translations.es %}
-{% set catalogData = catalog.catalog or catalog %}
-{% set categories = catalogData.categories or [] %}
+{% assign translations = collections.i18n[0].data.i18n %}
+{% assign t = translations.es %}
+{% assign catalogData = catalog.catalog %}
+{% if catalogData == nil %}
+  {% assign catalogData = catalog %}
+{% endif %}
+{% assign categories = catalogData.categories %}
 
 <section class="hero">
   <div class="hero-media">
@@ -31,17 +34,20 @@ localeLinks:
 </section>
 
 <section id="catalogo" class="content-section content-grid">
-  {% for category in categories %}
-    {% set categoryAnchor = category.slug or category.id %}
-    {% set firstProduct = category.products | first %}
-    <article class="card">
-      <h3>{{ category.name }}</h3>
-      {% if firstProduct %}
-        <p>{{ firstProduct.shortDescription }}</p>
-      {% endif %}
-      <a class="button button-secondary" href="{{ '/es/productos/#categoria-' ~ categoryAnchor | url }}">Ver {{ category.name | lower }}</a>
-    </article>
-  {% endfor %}
+  {% if categories and categories | size > 0 %}
+    {% for category in categories %}
+      {% assign categoryAnchor = category.slug | default: category.id %}
+      {% assign firstProduct = category.products | first %}
+      {% assign categoryLink = '/es/productos/#categoria-' | append: categoryAnchor %}
+      <article class="card">
+        <h3>{{ category.name }}</h3>
+        {% if firstProduct %}
+          <p>{{ firstProduct.shortDescription }}</p>
+        {% endif %}
+        <a class="button button-secondary" href="{{ categoryLink | url }}">Ver {{ category.name | lower }}</a>
+      </article>
+    {% endfor %}
+  {% endif %}
 </section>
 
 <section id="newsletter" class="content-section newsletter">
