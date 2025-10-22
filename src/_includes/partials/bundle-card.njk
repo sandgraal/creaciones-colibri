@@ -1,0 +1,62 @@
+{% set currentLocale = bundleLocale or locale or 'en' %}
+{% set translation = bundle.translations and bundle.translations[currentLocale] %}
+{% set cardName = translation and translation.name or bundle.name %}
+{% set cardSummary = translation and translation.shortDescription or bundle.shortDescription %}
+{% set cardUnit = translation and translation.unit or bundle.unit %}
+{% set bundleUrl = bundle.url or '/bundles/' ~ bundle.id ~ '/' %}
+{% set uiStrings = collections.i18n and collections.i18n[0].data.i18n %}
+{% set bundleStrings = uiStrings and uiStrings[currentLocale] and uiStrings[currentLocale].bundles %}
+{% set fallbackBundleStrings = uiStrings and uiStrings['en'] and uiStrings['en'].bundles %}
+{% set strings = bundleStrings or fallbackBundleStrings %}
+{% set bundleCta = null %}
+{% if strings %}
+  {% if bundle.type == 'subscription' %}
+    {% set bundleCta = strings.subscriptionCta %}
+  {% else %}
+    {% set bundleCta = strings.bundleCta %}
+  {% endif %}
+{% endif %}
+{% if not bundleCta %}
+  {% if bundle.type == 'subscription' %}
+    {% if currentLocale == 'es' %}
+      {% set bundleCta = 'Ver suscripción' %}
+    {% else %}
+      {% set bundleCta = 'View subscription' %}
+    {% endif %}
+  {% else %}
+    {% if currentLocale == 'es' %}
+      {% set bundleCta = 'Ver detalles' %}
+    {% else %}
+      {% set bundleCta = 'View details' %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+{% set badgeLabel = strings and strings.subscriptionBadge %}
+{% if not badgeLabel %}
+  {% if currentLocale == 'es' %}
+    {% set badgeLabel = 'Suscripción' %}
+  {% else %}
+    {% set badgeLabel = 'Subscription' %}
+  {% endif %}
+{% endif %}
+<article class="bundle-card bundle-card--{{ bundle.type }}">
+  <a class="bundle-card__link" href="{{ bundleUrl | url }}">
+    <div class="bundle-card__media">
+      <img src="{{ bundle.image.src | url }}" alt="{{ bundle.image.alt }}">
+      {% if bundle.type == 'subscription' %}
+        <span class="bundle-card__badge">{{ badgeLabel }}</span>
+      {% endif %}
+    </div>
+    <div class="bundle-card__content">
+      <h3 class="bundle-card__title">{{ cardName }}</h3>
+      <p class="bundle-card__summary">{{ cardSummary }}</p>
+    </div>
+  </a>
+  <div class="bundle-card__footer">
+    <div class="bundle-card__price">
+      <span class="bundle-card__amount">${{ bundle.price }}</span>
+      <span class="bundle-card__unit">{{ cardUnit }}</span>
+    </div>
+    <a class="button button-secondary bundle-card__cta" href="{{ bundleUrl | url }}">{{ bundleCta }}</a>
+  </div>
+</article>

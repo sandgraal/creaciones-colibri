@@ -40,6 +40,7 @@
     "nav": {
       "vision": "Nuestra visión",
       "products": "Productos",
+      "bundles": "Suscripciones",
       "blog": "Blog",
       "newsletter": "Boletín",
       "contact": "Contacto"
@@ -57,5 +58,17 @@
     "localeSwitcher": {
       "ariaLabel": "Selector de idioma"
     }
+  },
+  "bundles": {
+    "title": "Combos y suscripciones",
+    "intro": "Sets curados para regalar, cuidarte y mantener rituales mensuales. Elige un combo para una entrega única o suscríbete para no quedarte sin existencias.",
+    "bundlesHeading": "Combos curados",
+    "subscriptionsHeading": "Suscripciones",
+    "bundleCta": "Ver detalles",
+    "subscriptionCta": "Ver suscripción",
+    "subscriptionBadge": "Suscripción",
+    "bundleContents": "Qué incluye",
+    "perks": "Por qué te encantará",
+    "subscriptionBilling": "Frecuencia de cobro"
   }
 }

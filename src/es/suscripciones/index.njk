@@ -1,0 +1,46 @@
+---
+layout: layouts/base.njk
+title: Combos y suscripciones
+description: Combos curados y planes mensuales de Creaciones Colibrí para regalar, nutrirte y mantener tu despensa vibrante.
+locale: es
+localeLinks:
+  en: /bundles/
+---
+
+{% set currentLocale = 'es' %}
+{% set translations = collections.i18n and collections.i18n[0].data.i18n %}
+{% set bundleStrings = translations and translations[currentLocale] and translations[currentLocale].bundles %}
+{% set fallbackBundleStrings = translations and translations['en'] and translations['en'].bundles %}
+{% set strings = bundleStrings or fallbackBundleStrings %}
+{% set bundleCollectionsData = bundleCollections or { curated: [], subscriptions: [] } %}
+{% set curatedBundles = bundleCollectionsData.curated %}
+{% set subscriptionBundles = bundleCollectionsData.subscriptions %}
+
+<section class="page-intro">
+  <h1 class="page-title">{{ strings.title if strings else 'Combos y suscripciones' }}</h1>
+  <p class="page-subtitle">{{ strings.intro if strings else 'Sets curados para regalar, cuidarte y mantener rituales mensuales.' }}</p>
+</section>
+
+{% if curatedBundles and curatedBundles | length %}
+  <section class="bundle-section">
+    <h2 class="bundle-section__title">{{ strings.bundlesHeading if strings else 'Combos curados' }}</h2>
+    <div class="bundle-grid">
+      {% for bundle in curatedBundles %}
+        {% set bundleLocale = currentLocale %}
+        {% include "partials/bundle-card.njk" %}
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}
+
+{% if subscriptionBundles and subscriptionBundles | length %}
+  <section class="bundle-section bundle-section--subscriptions">
+    <h2 class="bundle-section__title">{{ strings.subscriptionsHeading if strings else 'Suscripciones' }}</h2>
+    <div class="bundle-grid">
+      {% for bundle in subscriptionBundles %}
+        {% set bundleLocale = currentLocale %}
+        {% include "partials/bundle-card.njk" %}
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}

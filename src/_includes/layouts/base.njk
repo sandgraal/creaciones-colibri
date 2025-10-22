@@ -73,6 +73,7 @@
 {% endif %}
 {% set navVisionLabel = navStrings.vision | default('Our Vision') %}
 {% set navProductsLabel = navStrings.products | default('Products') %}
+{% set navBundlesLabel = navStrings.bundles | default('Bundles') %}
 {% set navNewsletterLabel = navStrings.newsletter | default('Stay in Touch') %}
 {% set navContactLabel = navStrings.contact | default('Contact') %}
 {% set navBlogLabel = navStrings.blog | default('Blog') %}
@@ -83,10 +84,12 @@
 {% set localeSwitcherLabel = localeSwitcherStrings.ariaLabel | default('Language selector') %}
 {% if currentLocale == 'es' %}
   {% set productsPath = '/es/productos/' %}
+  {% set bundlesPath = '/es/suscripciones/' %}
   {% set blogPath = '/es/blog/' %}
   {% set contactPath = '/es/contacto/' %}
 {% else %}
   {% set productsPath = '/products/' %}
+  {% set bundlesPath = '/bundles/' %}
   {% set blogPath = '/blog/' %}
   {% set contactPath = '/contact/' %}
 {% endif %}
@@ -369,6 +372,7 @@
       <nav class="site-nav">
         <a class="nav-link" href="{{ visionPath | url }}">{{ navVisionLabel }}</a>
         <a class="nav-link" href="{{ productsPath | url }}">{{ navProductsLabel }}</a>
+        <a class="nav-link" href="{{ bundlesPath | url }}">{{ navBundlesLabel }}</a>
         <a class="nav-link" href="{{ blogPath | url }}">{{ navBlogLabel }}</a>
         <a class="nav-link" href="{{ newsletterPath | url }}">{{ navNewsletterLabel }}</a>
         <a class="nav-link" href="{{ contactPath | url }}">{{ navContactLabel }}</a>

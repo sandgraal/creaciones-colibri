@@ -41,6 +41,11 @@ const getProducts = () => {
   return require("./src/_data/products.js");
 };
 
+const getBundles = () => {
+  delete require.cache[require.resolve("./src/_data/bundles.js")];
+  return require("./src/_data/bundles.js");
+};
+
 const resolveFromRoot = relativePath => path.join(__dirname, relativePath);
 
 const loadProductTranslations = () => {
@@ -164,6 +169,17 @@ module.exports = function(eleventyConfig) {
       .sort((a, b) => a.localeCompare(b))
       .map(tag => ({ tag, slug: slugifyString(tag) }));
   });
+
+  eleventyConfig.addCollection("bundles", () =>
+    getBundles().map(bundle => ({
+      ...bundle,
+      url: `/bundles/${bundle.id}/`
+    }))
+  );
+
+  eleventyConfig.addCollection("bundleSubscriptions", () =>
+    getBundles().filter(bundle => bundle.type === "subscription")
+  );
 
   eleventyConfig.addCollection("i18n", () => [
     {
