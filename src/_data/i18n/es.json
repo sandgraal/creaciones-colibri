@@ -34,7 +34,26 @@
     "intro": "Estamos desarrollando nuevas recetas, recopilando historias de nuestros aliados y preparando el lanzamiento. Deja tu correo para enterarte primero.",
     "label": "Correo electrónico",
     "cta": "Avisarme",
+    "placeholderInput": "tú@ejemplo.com",
     "placeholder": "Pronto activaremos nuestro boletín. Por ahora escríbenos a <a href=\\\"mailto:hola@creacionescolibri.com\\\">hola@creacionescolibri.com</a>."
+  },
+  "catalogPage": {
+    "title": "Nuestra despensa",
+    "subtitle": "Selecciona tu categoría favorita o usa la búsqueda para encontrar sabores, ingredientes o beneficios en español.",
+    "search": {
+      "title": "Busca en la despensa",
+      "intro": "Descubre ingredientes, beneficios o productos específicos en español.",
+      "label": "Buscar productos",
+      "placeholder": "Prueba “jengibre”, “vegana” o “cacao”",
+      "clearLabel": "Limpiar",
+      "emptyMessage": "No encontramos productos con esos criterios. Ajusta los filtros o el término de búsqueda.",
+      "errorMessage": "La búsqueda no está disponible en este momento. Inténtalo más tarde."
+    },
+    "filters": {
+      "categories": "Categorías",
+      "dietary": "Dietas",
+      "benefits": "Beneficios"
+    }
   },
   "ui": {
     "nav": {
@@ -57,6 +76,12 @@
     },
     "localeSwitcher": {
       "ariaLabel": "Selector de idioma"
+    },
+    "productCard": {
+      "categoryLabel": "Categoría",
+      "dietaryLabel": "Dietas",
+      "addToCart": "Agregar al carrito",
+      "viewDetails": "Ver detalles"
     }
   },
   "bundles": {
