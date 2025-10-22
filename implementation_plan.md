@@ -11,14 +11,16 @@ _Status legend_
 
 ## Phase 1 — Foundation & Content (Week 1–2)
 
-- [ ] **Define product catalog**
+- [x] **Define product catalog**
+  - _(Complete: product data lives in `src/_data/products.js`, with imagery workflow in `docs/design/image-workflow.md` and shipping considerations covered in `docs/operations/shipping.md`.)_
   - [x] Collect and finalize the initial product list based on the categories described in the README (`src/_data/products.js`).
   - [x] Draft product copy: descriptions, ingredient lists, nutrition information, usage tips, and brand story.
   - [x] Organize product imagery in `src/img/` with descriptive filenames (SVG placeholders for now) and document workflow in `docs/design/image-workflow.md`.
   - [x] Capture pricing and packaging sizes in product data entries.
   - [x] Research shipping options (domestic vs. international) and compostable/regenerative packaging costs; document recommendations (`docs/operations/shipping.md`).
 
-- [ ] **Eleventy structure** _(in progress)_
+- [x] **Eleventy structure**
+  - _(Complete: base layout and templates implemented in `base.njk` and `src/_includes`, with listing/detail views wired to shared data.)_
   - [x] Create `src/_includes` for layouts/partials and establish a base layout (header, navigation, footer).
   - [x] Generate product listing and detail templates from shared data sources.
   - [x] Implement a blog section under `src/blog/` for storytelling, recipes, and market updates.
