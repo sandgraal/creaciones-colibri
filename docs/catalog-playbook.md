@@ -69,6 +69,6 @@ Before opening a PR:
   - `translations`: optional locale overrides (e.g., Spanish copy) using the same shape as the base fields.
 - Images for bundles live in `src/img/bundles/`. Follow the same SVG-first approach as products to keep the repo lightweight.
 - The listing page (`src/bundles/index.njk` and `src/es/suscripciones/index.njk`) and detail templates (`src/bundles/bundle.njk`, `src/es/suscripciones/bundle.njk`) pull directly from the data file. Update translations and perks whenever bundle contents change so both locales stay in sync.
-- Snipcart buttons automatically appear for `type: bundle` entries when `SNIPCART_PUBLIC_KEY` is configured. Subscription entries currently surface an email CTA until automated billing is wired up.
+- Snipcart buttons automatically appear for `type: bundle` entries when `SNIPCART_PUBLIC_KEY` is configured. Subscription entries now render Snipcart subscription buttons using their `billing.interval` and `billing.intervalCount`; include optional `billing.trialDays` if you plan to offer a trial. When Snipcart isn’t configured locally, templates still fall back to the email CTA so preview builds remain informative.
 
 Keeping this playbook current ensures new contributors can extend the catalog without reverse-engineering existing entries.
