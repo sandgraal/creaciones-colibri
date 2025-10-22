@@ -60,6 +60,7 @@ _Status legend_
 - [ ] **Localization**
   - [ ] Add Spanish translations for all content using Eleventy’s i18n plugin or custom data files. _(Home, catálogo, detalle de producto, blog y contacto listos; formularios y metadatos actualizados. Falta revisión nativa.)_
   - [x] Provide language toggle in navigation; ensure URLs and metadata localize correctly.
+  - [x] Sync Snipcart checkout UI language with the active locale.
   - [ ] Recruit native speakers to review translations for tone and accuracy.
 
 - [ ] **Subscriptions & bundles**

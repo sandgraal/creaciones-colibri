@@ -26,6 +26,8 @@
 - `TRANSLATION_PROVIDER`: which machine translation vendor to use (`deepl` supported today).
 - `DEEPL_API_KEY`: API key for the DeepL translator (required when `TRANSLATION_PROVIDER=deepl`).
 - `DEEPL_SOURCE_LANG`: optional source language override (defaults to English when omitted).
+- `SNIPCART_DEFAULT_LANGUAGE`: default language passed to Snipcart when a page locale does not have an explicit mapping. Use `auto` to keep Snipcart’s stock language.
+- `SNIPCART_LOCALE_MAP`: comma-separated list mapping Eleventy locales to Snipcart language codes (e.g., `es:es,fr:fr`). When omitted, Spanish storefronts automatically opt into Snipcart’s built-in `es` translations.
 
 ## Metadata & Manifests
 - Global metadata translations live in `src/_data/siteMeta.js` under the `locales` key. Update `locales.es.description` (and other locales) so Open Graph/Twitter tags inherit the right language.
@@ -36,3 +38,4 @@
 - [ ] Duplicate additional pages (products, blog) as localization progresses.
 - [ ] Update SEO metadata (language-specific title/description) when launching.
 - [ ] Review content with native speakers.
+- [ ] Confirm Snipcart adopts the right locale on each translated page (configure via `SNIPCART_LOCALE_MAP`).
