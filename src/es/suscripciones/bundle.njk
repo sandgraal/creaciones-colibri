@@ -13,6 +13,9 @@ eleventyComputed:
   description: >-
     {% set translation = baseBundle.translations and baseBundle.translations['es'] %}
     {{ (translation and translation.shortDescription) or baseBundle.shortDescription or baseBundle.description }}
+  tags:
+    - bundle
+    - "{{ baseBundle.type }}"
   localeLinks:
     en: "/bundles/{{ baseBundle.id }}/"
 ---
