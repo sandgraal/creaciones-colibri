@@ -83,6 +83,13 @@ eleventyComputed:
           Agregar al carrito
         </button>
       </div>
+    {% else %}
+      <div class="product-detail__purchase product-detail__purchase--disabled" role="note">
+        <p class="product-detail__availability">
+          Muy pronto habilitaremos la compra en línea. Escríbenos para reservar un lote o consultar disponibilidad.
+        </p>
+        <a class="button button-secondary" href="{{ '/es/contacto/' | url }}">Contáctanos</a>
+      </div>
     {% endif %}
   </header>
 
