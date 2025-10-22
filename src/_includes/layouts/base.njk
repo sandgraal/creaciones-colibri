@@ -1,48 +1,48 @@
 <!DOCTYPE html>
-{% set defaultLocale = site.locale or 'en' %}
-{% set currentLocale = locale or defaultLocale %}
-{% set localePrefix = '' %}
+{% assign defaultLocale = site.locale | default: 'en' %}
+{% assign currentLocale = locale | default: defaultLocale %}
+{% assign localePrefix = '' %}
 {% if currentLocale != defaultLocale and currentLocale != 'en' %}
-  {% set localePrefix = '/' ~ currentLocale %}
+  {% assign localePrefix = '/' | append: currentLocale %}
 {% endif %}
-{% set visionPath = (localePrefix ~ '/#vision') %}
-{% set newsletterPath = (localePrefix ~ '/#newsletter') %}
+{% assign visionPath = localePrefix | append: '/#vision' %}
+{% assign newsletterPath = localePrefix | append: '/#newsletter' %}
 {% if currentLocale == 'es' %}
-  {% set productsPath = '/es/productos/' %}
-  {% set blogPath = '/es/blog/' %}
-  {% set contactPath = '/es/contacto/' %}
-  {% set navVisionLabel = 'Nuestra visión' %}
-  {% set navProductsLabel = 'Productos' %}
-  {% set navNewsletterLabel = 'Boletín' %}
-  {% set navContactLabel = 'Contacto' %}
-  {% set navBlogLabel = 'Blog' %}
-  {% set cartLabel = 'Carrito' %}
+  {% assign productsPath = '/es/productos/' %}
+  {% assign blogPath = '/es/blog/' %}
+  {% assign contactPath = '/es/contacto/' %}
+  {% assign navVisionLabel = 'Nuestra visión' %}
+  {% assign navProductsLabel = 'Productos' %}
+  {% assign navNewsletterLabel = 'Boletín' %}
+  {% assign navContactLabel = 'Contacto' %}
+  {% assign navBlogLabel = 'Blog' %}
+  {% assign cartLabel = 'Carrito' %}
 {% else %}
-  {% set productsPath = '/products/' %}
-  {% set blogPath = '/blog/' %}
-  {% set contactPath = '/contact/' %}
-  {% set navVisionLabel = 'Our Vision' %}
-  {% set navProductsLabel = 'Products' %}
-  {% set navNewsletterLabel = 'Stay in Touch' %}
-  {% set navContactLabel = 'Contact' %}
-  {% set navBlogLabel = 'Blog' %}
-  {% set cartLabel = 'Cart' %}
+  {% assign productsPath = '/products/' %}
+  {% assign blogPath = '/blog/' %}
+  {% assign contactPath = '/contact/' %}
+  {% assign navVisionLabel = 'Our Vision' %}
+  {% assign navProductsLabel = 'Products' %}
+  {% assign navNewsletterLabel = 'Stay in Touch' %}
+  {% assign navContactLabel = 'Contact' %}
+  {% assign navBlogLabel = 'Blog' %}
+  {% assign cartLabel = 'Cart' %}
 {% endif %}
-{% set localeLinksMap = localeLinks or {} %}
-{% set siteMeta = siteMeta or {} %}
-{% set baseTitle = siteMeta.title or '' %}
-{% set metaTitle = baseTitle %}
+{% assign localeLinksMap = localeLinks %}
+{% assign siteMeta = siteMeta %}
+{% assign baseTitle = siteMeta.title | default: '' %}
+{% assign metaTitle = baseTitle %}
 {% if title %}
   {% if baseTitle %}
-    {% set metaTitle = title ~ ' · ' ~ baseTitle %}
+    {% assign metaTitle = title | append: ' · ' | append: baseTitle %}
   {% else %}
-    {% set metaTitle = title %}
+    {% assign metaTitle = title %}
   {% endif %}
 {% endif %}
-{% set metaDescription = description or siteMeta.description %}
-{% set canonicalUrl = '' %}
+{% assign metaDescription = description | default: siteMeta.description %}
+{% assign canonicalUrl = '' %}
 {% if siteMeta.url %}
-  {% set canonicalUrl = page.url | url | absoluteUrl(siteMeta.url) %}
+  {% assign canonicalUrl = page.url | url | absoluteUrl(siteMeta.url) %}
 {% endif %}
 <html lang="{{ currentLocale }}">
   <head>
@@ -58,9 +58,9 @@
       <link rel="alternate" hreflang="x-default" href="{{ '/' | absoluteUrl(siteMeta.url) }}">
       {% for localeCode in site.alternateLocales %}
         {% if localeCode == site.locale or localeCode == 'en' %}
-          {% set localePath = '/' %}
+          {% assign localePath = '/' %}
         {% else %}
-          {% set localePath = '/' ~ localeCode ~ '/' %}
+          {% assign localePath = '/' | append: localeCode | append: '/' %}
         {% endif %}
         <link rel="alternate" hreflang="{{ localeCode }}" href="{{ localePath | absoluteUrl(siteMeta.url) }}">
       {% endfor %}
@@ -102,7 +102,7 @@
         {% if site.alternateLocales and site.alternateLocales | length %}
           <div class="locale-switcher" role="navigation" aria-label="Language selector">
             {% for localeCode in site.alternateLocales %}
-              {% set alternateHref = localeLinksMap[localeCode] %}
+              {% assign alternateHref = localeLinksMap[localeCode] %}
               {% if localeCode != currentLocale and alternateHref %}
                 <a class="locale-switcher__link" href="{{ alternateHref | url }}" hreflang="{{ localeCode }}">{{ localeCode | upper }}</a>
               {% endif %}

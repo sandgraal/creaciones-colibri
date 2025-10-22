@@ -11,24 +11,27 @@ eleventyComputed:
     en: "/products/{{ baseProduct.id }}/"
 ---
 
-{% set translations = collections.i18n[0].data.i18n %}
-{% set localeStrings = translations.es %}
-{% set productTranslations = translations.products.es %}
-{% set translation = productTranslations[baseProduct.id] or {} %}
-{% set product_name = translation.name or baseProduct.name %}
-{% set product_short = translation.shortDescription or baseProduct.shortDescription %}
-{% set product_description = translation.description or baseProduct.description %}
-{% set product_unit = translation.unit or baseProduct.unit %}
-{% set product_ingredients = translation.ingredients or baseProduct.ingredients %}
-{% set product_dietary = translation.dietary or baseProduct.dietary %}
-{% set product_benefits = translation.benefits or baseProduct.benefits %}
-{% set categoryLabels = {
-  'Hot Sauces': 'Salsas picantes',
-  'Granola & Crunch': 'Granolas y crujientes',
-  'Wellness Pantry': 'Despensa de bienestar'
-} %}
-{% set product_category = categoryLabels[baseProduct.category] or baseProduct.category %}
-{% set product_heat = baseProduct.heatLevel %}
+{% assign translations = collections.i18n[0].data.i18n %}
+{% assign localeStrings = translations.es %}
+{% assign productTranslations = translations.products.es %}
+{% assign translation = productTranslations[baseProduct.id] %}
+{% assign product_name = translation.name | default: baseProduct.name %}
+{% assign product_short = translation.shortDescription | default: baseProduct.shortDescription %}
+{% assign product_description = translation.description | default: baseProduct.description %}
+{% assign product_unit = translation.unit | default: baseProduct.unit %}
+{% assign product_ingredients = translation.ingredients | default: baseProduct.ingredients %}
+{% assign product_dietary = translation.dietary | default: baseProduct.dietary %}
+{% assign product_benefits = translation.benefits | default: baseProduct.benefits %}
+{% assign product_category = baseProduct.category %}
+{% case product_category %}
+  {% when 'Hot Sauces' %}
+    {% assign product_category = 'Salsas picantes' %}
+  {% when 'Granola & Crunch' %}
+    {% assign product_category = 'Granolas y crujientes' %}
+  {% when 'Wellness Pantry' %}
+    {% assign product_category = 'Despensa de bienestar' %}
+{% endcase %}
+{% assign product_heat = baseProduct.heatLevel %}
 
 <article class="product-detail">
   <header class="product-detail__header">
@@ -38,7 +41,7 @@ eleventyComputed:
     <div class="product-detail__meta">
       <span class="product-detail__price">${{ baseProduct.price }} <small>{{ product_unit }}</small></span>
       <span class="product-detail__category">{{ product_category }}</span>
-      {% if product_heat is defined %}
+      {% if product_heat != nil %}
         <span class="product-detail__heat">Picor: {{ product_heat }}/5</span>
       {% endif %}
     </div>

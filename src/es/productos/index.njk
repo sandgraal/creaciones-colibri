@@ -7,12 +7,15 @@ localeLinks:
   en: /products/
 ---
 
-{% set translations = collections.i18n[0].data.i18n %}
-{% set t = translations.es %}
-{% set catalogData = catalog.catalog or catalog %}
-{% set categories = catalogData.categories or [] %}
-{% set dietaryTags = catalogData.dietaryTags or [] %}
-{% set benefitTags = catalogData.benefitTags or [] %}
+{% assign translations = collections.i18n[0].data.i18n %}
+{% assign t = translations.es %}
+{% assign catalogData = catalog.catalog %}
+{% if catalogData == nil %}
+  {% assign catalogData = catalog %}
+{% endif %}
+{% assign categories = catalogData.categories %}
+{% assign dietaryTags = catalogData.dietaryTags %}
+{% assign benefitTags = catalogData.benefitTags %}
 
 <section class="page-intro">
   <h1 class="page-title">Nuestra despensa</h1>
@@ -45,13 +48,13 @@ localeLinks:
     </div>
   </div>
   <div class="search-filters">
-    {% if categories | length %}
+    {% if categories and categories | size > 0 %}
       <fieldset class="filter-group">
         <legend class="filter-group__title">Categorías</legend>
         <div class="filter-list">
           {% for category in categories %}
-            {% set categorySlug = category.slug or category.id %}
-            {% set inputId = 'filtro-categoria-' ~ categorySlug %}
+            {% assign categorySlug = category.slug | default: category.id %}
+            {% assign inputId = 'filtro-categoria-' | append: categorySlug %}
             <label class="filter-chip" for="{{ inputId }}">
               <input
                 id="{{ inputId }}"
@@ -67,12 +70,12 @@ localeLinks:
       </fieldset>
     {% endif %}
 
-    {% if dietaryTags | length %}
+    {% if dietaryTags and dietaryTags | size > 0 %}
       <fieldset class="filter-group">
         <legend class="filter-group__title">Dietas</legend>
         <div class="filter-list">
           {% for tag in dietaryTags %}
-            {% set inputId = 'filtro-dieta-' ~ tag.slug %}
+            {% assign inputId = 'filtro-dieta-' | append: tag.slug %}
             <label class="filter-chip" for="{{ inputId }}">
               <input
                 id="{{ inputId }}"
@@ -88,12 +91,12 @@ localeLinks:
       </fieldset>
     {% endif %}
 
-    {% if benefitTags | length %}
+    {% if benefitTags and benefitTags | size > 0 %}
       <fieldset class="filter-group">
         <legend class="filter-group__title">Beneficios</legend>
         <div class="filter-list">
           {% for tag in benefitTags %}
-            {% set inputId = 'filtro-beneficio-' ~ tag.slug %}
+            {% assign inputId = 'filtro-beneficio-' | append: tag.slug %}
             <label class="filter-chip" for="{{ inputId }}">
               <input
                 id="{{ inputId }}"
@@ -112,33 +115,37 @@ localeLinks:
   <div class="search-results" data-search-results></div>
 </section>
 
-{% for category in categories %}
-  {% set categorySlug = category.slug or category.id %}
-  <section class="product-category" id="categoria-{{ categorySlug }}">
-    <div class="product-category__headline">
-      <h2>{{ category.name }}</h2>
-    </div>
-    <div class="product-grid">
-      {% for product in category.products %}
-        <article class="product-card">
-          <a class="product-card__link" href="{{ product.url | default('/es/productos/' ~ product.id ~ '/') | url }}">
-            <div class="product-card__media">
-              <img src="{{ product.image.src | url }}" alt="{{ product.image.alt }}">
-            </div>
-            <div class="product-card__content">
-              <h3 class="product-card__title">{{ product.name }}</h3>
-              <p class="product-card__summary">{{ product.shortDescription }}</p>
-            </div>
-          </a>
-          <div class="product-card__footer">
-            <div class="product-card__price">
-              <span class="product-card__amount">${{ product.price }}</span>
-              <span class="product-card__unit">{{ product.unit }}</span>
-            </div>
-            <a class="button button-secondary product-card__cart" href="{{ product.url | default('/es/productos/' ~ product.id ~ '/') | url }}">Ver detalles</a>
-          </div>
-        </article>
-      {% endfor %}
-    </div>
-  </section>
-{% endfor %}
+  {% if categories and categories | size > 0 %}
+    {% for category in categories %}
+      {% assign categorySlug = category.slug | default: category.id %}
+      <section class="product-category" id="categoria-{{ categorySlug }}">
+        <div class="product-category__headline">
+          <h2>{{ category.name }}</h2>
+        </div>
+        <div class="product-grid">
+          {% for product in category.products %}
+            {% assign fallbackUrl = '/es/productos/' | append: product.id | append: '/' %}
+            {% assign productUrl = product.url | default: fallbackUrl %}
+            <article class="product-card">
+              <a class="product-card__link" href="{{ productUrl | url }}">
+                <div class="product-card__media">
+                  <img src="{{ product.image.src | url }}" alt="{{ product.image.alt }}">
+                </div>
+                <div class="product-card__content">
+                  <h3 class="product-card__title">{{ product.name }}</h3>
+                  <p class="product-card__summary">{{ product.shortDescription }}</p>
+                </div>
+              </a>
+              <div class="product-card__footer">
+                <div class="product-card__price">
+                  <span class="product-card__amount">${{ product.price }}</span>
+                  <span class="product-card__unit">{{ product.unit }}</span>
+                </div>
+                <a class="button button-secondary product-card__cart" href="{{ productUrl | url }}">Ver detalles</a>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      </section>
+    {% endfor %}
+  {% endif %}
