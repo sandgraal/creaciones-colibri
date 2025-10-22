@@ -28,4 +28,4 @@ This plan outlines how we will introduce privacy-friendly analytics and basic mo
 - [ ] Create Plausible account and site (owner).
 - [ ] Add `PLAUSIBLE_DOMAIN` to production `.env` once domain is finalized.
 - [ ] Configure optional goals/webhooks.
-- [ ] Review and finalize the privacy policy in `docs/legal/privacy.md` before launch.
+- [x] Review and finalize the privacy policy in `docs/legal/privacy.md` before launch (published at `/privacy/` and `/es/privacidad/`).

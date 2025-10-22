@@ -1,8 +1,8 @@
-# Privacy Policy Draft
+# Privacy Policy
 
-_Last updated: 2024-07-__ (replace with go-live date)_
+_Last updated: 22 October 2025_
 
-Creaciones Colibrí respects your privacy. This draft outlines the data we collect and how we handle it once analytics and forms are live. Update before launch and review with legal counsel as needed.
+Creaciones Colibrí respects your privacy. This document mirrors the customer-facing policy published at `/privacy/` (English) and `/es/privacidad/` (Spanish). Review it with legal counsel before launch and whenever new tools or data flows are introduced.
 
 ## 1. Information We Collect
 
@@ -63,4 +63,4 @@ Questions? Email `hola@creacionescolibri.com` or write to our registered busines
 
 ---
 
-_This draft is a starting point. Obtain legal review before publishing._
+_This policy is a starting point. Obtain legal review before publishing or making material updates._
