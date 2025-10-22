@@ -112,10 +112,18 @@
 {% if metaLocale and metaLocale.description %}
   {% set defaultDescription = metaLocale.description %}
 {% endif %}
-{% set metaTitle = baseTitle %}
+{% set localizedTitle = baseTitle %}
+{% if not localizedTitle %}
+  {% set localizedTitle = siteMeta.title | default('Creaciones Colibrí') %}
+{% endif %}
+{% set localizedDescription = defaultDescription %}
+{% if not localizedDescription %}
+  {% set localizedDescription = siteMeta.description | default('') %}
+{% endif %}
+{% set metaTitle = localizedTitle %}
 {% if title %}
-  {% if baseTitle %}
-    {% set metaTitle = title ~ ' · ' ~ baseTitle %}
+  {% if localizedTitle %}
+    {% set metaTitle = title ~ ' · ' ~ localizedTitle %}
   {% else %}
     {% set metaTitle = title %}
   {% endif %}
