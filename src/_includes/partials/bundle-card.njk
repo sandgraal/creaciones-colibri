@@ -3,7 +3,12 @@
 {% set cardName = translation and translation.name or bundle.name %}
 {% set cardSummary = translation and translation.shortDescription or bundle.shortDescription %}
 {% set cardUnit = translation and translation.unit or bundle.unit %}
-{% set bundleUrl = bundle.url or '/bundles/' ~ bundle.id ~ '/' %}
+{% set localizedBundleBasePaths = {
+  'es': '/es/suscripciones/',
+  'en': '/bundles/'
+} %}
+{% set defaultBundleBasePath = localizedBundleBasePaths[currentLocale] or localizedBundleBasePaths['en'] %}
+{% set bundleUrl = bundle.url or defaultBundleBasePath ~ bundle.id ~ '/' %}
 {% set uiStrings = collections.i18n and collections.i18n[0].data.i18n %}
 {% set bundleStrings = uiStrings and uiStrings[currentLocale] and uiStrings[currentLocale].bundles %}
 {% set fallbackBundleStrings = uiStrings and uiStrings['en'] and uiStrings['en'].bundles %}
