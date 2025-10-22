@@ -123,12 +123,12 @@ This handbook captures the conventions and best practices for building and maint
 
 ## 8. Deployment & Environments
 
-- GitHub Pages + Actions handle continuous deployment. No manual steps required unless secrets change.
+- GitHub Pages + Actions handle continuous deployment. No manual steps required unless secrets change. Refer to `docs/operations/deployment-runbook.md` for the full deployment and rollback playbook.
 - Deployment workflow:
   1. Push to `main`.
   2. GitHub Actions installs dependencies, runs `npm run build`, feeds `_site-eleventy/` into `actions/jekyll-build-pages@v1`, and uploads the resulting `_site` artifact via `actions/deploy-pages@v4`.
   3. Monitor the Action run for failures. If a build breaks, fix on a branch and merge again; avoid force-pushing to history.
-- Keep environment variables (API keys, form endpoints) in repository or organization secrets. Update this handbook whenever new secrets are introduced.
+- Keep environment variables (API keys, form endpoints) in repository or organization secrets. Consult `docs/operations/secrets-management.md` for rotation policies and storage locations. Update this handbook whenever new secrets are introduced.
 - Contact and newsletter forms look for `FORMSPREE_ENDPOINT` and `NEWSLETTER_ACTION`; see `docs/operations/forms.md` for provider-specific notes.
 
 ---

@@ -10,7 +10,7 @@ localeLinks:
 {% set translations = collections.i18n[0].data.i18n %}
 {% set t = translations.es %}
 {% set catalogData = catalog.catalog %}
-{% if catalogData == nil %}
+{% if catalogData == null %}
   {% set catalogData = catalog %}
 {% endif %}
 {% set categories = catalogData.categories %}

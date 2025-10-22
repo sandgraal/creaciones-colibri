@@ -5,114 +5,114 @@
 {% if currentLocale != defaultLocale and currentLocale != 'en' %}
   {% set localePrefix = '/' ~ currentLocale %}
 {% endif %}
-{% assign visionPath = localePrefix | append: '/#vision' %}
-{% assign newsletterPath = localePrefix | append: '/#newsletter' %}
-{% assign translations = nil %}
-{% if collections.i18n and collections.i18n | size > 0 %}
-  {% assign translations = collections.i18n[0].data.i18n %}
+{% set visionPath = localePrefix ~ '/#vision' %}
+{% set newsletterPath = localePrefix ~ '/#newsletter' %}
+{% set translations = null %}
+{% if collections.i18n and collections.i18n | length > 0 %}
+  {% set translations = collections.i18n[0].data.i18n %}
 {% endif %}
-{% assign localeStrings = nil %}
+{% set localeStrings = null %}
 {% if translations %}
-  {% assign localeStrings = translations[currentLocale] %}
+  {% set localeStrings = translations[currentLocale] %}
 {% endif %}
-{% if localeStrings == nil and translations and translations[defaultLocale] %}
-  {% assign localeStrings = translations[defaultLocale] %}
+{% if localeStrings == null and translations and translations[defaultLocale] %}
+  {% set localeStrings = translations[defaultLocale] %}
 {% endif %}
-{% if localeStrings == nil and translations and translations['en'] %}
-  {% assign localeStrings = translations['en'] %}
+{% if localeStrings == null and translations and translations['en'] %}
+  {% set localeStrings = translations['en'] %}
 {% endif %}
-{% assign fallbackStrings = nil %}
+{% set fallbackStrings = null %}
 {% if translations %}
-  {% assign fallbackStrings = translations['en'] %}
+  {% set fallbackStrings = translations['en'] %}
 {% endif %}
-{% assign uiStrings = nil %}
+{% set uiStrings = null %}
 {% if localeStrings and localeStrings.ui %}
-  {% assign uiStrings = localeStrings.ui %}
+  {% set uiStrings = localeStrings.ui %}
 {% endif %}
-{% if uiStrings == nil and fallbackStrings and fallbackStrings.ui %}
-  {% assign uiStrings = fallbackStrings.ui %}
+{% if uiStrings == null and fallbackStrings and fallbackStrings.ui %}
+  {% set uiStrings = fallbackStrings.ui %}
 {% endif %}
-{% assign fallbackUi = nil %}
+{% set fallbackUi = null %}
 {% if fallbackStrings and fallbackStrings.ui %}
-  {% assign fallbackUi = fallbackStrings.ui %}
+  {% set fallbackUi = fallbackStrings.ui %}
 {% endif %}
-{% assign navStrings = nil %}
+{% set navStrings = null %}
 {% if uiStrings and uiStrings.nav %}
-  {% assign navStrings = uiStrings.nav %}
+  {% set navStrings = uiStrings.nav %}
 {% endif %}
-{% if navStrings == nil and fallbackUi and fallbackUi.nav %}
-  {% assign navStrings = fallbackUi.nav %}
+{% if navStrings == null and fallbackUi and fallbackUi.nav %}
+  {% set navStrings = fallbackUi.nav %}
 {% endif %}
-{% assign footerStrings = nil %}
+{% set footerStrings = null %}
 {% if uiStrings and uiStrings.footer %}
-  {% assign footerStrings = uiStrings.footer %}
+  {% set footerStrings = uiStrings.footer %}
 {% endif %}
-{% if footerStrings == nil and fallbackUi and fallbackUi.footer %}
-  {% assign footerStrings = fallbackUi.footer %}
+{% if footerStrings == null and fallbackUi and fallbackUi.footer %}
+  {% set footerStrings = fallbackUi.footer %}
 {% endif %}
-{% assign cartStrings = nil %}
+{% set cartStrings = null %}
 {% if uiStrings and uiStrings.cart %}
-  {% assign cartStrings = uiStrings.cart %}
+  {% set cartStrings = uiStrings.cart %}
 {% endif %}
-{% if cartStrings == nil and fallbackUi and fallbackUi.cart %}
-  {% assign cartStrings = fallbackUi.cart %}
+{% if cartStrings == null and fallbackUi and fallbackUi.cart %}
+  {% set cartStrings = fallbackUi.cart %}
 {% endif %}
-{% assign brandStrings = nil %}
+{% set brandStrings = null %}
 {% if uiStrings and uiStrings.brand %}
-  {% assign brandStrings = uiStrings.brand %}
+  {% set brandStrings = uiStrings.brand %}
 {% endif %}
-{% if brandStrings == nil and fallbackUi and fallbackUi.brand %}
-  {% assign brandStrings = fallbackUi.brand %}
+{% if brandStrings == null and fallbackUi and fallbackUi.brand %}
+  {% set brandStrings = fallbackUi.brand %}
 {% endif %}
-{% assign localeSwitcherStrings = nil %}
+{% set localeSwitcherStrings = null %}
 {% if uiStrings and uiStrings.localeSwitcher %}
-  {% assign localeSwitcherStrings = uiStrings.localeSwitcher %}
+  {% set localeSwitcherStrings = uiStrings.localeSwitcher %}
 {% endif %}
-{% if localeSwitcherStrings == nil and fallbackUi and fallbackUi.localeSwitcher %}
-  {% assign localeSwitcherStrings = fallbackUi.localeSwitcher %}
+{% if localeSwitcherStrings == null and fallbackUi and fallbackUi.localeSwitcher %}
+  {% set localeSwitcherStrings = fallbackUi.localeSwitcher %}
 {% endif %}
-{% assign navVisionLabel = navStrings.vision | default: 'Our Vision' %}
-{% assign navProductsLabel = navStrings.products | default: 'Products' %}
-{% assign navNewsletterLabel = navStrings.newsletter | default: 'Stay in Touch' %}
-{% assign navContactLabel = navStrings.contact | default: 'Contact' %}
-{% assign navBlogLabel = navStrings.blog | default: 'Blog' %}
-{% assign cartLabel = cartStrings.label | default: 'Cart' %}
-{% assign brandAlt = brandStrings.alt | default: 'Creaciones Colibrí logo' %}
-{% assign footerTagline = footerStrings.tagline | default: 'Crafted in Florida & Costa Rica with love for the hummingbird and the people we serve.' %}
-{% assign footerNote = footerStrings.note | default: '© Creaciones Colibrí' %}
-{% assign localeSwitcherLabel = localeSwitcherStrings.ariaLabel | default: 'Language selector' %}
+{% set navVisionLabel = navStrings.vision | default('Our Vision') %}
+{% set navProductsLabel = navStrings.products | default('Products') %}
+{% set navNewsletterLabel = navStrings.newsletter | default('Stay in Touch') %}
+{% set navContactLabel = navStrings.contact | default('Contact') %}
+{% set navBlogLabel = navStrings.blog | default('Blog') %}
+{% set cartLabel = cartStrings.label | default('Cart') %}
+{% set brandAlt = brandStrings.alt | default('Creaciones Colibrí logo') %}
+{% set footerTagline = footerStrings.tagline | default('Crafted in Florida & Costa Rica with love for the hummingbird and the people we serve.') %}
+{% set footerNote = footerStrings.note | default('© Creaciones Colibrí') %}
+{% set localeSwitcherLabel = localeSwitcherStrings.ariaLabel | default('Language selector') %}
 {% if currentLocale == 'es' %}
-  {% assign productsPath = '/es/productos/' %}
-  {% assign blogPath = '/es/blog/' %}
-  {% assign contactPath = '/es/contacto/' %}
+  {% set productsPath = '/es/productos/' %}
+  {% set blogPath = '/es/blog/' %}
+  {% set contactPath = '/es/contacto/' %}
 {% else %}
-  {% assign productsPath = '/products/' %}
-  {% assign blogPath = '/blog/' %}
-  {% assign contactPath = '/contact/' %}
+  {% set productsPath = '/products/' %}
+  {% set blogPath = '/blog/' %}
+  {% set contactPath = '/contact/' %}
 {% endif %}
-{% assign homePath = '/' %}
+{% set homePath = '/' %}
 {% if localePrefix != '' %}
-  {% assign homePath = localePrefix | append: '/' %}
+  {% set homePath = localePrefix ~ '/' %}
 {% endif %}
-{% assign localeLinksMap = localeLinks %}
-{% assign siteMeta = siteMeta %}
-{% assign siteMetaTranslations = siteMeta.translations %}
-{% assign metaLocale = nil %}
+{% set localeLinksMap = localeLinks %}
+{% set siteMeta = siteMeta %}
+{% set siteMetaTranslations = siteMeta.translations %}
+{% set metaLocale = null %}
 {% if siteMetaTranslations %}
-  {% assign metaLocale = siteMetaTranslations[currentLocale] %}
-  {% if metaLocale == nil and siteMetaTranslations[defaultLocale] %}
-    {% assign metaLocale = siteMetaTranslations[defaultLocale] %}
+  {% set metaLocale = siteMetaTranslations[currentLocale] %}
+  {% if metaLocale == null and siteMetaTranslations[defaultLocale] %}
+    {% set metaLocale = siteMetaTranslations[defaultLocale] %}
   {% endif %}
 {% endif %}
-{% assign baseTitle = siteMeta.title | default: '' %}
+{% set baseTitle = siteMeta.title | default('') %}
 {% if metaLocale and metaLocale.title %}
-  {% assign baseTitle = metaLocale.title %}
+  {% set baseTitle = metaLocale.title %}
 {% endif %}
-{% assign defaultDescription = siteMeta.description %}
+{% set defaultDescription = siteMeta.description %}
 {% if metaLocale and metaLocale.description %}
-  {% assign defaultDescription = metaLocale.description %}
+  {% set defaultDescription = metaLocale.description %}
 {% endif %}
-{% assign metaTitle = baseTitle %}
+{% set metaTitle = baseTitle %}
 {% if title %}
   {% if baseTitle %}
     {% set metaTitle = title ~ ' · ' ~ baseTitle %}

@@ -102,4 +102,4 @@ Operational guides live under `docs/operations/` (shipping, checkout evaluation,
 
 ## License
 
-This project is licensed under the MIT License.  See `LICENSE` for details (to be added).
+This project is licensed under the MIT License.  See [`LICENSE`](LICENSE) for details.
