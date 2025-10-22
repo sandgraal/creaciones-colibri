@@ -5,7 +5,7 @@ This runbook documents how the Creaciones Colibrí site deploys to GitHub Pages 
 ## 1. Pipeline Overview
 - **Source control:** GitHub repository `sandgraal/creaciones-colibri`.
 - **CI/CD:** GitHub Actions workflow at `.github/workflows/pages.yml` builds the Eleventy project on every push to `main`.
-- **Build output:** `npm run build` writes the static site to `_site-eleventy/`. The workflow hands that directory to `actions/jekyll-build-pages@v1`, which produces the final `_site` artifact required by GitHub Pages.
+- **Build output:** `npm run build` writes the static site to `_site-eleventy/`. The workflow uploads that directory as the Pages artifact and publishes it directly—no Jekyll build stage required.
 - **Hosting:** GitHub Pages serves the artifact at `https://sandgraal.github.io/creaciones-colibri/` with the repository’s `main` branch as the source.
 
 ### Required Secrets for CI
@@ -19,7 +19,7 @@ Make sure these secrets exist in the repository before triggering deployments:
 2. Monitor the **Pages** GitHub Actions workflow:
    - `setup-node` installs dependencies.
    - `npm run build` generates Eleventy output.
-   - `actions/jekyll-build-pages@v1` and `actions/deploy-pages@v4` publish the site.
+   - `actions/deploy-pages@v4` publishes the uploaded static artifact.
 3. Verify the deployed site:
    - Smoke-test homepage, products, checkout, and blog sections.
    - Check the browser console for Snipcart or form configuration errors.
