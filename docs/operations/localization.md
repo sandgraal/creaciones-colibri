@@ -34,8 +34,8 @@
 - The base layout automatically chooses the localized manifest: `/site.webmanifest` for the default locale and `/es/site.webmanifest` for Spanish. Update or add `{locale}/site.webmanifest.njk` when introducing new languages.
 
 ## Workflow Checklist
-- [ ] Translate homepage content (`src/es/index.njk`).
-- [ ] Duplicate additional pages (products, blog) as localization progresses.
-- [ ] Update SEO metadata (language-specific title/description) when launching.
+- [x] Translate homepage content (`src/es/index.njk`).
+- [x] Duplicate additional pages (products, blog) as localization progresses.
+- [x] Update SEO metadata (language-specific title/description) when launching.
 - [ ] Review content with native speakers.
 - [ ] Confirm Snipcart adopts the right locale on each translated page (configure via `SNIPCART_LOCALE_MAP`).

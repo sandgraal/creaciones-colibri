@@ -7,6 +7,16 @@ pagination:
 permalink: "es/productos/{{ baseProduct.id }}/"
 locale: es
 eleventyComputed:
+  title: >-
+    {% set translations = collections.i18n and collections.i18n[0].data.i18n %}
+    {% set productTranslations = translations and translations.products and translations.products['es'] %}
+    {% set translation = productTranslations and productTranslations[baseProduct.id] %}
+    {{ (translation and translation.name) or baseProduct.name }}
+  description: >-
+    {% set translations = collections.i18n and collections.i18n[0].data.i18n %}
+    {% set productTranslations = translations and translations.products and translations.products['es'] %}
+    {% set translation = productTranslations and productTranslations[baseProduct.id] %}
+    {{ (translation and translation.shortDescription) or baseProduct.shortDescription or baseProduct.description }}
   localeLinks:
     en: "/products/{{ baseProduct.id }}/"
 ---

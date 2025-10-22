@@ -7,6 +7,7 @@ pagination:
 permalink: "products/{{ product.id }}/"
 eleventyComputed:
   title: "{{ product.name }}"
+  description: "{{ product.shortDescription or product.description }}"
   tags: ["product", "{{ product.category | slugify }}"]
   localeLinks:
     es: "/es/productos/{{ product.id }}/"
