@@ -1,6 +1,7 @@
 ---
 layout: layouts/base.njk
 title: Home
+description: Small-batch hot sauces, snacks, and wellness pantry goods crafted between Florida and Costa Rica.
 localeLinks:
   es: /es/
 ---

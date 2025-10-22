@@ -67,10 +67,26 @@
         <link rel="alternate" hreflang="{{ localeCode }}" href="{{ localePath | absoluteUrl(siteMeta.url) }}">
       {% endfor %}
     {% endif %}
+    {% set ogLocale = 'en_US' %}
+    {% if currentLocale == 'es' %}
+      {% set ogLocale = 'es_CR' %}
+    {% endif %}
     <meta property="og:title" content="{{ metaTitle }}">
     <meta property="og:description" content="{{ metaDescription }}">
     <meta property="og:site_name" content="{{ siteMeta.title }}">
     <meta property="og:type" content="website">
+    <meta property="og:locale" content="{{ ogLocale }}">
+    {% if site.alternateLocales and site.alternateLocales | length %}
+      {% for localeCode in site.alternateLocales %}
+        {% if localeCode != currentLocale %}
+          {% set altLocale = 'en_US' %}
+          {% if localeCode == 'es' %}
+            {% set altLocale = 'es_CR' %}
+          {% endif %}
+          <meta property="og:locale:alternate" content="{{ altLocale }}">
+        {% endif %}
+      {% endfor %}
+    {% endif %}
     <meta property="og:image" content="{{ siteMeta.socialImage | url | absoluteUrl(siteMeta.url) }}">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ metaTitle }}">
