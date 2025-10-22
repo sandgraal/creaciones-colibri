@@ -6,6 +6,7 @@ Follow these steps to connect Snipcart to the Eleventy storefront.
 - Sign up at [snipcart.com](https://snipcart.com) and create a new store.
 - In the dashboard, navigate to **Account → API Keys** and copy the **Public API Key**. Paste it into the project `.env` file as `SNIPCART_PUBLIC_KEY`.
 - (Optional) Set `SNIPCART_CURRENCY` if you prefer a default other than USD.
+- To localize the checkout UI, set `SNIPCART_DEFAULT_LANGUAGE` (defaults to `en`) and map Eleventy locales to Snipcart languages with `SNIPCART_LOCALE_MAP` (e.g., `es:es`). Spanish pages fall back to Snipcart’s native Spanish strings automatically when no map is provided.
 
 ## 2. Payment Gateways
 - Enable **Stripe** (recommended) under **Store settings → Payments → Gateways**. Connect the existing Stripe account or create a new one.

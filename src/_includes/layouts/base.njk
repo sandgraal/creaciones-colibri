@@ -421,6 +421,41 @@
           button.setAttribute("data-item-quantity", quantity.toString());
         });
       </script>
+      <script>
+        (function() {
+          var currentLocale = "{{ currentLocale }}";
+          var defaultLanguage = "{{ site.snipcart.defaultLanguage | default('en') }}";
+          var localeMap = {{ site.snipcart.localeMap | default({}) | dump | safe }};
+
+          if (typeof localeMap !== "object" || localeMap === null) {
+            localeMap = {};
+          }
+
+          var targetLanguage = localeMap[currentLocale] || defaultLanguage;
+
+          if (!targetLanguage || targetLanguage === "auto") {
+            return;
+          }
+
+          var applyLanguage = function() {
+            if (!window.Snipcart || !window.Snipcart.api || !window.Snipcart.api.session) {
+              return;
+            }
+
+            try {
+              window.Snipcart.api.session.setLanguage(targetLanguage);
+            } catch (error) {
+              console.warn("Unable to sync Snipcart language", error);
+            }
+          };
+
+          if (window.Snipcart && window.Snipcart.ready) {
+            window.Snipcart.ready.then(applyLanguage);
+          } else {
+            document.addEventListener("snipcart.ready", applyLanguage, { once: true });
+          }
+        })();
+      </script>
       <script async src="https://cdn.snipcart.com/themes/v3.0.33/default/snipcart.js"></script>
       <div hidden id="snipcart" data-api-key="{{ site.snipcart.publicKey }}" data-currency="{{ site.snipcart.currency }}"></div>
     {% endif %}
