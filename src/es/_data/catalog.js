@@ -52,6 +52,13 @@ const translateProduct = (product, categoryName) => {
   const translation = productTranslations[product.id] || {};
   const dietary = translation.dietary || product.dietary || [];
   const benefits = translation.benefits || product.benefits || [];
+  const labels = translation.labels || product.labels || [];
+  const includedHeading = translation.includedHeading || product.includedHeading;
+  const includedProducts = translation.includedProducts || product.includedProducts || [];
+  const bundleExtrasHeading = translation.bundleExtrasHeading || product.bundleExtrasHeading;
+  const bundleExtras = translation.bundleExtras || product.bundleExtras || [];
+  const subscription = translation.subscription || product.subscription || null;
+  const shippingNote = translation.shippingNote || product.shippingNote;
 
   return {
     ...product,
@@ -62,6 +69,13 @@ const translateProduct = (product, categoryName) => {
     ingredients: translation.ingredients || product.ingredients,
     dietary,
     benefits,
+    labels,
+    includedHeading,
+    includedProducts,
+    bundleExtrasHeading,
+    bundleExtras,
+    subscription,
+    shippingNote,
     category: translateCategory(categoryName),
     url: `/es/productos/${product.id}/`
   };

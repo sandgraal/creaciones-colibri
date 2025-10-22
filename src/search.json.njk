@@ -12,6 +12,11 @@ eleventyExcludeFromCollections: true
       description: product.description,
       dietary: product.dietary or [],
       benefits: product.benefits or [],
+      labels: product.labels or [],
+      includedProducts: product.includedProducts or [],
+      bundleExtras: product.bundleExtras or [],
+      subscription: product.subscription or null,
+      shippingNote: product.shippingNote,
       image: product.image.src | url,
       url: product.url | url
     } | dump | safe }}{% if not loop.last %},{% endif %}

@@ -63,9 +63,9 @@ _Status legend_
   - [ ] Recruit native speakers to review translations for tone and accuracy.
 
 - [ ] **Subscriptions & bundles**
-  - [ ] Define subscription offerings (e.g., monthly sauce trio, granola of the month).
+  - [x] Define subscription offerings (e.g., monthly sauce trio, granola of the month).
   - [ ] Configure recurring payments via chosen e-commerce solution; verify renewal flows.
-  - [ ] Build bundle product templates that dynamically render from shared product data.
+  - [x] Build bundle product templates that dynamically render from shared product data.
 
 - [ ] **Analytics & SEO**
   - [x] Configure SEO fundamentals: meta tags, Open Graph, structured data (JSON-LD).
