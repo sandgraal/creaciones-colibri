@@ -67,11 +67,14 @@ npm install
 cp .env.example .env
 # then edit .env and set SNIPCART_PUBLIC_KEY
 
+# generate the Spanish translation cache (optional during the first run)
+npm run translate
+
 # run the development server
-npx eleventy --serve
+npm run start
 
 # build the static site for production
-npx eleventy
+npm run build
 ```
 
 ## Deployment

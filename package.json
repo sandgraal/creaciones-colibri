@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "Website for our Creaciones Colibrí project built with Eleventy.",
   "scripts": {
-    "build": "eleventy",
-    "start": "eleventy --serve"
+    "translate": "node ./scripts/translate-products.js",
+    "build": "node ./scripts/translate-products.js && eleventy",
+    "start": "node ./scripts/translate-products.js && eleventy --serve"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.2"

@@ -4,6 +4,9 @@ node_modules/
 # Eleventy build output
 _site/
 
+# Translation cache
+.cache/
+
 # OS files
 .DS_Store
 Thumbs.db
