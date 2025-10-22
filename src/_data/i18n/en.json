@@ -35,5 +35,27 @@
     "label": "Email address",
     "cta": "Notify me",
     "placeholder": "We’re setting up our newsletter service. Until then, email us at <a href=\"mailto:hola@creacionescolibri.com\">hola@creacionescolibri.com</a>."
+  },
+  "ui": {
+    "nav": {
+      "vision": "Our Vision",
+      "products": "Products",
+      "blog": "Blog",
+      "newsletter": "Stay in Touch",
+      "contact": "Contact"
+    },
+    "cart": {
+      "label": "Cart"
+    },
+    "brand": {
+      "alt": "Creaciones Colibrí logo"
+    },
+    "footer": {
+      "tagline": "Crafted in Florida & Costa Rica with love for the hummingbird and the people we serve.",
+      "note": "© Creaciones Colibrí"
+    },
+    "localeSwitcher": {
+      "ariaLabel": "Language selector"
+    }
   }
 }

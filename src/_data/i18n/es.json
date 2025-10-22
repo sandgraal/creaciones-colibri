@@ -35,5 +35,27 @@
     "label": "Correo electrónico",
     "cta": "Avisarme",
     "placeholder": "Pronto activaremos nuestro boletín. Por ahora escríbenos a <a href=\\\"mailto:hola@creacionescolibri.com\\\">hola@creacionescolibri.com</a>."
+  },
+  "ui": {
+    "nav": {
+      "vision": "Nuestra visión",
+      "products": "Productos",
+      "blog": "Blog",
+      "newsletter": "Boletín",
+      "contact": "Contacto"
+    },
+    "cart": {
+      "label": "Carrito"
+    },
+    "brand": {
+      "alt": "Logotipo de Creaciones Colibrí"
+    },
+    "footer": {
+      "tagline": "Elaborado en Florida y Costa Rica con amor por el colibrí y las personas a quienes servimos.",
+      "note": "© Creaciones Colibrí"
+    },
+    "localeSwitcher": {
+      "ariaLabel": "Selector de idioma"
+    }
   }
 }

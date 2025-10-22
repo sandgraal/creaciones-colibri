@@ -5,41 +5,114 @@
 {% if currentLocale != defaultLocale and currentLocale != 'en' %}
   {% set localePrefix = '/' ~ currentLocale %}
 {% endif %}
-{% set visionPath = localePrefix ~ '/#vision' %}
-{% set newsletterPath = localePrefix ~ '/#newsletter' %}
+{% assign visionPath = localePrefix | append: '/#vision' %}
+{% assign newsletterPath = localePrefix | append: '/#newsletter' %}
+{% assign translations = nil %}
+{% if collections.i18n and collections.i18n | size > 0 %}
+  {% assign translations = collections.i18n[0].data.i18n %}
+{% endif %}
+{% assign localeStrings = nil %}
+{% if translations %}
+  {% assign localeStrings = translations[currentLocale] %}
+{% endif %}
+{% if localeStrings == nil and translations and translations[defaultLocale] %}
+  {% assign localeStrings = translations[defaultLocale] %}
+{% endif %}
+{% if localeStrings == nil and translations and translations['en'] %}
+  {% assign localeStrings = translations['en'] %}
+{% endif %}
+{% assign fallbackStrings = nil %}
+{% if translations %}
+  {% assign fallbackStrings = translations['en'] %}
+{% endif %}
+{% assign uiStrings = nil %}
+{% if localeStrings and localeStrings.ui %}
+  {% assign uiStrings = localeStrings.ui %}
+{% endif %}
+{% if uiStrings == nil and fallbackStrings and fallbackStrings.ui %}
+  {% assign uiStrings = fallbackStrings.ui %}
+{% endif %}
+{% assign fallbackUi = nil %}
+{% if fallbackStrings and fallbackStrings.ui %}
+  {% assign fallbackUi = fallbackStrings.ui %}
+{% endif %}
+{% assign navStrings = nil %}
+{% if uiStrings and uiStrings.nav %}
+  {% assign navStrings = uiStrings.nav %}
+{% endif %}
+{% if navStrings == nil and fallbackUi and fallbackUi.nav %}
+  {% assign navStrings = fallbackUi.nav %}
+{% endif %}
+{% assign footerStrings = nil %}
+{% if uiStrings and uiStrings.footer %}
+  {% assign footerStrings = uiStrings.footer %}
+{% endif %}
+{% if footerStrings == nil and fallbackUi and fallbackUi.footer %}
+  {% assign footerStrings = fallbackUi.footer %}
+{% endif %}
+{% assign cartStrings = nil %}
+{% if uiStrings and uiStrings.cart %}
+  {% assign cartStrings = uiStrings.cart %}
+{% endif %}
+{% if cartStrings == nil and fallbackUi and fallbackUi.cart %}
+  {% assign cartStrings = fallbackUi.cart %}
+{% endif %}
+{% assign brandStrings = nil %}
+{% if uiStrings and uiStrings.brand %}
+  {% assign brandStrings = uiStrings.brand %}
+{% endif %}
+{% if brandStrings == nil and fallbackUi and fallbackUi.brand %}
+  {% assign brandStrings = fallbackUi.brand %}
+{% endif %}
+{% assign localeSwitcherStrings = nil %}
+{% if uiStrings and uiStrings.localeSwitcher %}
+  {% assign localeSwitcherStrings = uiStrings.localeSwitcher %}
+{% endif %}
+{% if localeSwitcherStrings == nil and fallbackUi and fallbackUi.localeSwitcher %}
+  {% assign localeSwitcherStrings = fallbackUi.localeSwitcher %}
+{% endif %}
+{% assign navVisionLabel = navStrings.vision | default: 'Our Vision' %}
+{% assign navProductsLabel = navStrings.products | default: 'Products' %}
+{% assign navNewsletterLabel = navStrings.newsletter | default: 'Stay in Touch' %}
+{% assign navContactLabel = navStrings.contact | default: 'Contact' %}
+{% assign navBlogLabel = navStrings.blog | default: 'Blog' %}
+{% assign cartLabel = cartStrings.label | default: 'Cart' %}
+{% assign brandAlt = brandStrings.alt | default: 'Creaciones Colibrí logo' %}
+{% assign footerTagline = footerStrings.tagline | default: 'Crafted in Florida & Costa Rica with love for the hummingbird and the people we serve.' %}
+{% assign footerNote = footerStrings.note | default: '© Creaciones Colibrí' %}
+{% assign localeSwitcherLabel = localeSwitcherStrings.ariaLabel | default: 'Language selector' %}
 {% if currentLocale == 'es' %}
-  {% set productsPath = '/es/productos/' %}
-  {% set blogPath = '/es/blog/' %}
-  {% set contactPath = '/es/contacto/' %}
-  {% set navVisionLabel = 'Nuestra visión' %}
-  {% set navProductsLabel = 'Productos' %}
-  {% set navNewsletterLabel = 'Boletín' %}
-  {% set navContactLabel = 'Contacto' %}
-  {% set navBlogLabel = 'Blog' %}
-  {% set cartLabel = 'Carrito' %}
+  {% assign productsPath = '/es/productos/' %}
+  {% assign blogPath = '/es/blog/' %}
+  {% assign contactPath = '/es/contacto/' %}
 {% else %}
-  {% set productsPath = '/products/' %}
-  {% set blogPath = '/blog/' %}
-  {% set contactPath = '/contact/' %}
-  {% set navVisionLabel = 'Our Vision' %}
-  {% set navProductsLabel = 'Products' %}
-  {% set navNewsletterLabel = 'Stay in Touch' %}
-  {% set navContactLabel = 'Contact' %}
-  {% set navBlogLabel = 'Blog' %}
-  {% set cartLabel = 'Cart' %}
+  {% assign productsPath = '/products/' %}
+  {% assign blogPath = '/blog/' %}
+  {% assign contactPath = '/contact/' %}
 {% endif %}
-{% set localeLinksMap = localeLinks %}
-{% set siteMeta = siteMeta %}
-{% set localizedMeta = siteMeta.locales and siteMeta.locales[currentLocale] %}
-{% if localizedMeta %}
-  {% set localizedTitle = localizedMeta.title or siteMeta.title or '' %}
-  {% set localizedDescription = localizedMeta.description or siteMeta.description %}
-{% else %}
-  {% set localizedTitle = siteMeta.title or '' %}
-  {% set localizedDescription = siteMeta.description %}
+{% assign homePath = '/' %}
+{% if localePrefix != '' %}
+  {% assign homePath = localePrefix | append: '/' %}
 {% endif %}
-{% set baseTitle = localizedTitle %}
-{% set metaTitle = baseTitle %}
+{% assign localeLinksMap = localeLinks %}
+{% assign siteMeta = siteMeta %}
+{% assign siteMetaTranslations = siteMeta.translations %}
+{% assign metaLocale = nil %}
+{% if siteMetaTranslations %}
+  {% assign metaLocale = siteMetaTranslations[currentLocale] %}
+  {% if metaLocale == nil and siteMetaTranslations[defaultLocale] %}
+    {% assign metaLocale = siteMetaTranslations[defaultLocale] %}
+  {% endif %}
+{% endif %}
+{% assign baseTitle = siteMeta.title | default: '' %}
+{% if metaLocale and metaLocale.title %}
+  {% assign baseTitle = metaLocale.title %}
+{% endif %}
+{% assign defaultDescription = siteMeta.description %}
+{% if metaLocale and metaLocale.description %}
+  {% assign defaultDescription = metaLocale.description %}
+{% endif %}
+{% assign metaTitle = baseTitle %}
 {% if title %}
   {% if baseTitle %}
     {% set metaTitle = title ~ ' · ' ~ baseTitle %}
@@ -47,8 +120,8 @@
     {% set metaTitle = title %}
   {% endif %}
 {% endif %}
-{% set metaDescription = description | default(localizedDescription) %}
-{% set canonicalUrl = '' %}
+{% assign metaDescription = description | default: defaultDescription %}
+{% assign canonicalUrl = '' %}
 {% if siteMeta.url %}
   {% set canonicalUrl = page.url | url | absoluteUrl(siteMeta.url) %}
 {% endif %}
@@ -125,11 +198,11 @@
   </head>
   <body class="site">
     <header class="site-header">
-      <a class="brand" href="{{ '/' | url }}">
+      <a class="brand" href="{{ homePath | url }}">
         <img
           class="brand-logo"
           src="{{ '/img/branding/creaciones-colibri-logo.svg' | url }}"
-          alt="Creaciones Colibrí logo"
+          alt="{{ brandAlt }}"
         >
         <span class="brand-title">Creaciones Colibrí</span>
       </a>
@@ -140,7 +213,7 @@
         <a class="nav-link" href="{{ newsletterPath | url }}">{{ navNewsletterLabel }}</a>
         <a class="nav-link" href="{{ contactPath | url }}">{{ navContactLabel }}</a>
         {% if site.alternateLocales and site.alternateLocales | length %}
-          <div class="locale-switcher" role="navigation" aria-label="Language selector">
+          <div class="locale-switcher" role="navigation" aria-label="{{ localeSwitcherLabel }}">
             {% for localeCode in site.alternateLocales %}
               {% set alternateHref = localeLinksMap[localeCode] %}
               {% if localeCode != currentLocale and alternateHref %}
@@ -161,13 +234,8 @@
       {{ content | safe }}
     </main>
     <footer class="site-footer">
-      {% if currentLocale == 'es' %}
-        <p>Elaborado en Florida y Costa Rica con amor por el colibrí y la comunidad a la que servimos.</p>
-        <p class="footer-note">© {{ localizedTitle }}</p>
-      {% else %}
-        <p>Crafted in Florida &amp; Costa Rica with love for the hummingbird and the people we serve.</p>
-        <p class="footer-note">© {{ localizedTitle }}</p>
-      {% endif %}
+      <p>{{ footerTagline }}</p>
+      <p class="footer-note">{{ footerNote }}</p>
     </footer>
     {% if search %}
       <script defer src="{{ '/js/vendor/fuse.min.js' | url }}"></script>
