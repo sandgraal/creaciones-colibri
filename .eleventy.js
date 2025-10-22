@@ -2,6 +2,8 @@ const fs = require("fs");
 const path = require("path");
 const generateImage = require("./.eleventy.images");
 
+const ELEVENTY_OUTPUT_DIR = "_site-eleventy";
+
 const absoluteUrl = (path, base) => {
   try {
     return new URL(path, base).href;
@@ -109,7 +111,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addNunjucksAsyncShortcode("responsiveImage", async (src, alt, className) => {
     const normalizedSrc = src.startsWith("/img/") ? src.replace("/img/", "img/") : src;
     const localPath = path.join("src", normalizedSrc);
-    return generateImage(normalizedSrc, alt, className);
+    return generateImage(normalizedSrc, alt, className, ELEVENTY_OUTPUT_DIR);
   });
 
   eleventyConfig.addNunjucksAsyncShortcode("analytics", async () => {
@@ -195,7 +197,7 @@ module.exports = function(eleventyConfig) {
     pathPrefix: "/creaciones-colibri",
     dir: {
       input: "src",
-      output: "_site"
+      output: ELEVENTY_OUTPUT_DIR
     }
   };
 };

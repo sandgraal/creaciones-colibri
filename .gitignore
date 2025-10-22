@@ -3,6 +3,7 @@ node_modules/
 
 # Eleventy build output
 _site/
+_site-eleventy/
 
 # Translation cache
 .cache/
