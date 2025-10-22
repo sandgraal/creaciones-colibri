@@ -7,13 +7,13 @@ localeLinks:
   en: /
 ---
 
-{% assign translations = collections.i18n[0].data.i18n %}
-{% assign t = translations.es %}
-{% assign catalogData = catalog.catalog %}
+{% set translations = collections.i18n[0].data.i18n %}
+{% set t = translations.es %}
+{% set catalogData = catalog.catalog %}
 {% if catalogData == nil %}
-  {% assign catalogData = catalog %}
+  {% set catalogData = catalog %}
 {% endif %}
-{% assign categories = catalogData.categories %}
+{% set categories = catalogData.categories %}
 
 <section class="hero">
   <div class="hero-media">
@@ -35,11 +35,11 @@ localeLinks:
 </section>
 
 <section id="catalogo" class="content-section content-grid">
-  {% if categories and categories | size > 0 %}
+  {% if categories and categories | length > 0 %}
     {% for category in categories %}
-      {% assign categoryAnchor = category.slug | default: category.id %}
-      {% assign firstProduct = category.products | first %}
-      {% assign categoryLink = '/es/productos/#categoria-' | append: categoryAnchor %}
+      {% set categoryAnchor = category.slug | default(category.id) %}
+      {% set firstProduct = category.products | first %}
+      {% set categoryLink = '/es/productos/#categoria-' ~ categoryAnchor %}
       <article class="card">
         <h3>{{ category.name }}</h3>
         {% if firstProduct %}

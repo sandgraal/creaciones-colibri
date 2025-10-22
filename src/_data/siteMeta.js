@@ -3,5 +3,12 @@ module.exports = {
   description:
     "Small-batch hot sauces, snacks, and wellness pantry goods inspired by the biodiversity of Costa Rica and our gardens in Florida.",
   url: process.env.SITE_URL || "https://sandgraal.github.io/creaciones-colibri",
-  socialImage: "/img/branding/creaciones-colibri-logo.svg"
+  socialImage: "/img/branding/creaciones-colibri-logo.svg",
+  locales: {
+    es: {
+      title: "Creaciones Colibrí",
+      description:
+        "Salsas picantes artesanales, snacks botánicos y despensa de bienestar elaborados entre Florida y Costa Rica."
+    }
+  }
 };
