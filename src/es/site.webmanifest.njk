@@ -1,11 +1,10 @@
 ---
-permalink: /site.webmanifest
+permalink: /es/site.webmanifest
 layout: null
 content-type: application/manifest+json
 ---
-{% set defaultLocale = site.locale or 'en' %}
 {% set siteMeta = siteMeta %}
-{% set localizedMeta = siteMeta.locales and siteMeta.locales[defaultLocale] %}
+{% set localizedMeta = siteMeta.locales and siteMeta.locales['es'] %}
 {% if localizedMeta %}
   {% set manifestName = localizedMeta.title or siteMeta.title or 'Creaciones Colibrí' %}
   {% set manifestDescription = localizedMeta.description or siteMeta.description %}
@@ -17,9 +16,9 @@ content-type: application/manifest+json
   "name": "{{ manifestName }}",
   "short_name": "Colibrí",
   "description": "{{ manifestDescription }}",
-  "lang": "{{ defaultLocale }}",
-  "start_url": "{{ '/' | url }}",
-  "scope": "{{ '/' | url }}",
+  "lang": "es",
+  "start_url": "{{ '/es/' | url }}",
+  "scope": "{{ '/es/' | url }}",
   "display": "standalone",
   "background_color": "#fdf8f3",
   "theme_color": "#f16745",

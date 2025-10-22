@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-{% assign defaultLocale = site.locale | default: 'en' %}
-{% assign currentLocale = locale | default: defaultLocale %}
-{% assign localePrefix = '' %}
+{% set defaultLocale = site.locale | default('en') %}
+{% set currentLocale = locale | default(defaultLocale) %}
+{% set localePrefix = '' %}
 {% if currentLocale != defaultLocale and currentLocale != 'en' %}
-  {% assign localePrefix = '/' | append: currentLocale %}
+  {% set localePrefix = '/' ~ currentLocale %}
 {% endif %}
 {% assign visionPath = localePrefix | append: '/#vision' %}
 {% assign newsletterPath = localePrefix | append: '/#newsletter' %}
@@ -115,15 +115,15 @@
 {% assign metaTitle = baseTitle %}
 {% if title %}
   {% if baseTitle %}
-    {% assign metaTitle = title | append: ' · ' | append: baseTitle %}
+    {% set metaTitle = title ~ ' · ' ~ baseTitle %}
   {% else %}
-    {% assign metaTitle = title %}
+    {% set metaTitle = title %}
   {% endif %}
 {% endif %}
 {% assign metaDescription = description | default: defaultDescription %}
 {% assign canonicalUrl = '' %}
 {% if siteMeta.url %}
-  {% assign canonicalUrl = page.url | url | absoluteUrl(siteMeta.url) %}
+  {% set canonicalUrl = page.url | url | absoluteUrl(siteMeta.url) %}
 {% endif %}
 <html lang="{{ currentLocale }}">
   <head>
@@ -132,7 +132,7 @@
     <title>{{ metaTitle }}</title>
     <meta name="description" content="{{ metaDescription }}">
     <meta name="theme-color" content="#f16745">
-    <meta name="application-name" content="Creaciones Colibrí">
+    <meta name="application-name" content="{{ localizedTitle }}">
     {% if canonicalUrl %}
       <link rel="canonical" href="{{ canonicalUrl }}">
       <meta property="og:url" content="{{ canonicalUrl }}">
@@ -141,9 +141,9 @@
       <link rel="alternate" hreflang="x-default" href="{{ '/' | absoluteUrl(siteMeta.url) }}">
       {% for localeCode in site.alternateLocales %}
         {% if localeCode == site.locale or localeCode == 'en' %}
-          {% assign localePath = '/' %}
+          {% set localePath = '/' %}
         {% else %}
-          {% assign localePath = '/' | append: localeCode | append: '/' %}
+          {% set localePath = '/' ~ localeCode ~ '/' %}
         {% endif %}
         <link rel="alternate" hreflang="{{ localeCode }}" href="{{ localePath | absoluteUrl(siteMeta.url) }}">
       {% endfor %}
@@ -154,7 +154,7 @@
     {% endif %}
     <meta property="og:title" content="{{ metaTitle }}">
     <meta property="og:description" content="{{ metaDescription }}">
-    <meta property="og:site_name" content="{{ siteMeta.title }}">
+    <meta property="og:site_name" content="{{ localizedTitle }}">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="{{ ogLocale }}">
     {% if site.alternateLocales and site.alternateLocales | length %}
@@ -176,7 +176,11 @@
     <link rel="icon" type="image/svg+xml" href="{{ '/img/branding/creaciones-colibri-logo.svg' | url }}">
     <link rel="icon" type="image/svg+xml" sizes="any" href="{{ '/img/branding/maskable-icon.svg' | url }}">
     <link rel="apple-touch-icon" type="image/svg+xml" href="{{ '/img/branding/maskable-icon.svg' | url }}">
-    <link rel="manifest" href="{{ '/site.webmanifest' | url }}">
+    {% if currentLocale == 'es' %}
+      <link rel="manifest" href="{{ '/es/site.webmanifest' | url }}">
+    {% else %}
+      <link rel="manifest" href="{{ '/site.webmanifest' | url }}">
+    {% endif %}
     <link rel="mask-icon" href="{{ '/img/branding/maskable-icon.svg' | url }}" color="#f16745">
     <meta name="msapplication-TileColor" content="#f16745">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -211,7 +215,7 @@
         {% if site.alternateLocales and site.alternateLocales | length %}
           <div class="locale-switcher" role="navigation" aria-label="{{ localeSwitcherLabel }}">
             {% for localeCode in site.alternateLocales %}
-              {% assign alternateHref = localeLinksMap[localeCode] %}
+              {% set alternateHref = localeLinksMap[localeCode] %}
               {% if localeCode != currentLocale and alternateHref %}
                 <a class="locale-switcher__link" href="{{ alternateHref | url }}" hreflang="{{ localeCode }}">{{ localeCode | upper }}</a>
               {% endif %}

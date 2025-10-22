@@ -10,5 +10,12 @@ module.exports = {
     }
   },
   url: process.env.SITE_URL || "https://sandgraal.github.io/creaciones-colibri",
-  socialImage: "/img/branding/creaciones-colibri-logo.svg"
+  socialImage: "/img/branding/creaciones-colibri-logo.svg",
+  locales: {
+    es: {
+      title: "Creaciones Colibrí",
+      description:
+        "Salsas picantes artesanales, snacks botánicos y despensa de bienestar elaborados entre Florida y Costa Rica."
+    }
+  }
 };
