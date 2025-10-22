@@ -1,6 +1,8 @@
 ---
 layout: layouts/base.njk
 title: Home
+localeLinks:
+  es: /es/
 ---
 
 <section class="hero">

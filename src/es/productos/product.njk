@@ -6,6 +6,9 @@ pagination:
   alias: baseProduct
 permalink: "es/productos/{{ baseProduct.id }}/"
 locale: es
+eleventyComputed:
+  localeLinks:
+    en: "/products/{{ baseProduct.id }}/"
 ---
 
 {% set translations = collections.i18n[0].data.i18n %}

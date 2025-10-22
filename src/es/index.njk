@@ -2,11 +2,14 @@
 layout: layouts/base.njk
 title: Inicio
 locale: es
+localeLinks:
+  en: /
 ---
 
 {% set translations = collections.i18n[0].data.i18n %}
 {% set t = translations.es %}
-{% set catalogData = catalog %}
+{% set catalogData = catalog.catalog or catalog %}
+{% set categories = catalogData.categories or [] %}
 
 <section class="hero">
   <div class="hero-media">
@@ -15,7 +18,7 @@ locale: es
   <div class="hero-content">
     <h1>{{ t.hero.title }}</h1>
     <p>{{ t.hero.intro }}</p>
-    <a class="button button-primary" href="{{ '/products/' | url }}">{{ t.hero.cta }}</a>
+    <a class="button button-primary" href="{{ '/es/productos/' | url }}">{{ t.hero.cta }}</a>
   </div>
 </section>
 
@@ -25,11 +28,15 @@ locale: es
 </section>
 
 <section id="catalogo" class="content-section content-grid">
-  {% for category in catalogData.categories %}
+  {% for category in categories %}
+    {% set categoryAnchor = category.slug or category.id %}
+    {% set firstProduct = category.products | first %}
     <article class="card">
       <h3>{{ category.name }}</h3>
-      <p>{{ category.products[0].shortDescription }}</p>
-      <a class="button button-secondary" href="{{ '/es/productos/#categoria-' ~ category.id | url }}">Ver {{ category.name | lower }}</a>
+      {% if firstProduct %}
+        <p>{{ firstProduct.shortDescription }}</p>
+      {% endif %}
+      <a class="button button-secondary" href="{{ '/es/productos/#categoria-' ~ categoryAnchor | url }}">Ver {{ category.name | lower }}</a>
     </article>
   {% endfor %}
 </section>

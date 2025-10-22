@@ -8,6 +8,8 @@ permalink: "products/{{ product.id }}/"
 eleventyComputed:
   title: "{{ product.name }}"
   tags: ["product", "{{ product.category | slugify }}"]
+  localeLinks:
+    es: "/es/productos/{{ product.id }}/"
 ---
 
 <article class="product-detail">
