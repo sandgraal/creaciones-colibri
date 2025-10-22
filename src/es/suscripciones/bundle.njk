@@ -7,6 +7,12 @@ pagination:
   alias: baseBundle
 permalink: "es/suscripciones/{{ baseBundle.id }}/"
 eleventyComputed:
+  title: >-
+    {% set translation = baseBundle.translations and baseBundle.translations['es'] %}
+    {{ (translation and translation.name) or baseBundle.name }}
+  description: >-
+    {% set translation = baseBundle.translations and baseBundle.translations['es'] %}
+    {{ (translation and translation.shortDescription) or baseBundle.shortDescription or baseBundle.description }}
   localeLinks:
     en: "/bundles/{{ baseBundle.id }}/"
 ---
