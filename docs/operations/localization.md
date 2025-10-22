@@ -29,6 +29,9 @@
 - `SNIPCART_DEFAULT_LANGUAGE`: default language passed to Snipcart when a page locale does not have an explicit mapping. Use `auto` to keep Snipcart’s stock language.
 - `SNIPCART_LOCALE_MAP`: comma-separated list mapping Eleventy locales to Snipcart language codes (e.g., `es:es,fr:fr`). When omitted, Spanish storefronts automatically opt into Snipcart’s built-in `es` translations.
 
+## Cart & Checkout Localization
+- The cart button exposes localized, screen-reader-friendly text via `ui.cart.aria` in `src/_data/i18n/{locale}.json`. Provide `empty`, `one`, and `other` strings for every locale so the dynamic `aria-label` reflects the correct item count.
+
 ## Metadata & Manifests
 - Global metadata translations live in `src/_data/siteMeta.js` under the `locales` key. Update `locales.es.description` (and other locales) so Open Graph/Twitter tags inherit the right language.
 - The base layout automatically chooses the localized manifest: `/site.webmanifest` for the default locale and `/es/site.webmanifest` for Spanish. Update or add `{locale}/site.webmanifest.njk` when introducing new languages.

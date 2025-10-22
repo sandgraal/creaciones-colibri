@@ -91,7 +91,11 @@
 {% set navNewsletterLabel = navStrings.newsletter | default('Stay in Touch') %}
 {% set navContactLabel = navStrings.contact | default('Contact') %}
 {% set navBlogLabel = navStrings.blog | default('Blog') %}
-{% set cartLabel = cartStrings.label | default('Cart') %}
+{% set cartLabel = cartStrings and cartStrings.label or 'Cart' %}
+{% set cartAriaStrings = cartStrings and cartStrings.aria or {} %}
+{% set cartAriaEmpty = cartAriaStrings.empty | default(cartLabel ~ ' (empty)') %}
+{% set cartAriaOne = cartAriaStrings.one | default(cartLabel ~ ' (1 item)') %}
+{% set cartAriaMany = cartAriaStrings.other | default(cartLabel ~ ' (%count% items)') %}
 {% set brandAlt = brandStrings.alt | default('Creaciones Colibrí logo') %}
 {% set footerTagline = footerStrings.tagline | default('Crafted in Florida & Costa Rica with love for the hummingbird and the people we serve.') %}
 {% set footerNote = footerStrings.note | default('© Creaciones Colibrí') %}
@@ -404,9 +408,16 @@
           </div>
         {% endif %}
         {% if site.snipcart.publicKey %}
-          <button class="cart-button snipcart-checkout" type="button">
+          <button
+            class="cart-button snipcart-checkout"
+            type="button"
+            data-cart-button
+            data-cart-empty-label="{{ cartAriaEmpty }}"
+            data-cart-one-label="{{ cartAriaOne }}"
+            data-cart-many-label="{{ cartAriaMany }}"
+            aria-label="{{ cartAriaEmpty }}">
             <span class="cart-button__label">{{ cartLabel }}</span>
-            <span class="cart-button__count snipcart-items-count">0</span>
+            <span class="cart-button__count snipcart-items-count" aria-live="polite" aria-atomic="true">0</span>
           </button>
         {% endif %}
       </nav>
@@ -442,6 +453,58 @@
           }
           button.setAttribute("data-item-quantity", quantity.toString());
         });
+      </script>
+      <script>
+        (function() {
+          var cartButton = document.querySelector('[data-cart-button]');
+          if (!cartButton) {
+            return;
+          }
+
+          var countElement = cartButton.querySelector('.snipcart-items-count');
+          if (!countElement) {
+            return;
+          }
+
+          var emptyLabel = cartButton.getAttribute('data-cart-empty-label') || cartButton.getAttribute('aria-label') || '';
+          var oneLabel = cartButton.getAttribute('data-cart-one-label') || emptyLabel;
+          var manyLabel = cartButton.getAttribute('data-cart-many-label') || oneLabel;
+
+          var formatLabel = function(template, count) {
+            if (!template) {
+              return '';
+            }
+
+            return template.replace('%count%', count);
+          };
+
+          var updateLabel = function() {
+            var text = (countElement.textContent || '').trim();
+            var count = parseInt(text, 10);
+
+            if (isNaN(count) || count <= 0) {
+              cartButton.setAttribute('aria-label', emptyLabel);
+              return;
+            }
+
+            if (count === 1) {
+              cartButton.setAttribute('aria-label', formatLabel(oneLabel, count));
+            } else {
+              cartButton.setAttribute('aria-label', formatLabel(manyLabel, count));
+            }
+          };
+
+          updateLabel();
+
+          if (typeof MutationObserver === 'function') {
+            var observer = new MutationObserver(updateLabel);
+            observer.observe(countElement, { characterData: true, childList: true, subtree: true });
+          } else {
+            ['snipcart.ready', 'snipcart.cart.confirmed', 'snipcart.cart.closed', 'snipcart.cart.opened'].forEach(function(eventName) {
+              document.addEventListener(eventName, updateLabel);
+            });
+          }
+        })();
       </script>
       <script>
         (function() {
