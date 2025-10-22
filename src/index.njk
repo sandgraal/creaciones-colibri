@@ -19,20 +19,16 @@ localeLinks:
 {% set categoriesStrings = t.categories or {} %}
 {% set newsletterStrings = t.newsletter or {} %}
 
-{% set categoryCards = [
-  {
-    anchor: '/products/#category-hot-sauces',
-    data: categoriesStrings.items and categoriesStrings.items.sauces
-  },
-  {
-    anchor: '/products/#category-granola-crunch',
-    data: categoriesStrings.items and categoriesStrings.items.granola
-  },
-  {
-    anchor: '/products/#category-wellness-pantry',
-    data: categoriesStrings.items and categoriesStrings.items.wellness
-  }
-] %}
+{% set catalogData = catalog.catalog %}
+{% if catalogData == null %}
+  {% set catalogData = catalog %}
+{% endif %}
+{% set categories = catalogData and catalogData.categories or [] %}
+{% set categoryTranslationMap = {
+  'hot-sauces': categoriesStrings.items and categoriesStrings.items.sauces,
+  'granola-crunch': categoriesStrings.items and categoriesStrings.items.granola,
+  'wellness-pantry': categoriesStrings.items and categoriesStrings.items.wellness
+} %}
 
 <section class="hero">
   <div class="hero-media">
@@ -59,12 +55,14 @@ localeLinks:
 
 <section id="catalog" class="content-section content-grid">
   <h2 class="visually-hidden">{{ categoriesStrings.title or 'Explore Our Catalog' }}</h2>
-  {% for card in categoryCards %}
-    {% set data = card.data or {} %}
+  {% for category in categories %}
+    {% set translationEntry = categoryTranslationMap[category.id] %}
+    {% set firstProduct = category.products | first %}
+    {% set categoryLink = '/products/#category-' ~ category.id %}
     <article class="card">
-      <h3>{{ data.title or 'Category' }}</h3>
-      <p>{{ data.description or '' }}</p>
-      <a class="button button-secondary" href="{{ card.anchor | url }}">{{ data.cta or 'Shop now' }}</a>
+      <h3>{{ translationEntry and translationEntry.title or category.name }}</h3>
+      <p>{{ translationEntry and translationEntry.description or firstProduct and firstProduct.shortDescription or '' }}</p>
+      <a class="button button-secondary" href="{{ categoryLink | url }}">{{ translationEntry and translationEntry.cta or 'Shop now' }}</a>
     </article>
   {% endfor %}
 </section>
