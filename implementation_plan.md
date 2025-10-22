@@ -68,7 +68,7 @@ _Status legend_
   - [ ] Build bundle product templates that dynamically render from shared product data.
 
 - [ ] **Analytics & SEO**
-  - [ ] Configure SEO fundamentals: meta tags, Open Graph, structured data (JSON-LD).
+  - [x] Configure SEO fundamentals: meta tags, Open Graph, structured data (JSON-LD).
   - [ ] Generate sitemap and robots.txt during the Eleventy build.
   - [x] Draft analytics plan and integrate Plausible toggle (requires `PLAUSIBLE_DOMAIN` to activate). Final hookup pending account creation and domain configuration.
 

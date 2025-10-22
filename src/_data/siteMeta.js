@@ -11,6 +11,17 @@ module.exports = {
   },
   url: process.env.SITE_URL || "https://sandgraal.github.io/creaciones-colibri",
   socialImage: "/img/branding/creaciones-colibri-logo.svg",
+  socialImageAlt: "Creaciones Colibrí hummingbird logo",
+  organization: {
+    name: "Creaciones Colibrí",
+    legalName: "Creaciones Colibrí",
+    url: process.env.SITE_URL || "https://sandgraal.github.io/creaciones-colibri",
+    logo: "/img/branding/creaciones-colibri-logo.svg",
+    sameAs: [
+      "https://www.instagram.com/creacionescolibri"
+    ],
+    contactEmail: "hola@creacionescolibri.com"
+  },
   locales: {
     es: {
       title: "Creaciones Colibrí",

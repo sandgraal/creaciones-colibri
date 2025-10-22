@@ -120,10 +120,49 @@
     {% set metaTitle = title %}
   {% endif %}
 {% endif %}
-{% assign metaDescription = description | default: defaultDescription %}
-{% assign canonicalUrl = '' %}
+{% set metaDescription = description | default(localizedDescription) %}
+{% set metaImage = socialImage %}
+{% set metaImageAlt = socialImageAlt %}
+{% if not metaImage and image %}
+  {% set metaImage = image %}
+{% endif %}
+{% if not metaImage and meta and meta.image %}
+  {% set metaImage = meta.image %}
+{% endif %}
+{% if not metaImage and product and product.image and product.image.src %}
+  {% set metaImage = product.image.src %}
+  {% if product.image.alt %}
+    {% set metaImageAlt = product.image.alt %}
+  {% endif %}
+{% endif %}
+{% if not metaImage %}
+  {% set metaImage = siteMeta.socialImage %}
+{% endif %}
+{% if not metaImageAlt %}
+  {% set metaImageAlt = siteMeta.socialImageAlt or localizedTitle %}
+{% endif %}
+{% set metaImageAbsolute = metaImage | url | absoluteUrl(siteMeta.url) %}
+{% set pageTags = [] %}
+{% if tags %}
+  {% if tags is string %}
+    {% set pageTags = [tags] %}
+  {% else %}
+    {% set pageTags = tags %}
+  {% endif %}
+{% endif %}
+{% set ogType = 'website' %}
+{% if 'post' in pageTags %}
+  {% set ogType = 'article' %}
+{% elseif 'product' in pageTags %}
+  {% set ogType = 'product' %}
+{% endif %}
+{% set canonicalUrl = '' %}
 {% if siteMeta.url %}
   {% set canonicalUrl = page.url | url | absoluteUrl(siteMeta.url) %}
+{% endif %}
+{% set schemaLanguage = 'en-US' %}
+{% if currentLocale == 'es' %}
+  {% set schemaLanguage = 'es-CR' %}
 {% endif %}
 <html lang="{{ currentLocale }}">
   <head>
@@ -155,7 +194,7 @@
     <meta property="og:title" content="{{ metaTitle }}">
     <meta property="og:description" content="{{ metaDescription }}">
     <meta property="og:site_name" content="{{ localizedTitle }}">
-    <meta property="og:type" content="website">
+    <meta property="og:type" content="{{ ogType }}">
     <meta property="og:locale" content="{{ ogLocale }}">
     {% if site.alternateLocales and site.alternateLocales | length %}
       {% for localeCode in site.alternateLocales %}
@@ -168,11 +207,23 @@
         {% endif %}
       {% endfor %}
     {% endif %}
-    <meta property="og:image" content="{{ siteMeta.socialImage | url | absoluteUrl(siteMeta.url) }}">
+    <meta property="og:image" content="{{ metaImageAbsolute }}">
+    <meta property="og:image:alt" content="{{ metaImageAlt }}">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ metaTitle }}">
     <meta name="twitter:description" content="{{ metaDescription }}">
-    <meta name="twitter:image" content="{{ siteMeta.socialImage | url | absoluteUrl(siteMeta.url) }}">
+    <meta name="twitter:image" content="{{ metaImageAbsolute }}">
+    <meta name="twitter:image:alt" content="{{ metaImageAlt }}">
+    {% if ogType == 'article' and page.date %}
+      <meta property="article:published_time" content="{{ page.date | date('iso') }}">
+      {% if updated %}
+        <meta property="article:modified_time" content="{{ updated | date('iso') }}">
+      {% endif %}
+    {% endif %}
+    {% if ogType == 'product' and product %}
+      <meta property="product:price:amount" content="{{ product.price }}">
+      <meta property="product:price:currency" content="{{ site.snipcart.currency }}">
+    {% endif %}
     <link rel="icon" type="image/svg+xml" href="{{ '/img/branding/creaciones-colibri-logo.svg' | url }}">
     <link rel="icon" type="image/svg+xml" sizes="any" href="{{ '/img/branding/maskable-icon.svg' | url }}">
     <link rel="apple-touch-icon" type="image/svg+xml" href="{{ '/img/branding/maskable-icon.svg' | url }}">
@@ -194,6 +245,107 @@
     {% endif %}
     {% if site.snipcart.publicKey %}
       <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.0.33/default/snipcart.css">
+    {% endif %}
+    {% set organization = siteMeta.organization or {} %}
+    {% set organizationUrl = organization.url or siteMeta.url %}
+    {% if organizationUrl %}
+      {% set organizationUrl = organizationUrl | absoluteUrl(siteMeta.url) %}
+    {% endif %}
+    {% set organizationLogo = (organization.logo or siteMeta.socialImage) | url | absoluteUrl(siteMeta.url) %}
+    {% set organizationSameAs = organization.sameAs or [] %}
+    {% set publisher = {
+      '@type': 'Organization',
+      'name': organization.name or localizedTitle,
+      'legalName': organization.legalName,
+      'url': organizationUrl,
+      'logo': {
+        '@type': 'ImageObject',
+        'url': organizationLogo
+      }
+    } %}
+    {% if organizationSameAs | length %}
+      {% set publisher = publisher | merge({ 'sameAs': organizationSameAs }) %}
+    {% endif %}
+    {% if organization.contactEmail %}
+      {% set publisher = publisher | merge({
+        'contactPoint': [{
+          '@type': 'ContactPoint',
+          'email': organization.contactEmail,
+          'contactType': 'customer support',
+          'availableLanguage': ['en', 'es']
+        }]
+      }) %}
+    {% endif %}
+    {% set websiteUrl = canonicalUrl or siteMeta.url %}
+    {% if websiteUrl %}
+      {% set websiteSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        'name': localizedTitle,
+        'url': websiteUrl,
+        'description': metaDescription,
+        'inLanguage': schemaLanguage,
+        'publisher': publisher
+      } %}
+      <script type="application/ld+json">
+        {{ websiteSchema | json | safe }}
+      </script>
+    {% endif %}
+    {% if ogType == 'article' and page.date %}
+      {% set articleUrl = canonicalUrl or siteMeta.url %}
+      {% set articlePublished = page.date | date('iso') %}
+      {% set articleUpdated = updated | date('iso') if updated else articlePublished %}
+      {% set articleSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        'headline': title or metaTitle,
+        'description': metaDescription,
+        'image': [metaImageAbsolute],
+        'datePublished': articlePublished,
+        'dateModified': articleUpdated,
+        'inLanguage': schemaLanguage,
+        'author': {
+          '@type': 'Person',
+          'name': 'Creaciones Colibrí'
+        },
+        'publisher': publisher,
+        'mainEntityOfPage': {
+          '@type': 'WebPage',
+          '@id': articleUrl
+        }
+      } %}
+      <script type="application/ld+json">
+        {{ articleSchema | json | safe }}
+      </script>
+    {% endif %}
+    {% if ogType == 'product' and product %}
+      {% set productUrl = canonicalUrl or siteMeta.url %}
+      {% set productSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        'name': product.name,
+        'description': product.description or product.shortDescription,
+        'image': [metaImageAbsolute],
+        'sku': product.id,
+        'brand': {
+          '@type': 'Brand',
+          'name': publisher.name
+        },
+        'offers': {
+          '@type': 'Offer',
+          'priceCurrency': site.snipcart.currency,
+          'price': product.price,
+          'availability': 'https://schema.org/InStock',
+          'itemCondition': 'https://schema.org/NewCondition',
+          'url': productUrl
+        }
+      } %}
+      {% if product.dietary and product.dietary | length %}
+        {% set productSchema = productSchema | merge({ 'keywords': product.dietary | join(', ') }) %}
+      {% endif %}
+      <script type="application/ld+json">
+        {{ productSchema | json | safe }}
+      </script>
     {% endif %}
   </head>
   <body class="site">
