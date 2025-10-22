@@ -77,6 +77,9 @@
     "localeSwitcher": {
       "ariaLabel": "Language selector"
     },
+    "skipLink": {
+      "label": "Skip to main content"
+    },
     "productCard": {
       "categoryLabel": "Category",
       "dietaryLabel": "Dietary",

@@ -129,7 +129,12 @@ localeLinks:
       </fieldset>
     {% endif %}
   </div>
-  <div class="search-results" data-search-results></div>
+  <div
+    class="search-results"
+    data-search-results
+    role="status"
+    aria-live="polite"
+    aria-busy="false"></div>
 </section>
 
 {% if categories and categories | length > 0 %}

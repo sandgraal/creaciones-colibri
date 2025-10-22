@@ -119,7 +119,12 @@ localeLinks:
       </fieldset>
     {% endif %}
   </div>
-  <div class="search-results" data-search-results></div>
+  <div
+    class="search-results"
+    data-search-results
+    role="status"
+    aria-live="polite"
+    aria-busy="false"></div>
 </section>
 
 {% for category in collections.productCategories %}

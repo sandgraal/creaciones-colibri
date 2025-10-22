@@ -71,6 +71,14 @@
 {% if localeSwitcherStrings == null and fallbackUi and fallbackUi.localeSwitcher %}
   {% set localeSwitcherStrings = fallbackUi.localeSwitcher %}
 {% endif %}
+{% set skipLinkStrings = null %}
+{% if uiStrings and uiStrings.skipLink %}
+  {% set skipLinkStrings = uiStrings.skipLink %}
+{% endif %}
+{% if skipLinkStrings == null and fallbackUi and fallbackUi.skipLink %}
+  {% set skipLinkStrings = fallbackUi.skipLink %}
+{% endif %}
+{% set skipLinkLabel = skipLinkStrings and skipLinkStrings.label or 'Skip to main content' %}
 {% set navVisionLabel = navStrings.vision | default('Our Vision') %}
 {% set navProductsLabel = navStrings.products | default('Products') %}
 {% set navBundlesLabel = navStrings.bundles | default('Bundles') %}
@@ -360,6 +368,7 @@
     {% endif %}
   </head>
   <body class="site">
+    <a class="skip-link" href="#main-content">{{ skipLinkLabel }}</a>
     <header class="site-header">
       <a class="brand" href="{{ homePath | url }}">
         <img
@@ -394,7 +403,7 @@
         {% endif %}
       </nav>
     </header>
-    <main class="site-main">
+    <main id="main-content" class="site-main">
       {{ content | safe }}
     </main>
     <footer class="site-footer">

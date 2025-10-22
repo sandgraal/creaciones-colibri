@@ -20,6 +20,12 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
     clearButton.textContent = clearLabel;
   }
 
+  const setBusy = isBusy => {
+    if (resultsContainer) {
+      resultsContainer.setAttribute("aria-busy", isBusy ? "true" : "false");
+    }
+  };
+
   const hasFiltersSelected = filters =>
     Object.values(filters).some(values => values.length > 0);
 
@@ -74,6 +80,7 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
   };
 
   const renderResults = items => {
+    setBusy(true);
     resultsContainer.innerHTML = "";
 
     if (!items.length) {
@@ -81,17 +88,18 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
       emptyState.className = "search-empty";
       emptyState.textContent = emptyMessage;
       resultsContainer.appendChild(emptyState);
+      setBusy(false);
       return;
     }
 
     const list = document.createElement("div");
     list.classList.add("search-results-list");
 
-      items.forEach(item => {
-        const card = document.createElement("article");
-        card.className = "search-result-card";
-        const labelsMarkup = createLabelsMarkup(item.labels);
-        card.innerHTML = `
+    items.forEach(item => {
+      const card = document.createElement("article");
+      card.className = "search-result-card";
+      const labelsMarkup = createLabelsMarkup(item.labels);
+      card.innerHTML = `
           <a href="${item.url}" class="search-result-card__link">
             <div class="search-result-card__image">
               <img src="${item.image}" alt="${item.name}">
@@ -108,6 +116,7 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
     });
 
     resultsContainer.appendChild(list);
+    setBusy(false);
   };
 
   const updateResults = (products, fuse) => {
@@ -118,6 +127,7 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
 
     if (!hasQuery && !hasFilters) {
       resultsContainer.innerHTML = "";
+      setBusy(false);
       return;
     }
 
@@ -125,6 +135,8 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
     const filteredItems = applyFilters(baseItems, filters);
     renderResults(filteredItems.slice(0, 12));
   };
+
+  setBusy(true);
 
   fetch(endpoint)
     .then(response => response.json())
@@ -194,6 +206,8 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
         handleUpdate();
         searchInput.focus();
       });
+
+      setBusy(false);
     })
     .catch(() => {
       resultsContainer.innerHTML = "";
@@ -201,5 +215,6 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
       errorState.className = "search-error";
       errorState.textContent = errorMessage;
       resultsContainer.appendChild(errorState);
+      setBusy(false);
     });
 }
