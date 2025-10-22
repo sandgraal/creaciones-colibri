@@ -40,7 +40,7 @@ This handbook captures the conventions and best practices for building and maint
    npm run build
    ```
 
-   The generated site lives in `_site/`; do not commit this directory.
+   The generated site lives in `_site-eleventy/`; do not commit this directory.
 
 ---
 
@@ -126,7 +126,7 @@ This handbook captures the conventions and best practices for building and maint
 - GitHub Pages + Actions handle continuous deployment. No manual steps required unless secrets change.
 - Deployment workflow:
   1. Push to `main`.
-  2. GitHub Actions installs dependencies, runs `npm run build`, and publishes `_site` to the `gh-pages` environment.
+  2. GitHub Actions installs dependencies, runs `npm run build`, feeds `_site-eleventy/` into `actions/jekyll-build-pages@v1`, and uploads the resulting `_site` artifact via `actions/deploy-pages@v4`.
   3. Monitor the Action run for failures. If a build breaks, fix on a branch and merge again; avoid force-pushing to history.
 - Keep environment variables (API keys, form endpoints) in repository or organization secrets. Update this handbook whenever new secrets are introduced.
 - Contact and newsletter forms look for `FORMSPREE_ENDPOINT` and `NEWSLETTER_ACTION`; see `docs/operations/forms.md` for provider-specific notes.

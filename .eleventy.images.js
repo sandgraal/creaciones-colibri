@@ -4,7 +4,12 @@ const path = require("path");
 const widths = [320, 480, 640];
 const formats = ["webp", "jpeg"];
 
-module.exports = async function generateImage(src, alt, className = "responsive-image") {
+module.exports = async function generateImage(
+  src,
+  alt,
+  className = "responsive-image",
+  outputDir = "_site-eleventy"
+) {
   if (!alt) {
     throw new Error(`Missing alt text for image: ${src}`);
   }
@@ -21,7 +26,7 @@ module.exports = async function generateImage(src, alt, className = "responsive-
     widths,
     formats,
     urlPath: "/img/generated/",
-    outputDir: "_site/img/generated/",
+    outputDir: `${outputDir}/img/generated/`,
     sharpWebpOptions: { quality: 70 },
     sharpJpegOptions: { quality: 75 }
   });
