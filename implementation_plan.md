@@ -68,6 +68,8 @@ _Status legend_
 - [ ] **Subscriptions & bundles**
   - [x] Define subscription offerings (e.g., monthly sauce trio, granola of the month).
   - [ ] Configure recurring payments via chosen e-commerce solution; verify renewal flows.
+    - [x] Wire Snipcart subscription buttons to automated billing plans in bundle templates so subscriptions add directly to the cart.
+    - [ ] Complete sandbox checkout + renewal tests once Snipcart credentials are active.
   - [x] Build bundle product templates that dynamically render from shared product data.
 
 - [ ] **Analytics & SEO**

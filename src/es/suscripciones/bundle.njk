@@ -23,6 +23,22 @@ eleventyComputed:
 {% set bundleDescription = bundleTranslation and bundleTranslation.description or baseBundle.description %}
 {% set bundleUnit = bundleTranslation and bundleTranslation.unit or baseBundle.unit %}
 {% set bundlePerks = bundleTranslation and bundleTranslation.perks or baseBundle.perks %}
+{% set subscribeLabel = strings and strings.subscribeButton or 'Suscribirme' %}
+{% set billing = baseBundle.billing or {} %}
+{% set billingInterval = billing.interval %}
+{% set billingIntervalCount = billing.intervalCount or 1 %}
+{% set intervalLabel = billingInterval %}
+{% if billingInterval %}
+  {% if billingInterval == 'month' %}
+    {% set intervalLabel = 'mes' if billingIntervalCount == 1 else 'meses' %}
+  {% elseif billingInterval == 'week' %}
+    {% set intervalLabel = 'semana' if billingIntervalCount == 1 else 'semanas' %}
+  {% elseif billingInterval == 'day' %}
+    {% set intervalLabel = 'día' if billingIntervalCount == 1 else 'días' %}
+  {% elseif billingInterval == 'year' %}
+    {% set intervalLabel = 'año' if billingIntervalCount == 1 else 'años' %}
+  {% endif %}
+{% endif %}
 
 <article class="bundle-detail">
   <header class="bundle-detail__header">
@@ -32,7 +48,7 @@ eleventyComputed:
     <div class="bundle-detail__meta">
       <span class="bundle-detail__price">${{ baseBundle.price }} <small>{{ bundleUnit }}</small></span>
       {% if baseBundle.type == 'subscription' and baseBundle.billing %}
-        <span class="bundle-detail__billing">{{ strings.subscriptionBilling if strings else 'Frecuencia de cobro' }}: {{ baseBundle.billing.intervalCount }} {{ baseBundle.billing.interval }}</span>
+        <span class="bundle-detail__billing">{{ strings.subscriptionBilling if strings else 'Frecuencia de cobro' }}: {{ billingIntervalCount }} {{ intervalLabel }}</span>
       {% endif %}
     </div>
     {% if baseBundle.type == 'bundle' and site.snipcart.publicKey %}
@@ -47,6 +63,28 @@ eleventyComputed:
           data-item-description="{{ bundleSummary }}"
           data-item-image="{{ baseBundle.image.src | url }}">
           Agregar al carrito
+        </button>
+      </div>
+    {% elseif baseBundle.type == 'subscription' and site.snipcart.publicKey %}
+      <div class="bundle-detail__purchase">
+        <button
+          class="button button-primary bundle-detail__cart snipcart-add-item"
+          type="button"
+          data-item-id="bundle-{{ baseBundle.id }}"
+          data-item-name="{{ bundleName }}"
+          data-item-price="{{ baseBundle.price }}"
+          data-item-url="{{ page.url | url }}"
+          data-item-description="{{ bundleSummary }}"
+          data-item-image="{{ baseBundle.image.src | url }}"
+          data-plan-id="plan-{{ baseBundle.id }}"
+          data-plan-name="{{ bundleName }}"
+          data-plan-interval="{{ billingInterval }}"
+          data-plan-interval-count="{{ billingIntervalCount }}"
+          {% if billing.trialDays %}
+            data-plan-trial-period-days="{{ billing.trialDays }}"
+          {% endif %}
+          data-plan-amount="{{ baseBundle.price }}">
+          {{ subscribeLabel }}
         </button>
       </div>
     {% elseif baseBundle.type == 'subscription' %}

@@ -28,12 +28,41 @@ eleventyComputed:
   {% set backLabel = 'Volver a combos' %}
   {% set backPath = '/es/suscripciones/' %}
   {% set addToCartLabel = 'Agregar al carrito' %}
+  {% set subscribeLabel = strings and strings.subscribeButton or 'Suscribirme' %}
   {% set subscriptionInfoText = 'Próximamente habilitaremos la suscripción automática via Snipcart. Mientras tanto, escríbenos para unirte:' %}
 {% else %}
   {% set backLabel = 'Back to bundles' %}
   {% set backPath = '/bundles/' %}
   {% set addToCartLabel = 'Add to cart' %}
+  {% set subscribeLabel = strings and strings.subscribeButton or 'Subscribe' %}
   {% set subscriptionInfoText = 'We are finalizing automatic billing via Snipcart. Email us to join the subscription:' %}
+{% endif %}
+{% set billing = bundle.billing or {} %}
+{% set billingInterval = billing.interval %}
+{% set billingIntervalCount = billing.intervalCount or 1 %}
+{% set intervalLabel = billingInterval %}
+{% if billingInterval %}
+  {% if currentLocale == 'es' %}
+    {% if billingInterval == 'month' %}
+      {% set intervalLabel = 'mes' if billingIntervalCount == 1 else 'meses' %}
+    {% elseif billingInterval == 'week' %}
+      {% set intervalLabel = 'semana' if billingIntervalCount == 1 else 'semanas' %}
+    {% elseif billingInterval == 'day' %}
+      {% set intervalLabel = 'día' if billingIntervalCount == 1 else 'días' %}
+    {% elseif billingInterval == 'year' %}
+      {% set intervalLabel = 'año' if billingIntervalCount == 1 else 'años' %}
+    {% endif %}
+  {% else %}
+    {% if billingInterval == 'month' %}
+      {% set intervalLabel = 'month' if billingIntervalCount == 1 else 'months' %}
+    {% elseif billingInterval == 'week' %}
+      {% set intervalLabel = 'week' if billingIntervalCount == 1 else 'weeks' %}
+    {% elseif billingInterval == 'day' %}
+      {% set intervalLabel = 'day' if billingIntervalCount == 1 else 'days' %}
+    {% elseif billingInterval == 'year' %}
+      {% set intervalLabel = 'year' if billingIntervalCount == 1 else 'years' %}
+    {% endif %}
+  {% endif %}
 {% endif %}
 
 <article class="bundle-detail">
@@ -44,7 +73,7 @@ eleventyComputed:
     <div class="bundle-detail__meta">
       <span class="bundle-detail__price">${{ bundle.price }} <small>{{ bundleUnit }}</small></span>
       {% if bundle.type == 'subscription' and bundle.billing %}
-        <span class="bundle-detail__billing">{{ strings.subscriptionBilling if strings else ('Frecuencia de cobro' if currentLocale == 'es' else 'Billing cadence') }}: {{ bundle.billing.intervalCount }} {{ bundle.billing.interval }}</span>
+        <span class="bundle-detail__billing">{{ strings.subscriptionBilling if strings else ('Frecuencia de cobro' if currentLocale == 'es' else 'Billing cadence') }}: {{ billingIntervalCount }} {{ intervalLabel }}</span>
       {% endif %}
     </div>
     {% if bundle.type == 'bundle' and site.snipcart.publicKey %}
@@ -59,6 +88,28 @@ eleventyComputed:
           data-item-description="{{ bundleSummary }}"
           data-item-image="{{ bundle.image.src | url }}">
           {{ addToCartLabel }}
+        </button>
+      </div>
+    {% elseif bundle.type == 'subscription' and site.snipcart.publicKey %}
+      <div class="bundle-detail__purchase">
+        <button
+          class="button button-primary bundle-detail__cart snipcart-add-item"
+          type="button"
+          data-item-id="bundle-{{ bundle.id }}"
+          data-item-name="{{ bundleName }}"
+          data-item-price="{{ bundle.price }}"
+          data-item-url="{{ page.url | url }}"
+          data-item-description="{{ bundleSummary }}"
+          data-item-image="{{ bundle.image.src | url }}"
+          data-plan-id="plan-{{ bundle.id }}"
+          data-plan-name="{{ bundleName }}"
+          data-plan-interval="{{ billingInterval }}"
+          data-plan-interval-count="{{ billingIntervalCount }}"
+          {% if billing.trialDays %}
+            data-plan-trial-period-days="{{ billing.trialDays }}"
+          {% endif %}
+          data-plan-amount="{{ bundle.price }}">
+          {{ subscribeLabel }}
         </button>
       </div>
     {% elseif bundle.type == 'subscription' %}

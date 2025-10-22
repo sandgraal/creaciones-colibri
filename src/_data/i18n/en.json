@@ -94,6 +94,7 @@
     "subscriptionBadge": "Subscription",
     "bundleContents": "What's inside",
     "perks": "Why you'll love it",
-    "subscriptionBilling": "Billing cadence"
+    "subscriptionBilling": "Billing cadence",
+    "subscribeButton": "Start subscription"
   }
 }
