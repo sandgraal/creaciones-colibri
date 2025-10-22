@@ -1,10 +1,11 @@
 <article class="post-card">
+  {% set postLocale = post.data.locale or post.data.lang or 'en' %}
   <a class="post-card__link" href="{{ post.url | url }}">
     <header class="post-card__header">
-      <p class="post-card__date">{{ post.date | readableDate }}</p>
+      <p class="post-card__date">{{ post.date | readableDate(postLocale) }}</p>
       <h2 class="post-card__title">{{ post.data.title }}</h2>
     </header>
     <p class="post-card__summary">{{ post.data.excerpt | default(post.templateContent | striptags | truncate(160, true, '...')) }}</p>
-    <span class="post-card__cta">Read more →</span>
+    <span class="post-card__cta">{{ postLocale == 'es' ? 'Leer más →' : 'Read more →' }}</span>
   </a>
 </article>

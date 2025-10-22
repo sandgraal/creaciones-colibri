@@ -176,9 +176,25 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addFilter("absoluteUrl", (url, base) => absoluteUrl(url, base));
   eleventyConfig.addFilter("date", (value, format) => formatDate(value, format));
 
-  eleventyConfig.addFilter("readableDate", dateObj =>
-    new Intl.DateTimeFormat("en-US", { dateStyle: "long" }).format(dateObj)
-  );
+  eleventyConfig.addFilter("readableDate", (dateObj, locale = "en") => {
+    if (!dateObj) {
+      return "";
+    }
+
+    const date = dateObj instanceof Date ? dateObj : new Date(dateObj);
+    if (Number.isNaN(date.getTime())) {
+      return "";
+    }
+
+    const resolvedLocale = locale === "es" ? "es-CR" : "en-US";
+
+    try {
+      return new Intl.DateTimeFormat(resolvedLocale, { dateStyle: "long" }).format(date);
+    } catch (error) {
+      console.warn(`[i18n] Failed to format date for locale ${locale}: ${error.message}`);
+      return new Intl.DateTimeFormat("en-US", { dateStyle: "long" }).format(date);
+    }
+  });
 
   eleventyConfig.addCollection("posts", collectionApi =>
     collectionApi

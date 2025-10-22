@@ -24,11 +24,11 @@ _Status legend_
   - [x] Implement a blog section under `src/blog/` for storytelling, recipes, and market updates.
   - [x] Add Eleventy collections/tags to group products by category, dietary preference, and benefits.
 
-- [ ] **Visual design** _(in progress)_
+- [x] **Visual design**
   - [x] Establish color palette, typography, and foundational styling (`src/css/main.css`).
   - [x] Produce SVG favicon/logo variants; wire them into the base layout without adding binary assets to the repo.
   - [x] Document an image optimization workflow (responsive `srcset`, compression, naming).
-  - [ ] Conduct accessibility review of typography, color contrast, and interactive states.
+  - [x] Conduct accessibility review of typography, color contrast, and interactive states (see `docs/design/accessibility-review.md`).
 
 ---
 
