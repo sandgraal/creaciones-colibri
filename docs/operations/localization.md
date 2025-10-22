@@ -9,6 +9,7 @@
 1. Create a directory `src/{locale}/` (e.g., `src/es/`) and add localized templates mirroring the English structure.
 2. To translate shared copy, update the JSON files under `src/_data/i18n/`.
 3. Reference translations in templates via `collections.i18n[0].data.i18n.{locale}`.
+4. When localizing blog posts, keep shared front matter like `tags: [post]` so structured data and article metadata stay in sync across languages.
 
 ### Product Catalog
 - English product data lives in `src/_data/catalog.js` (built from `products.js`).
