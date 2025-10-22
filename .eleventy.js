@@ -209,6 +209,17 @@ module.exports = function(eleventyConfig) {
       .sort((a, b) => b.date - a.date)
   );
 
+  eleventyConfig.addFilter("json", value =>
+    JSON.stringify(value, null, 2)
+  );
+
+  eleventyConfig.addFilter("merge", (target = {}, source = {}) => {
+    if (Array.isArray(target) && Array.isArray(source)) {
+      return target.concat(source);
+    }
+    return { ...target, ...source };
+  });
+
   return {
     pathPrefix: "/creaciones-colibri",
     dir: {
