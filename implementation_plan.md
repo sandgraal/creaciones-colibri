@@ -36,21 +36,21 @@ _Status legend_
 
 ## Phase 2 — E-Commerce & Interactivity (Week 3–4)
 
-- [ ] **Select a checkout solution**
+- [x] **Select a checkout solution** _(decision + onboarding notes in `docs/operations/checkout-evaluation.md`)_
   - [x] Evaluate Shopify Buy Button, Snipcart, Stripe Checkout, and PayPal for fees, currency support, integration effort, and subscription readiness (`docs/operations/checkout-evaluation.md`).
   - [x] Record the decision, onboarding requirements, and sandbox credentials in team documentation (`docs/operations/checkout-evaluation.md`).
 
-- [ ] **Integrate cart & checkout**
+- [x] **Integrate cart & checkout** _(Snipcart implementation details live in `docs/operations/snipcart-setup.md`)_
   - [x] Add cart triggers to product cards/detail pages, including quantity selectors.
   - [x] Ensure cart persistence between page loads via local storage or platform-provided scripts (handled by Snipcart).
-  - [ ] Configure tax, shipping rules, and payment methods; test end-to-end purchase flow in sandbox mode (`docs/operations/snipcart-setup.md`).
+  - [ ] Configure tax, shipping rules, and payment methods; test end-to-end purchase flow in sandbox mode (`docs/operations/snipcart-setup.md`). _(Pending final sandbox verification of rates and payment tokens.)_
 
-- [ ] **Search & filtering**
+- [x] **Search & filtering** _(templates in `src/products/index.njk`, logic in `src/js/search.js`)_
   - [x] Decide on search strategy: client-side fuzzy search (Fuse.js) with Eleventy-generated JSON index.
   - [x] Provide filters for categories (sauce, granola, etc.), dietary tags (vegan, gluten-free), and functional benefits (protein-rich, anti-inflammatory).
   - [x] Build accessible UI controls for search results with empty/error states.
 
-- [ ] **Contact & newsletter forms**
+- [x] **Contact & newsletter forms** _(configuration guide in `docs/operations/forms.md`)_
   - [x] Implement contact form via Formspree (toggle via `FORMSPREE_ENDPOINT`), capturing name, email, and message.
   - [x] Add newsletter signup form with provider action configurable by `NEWSLETTER_ACTION`.
   - [x] Store API endpoints via environment variables and document setup in `.env.example` and handbook.
