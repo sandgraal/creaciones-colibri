@@ -40,7 +40,7 @@ eleventyComputed:
     <div class="product-detail__meta">
       <span class="product-detail__price">${{ baseProduct.price }} <small>{{ product_unit }}</small></span>
       <span class="product-detail__category">{{ product_category }}</span>
-      {% if product_heat != nil %}
+      {% if product_heat != null %}
         <span class="product-detail__heat">Picor: {{ product_heat }}/5</span>
       {% endif %}
     </div>

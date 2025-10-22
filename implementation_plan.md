@@ -69,7 +69,7 @@ _Status legend_
 
 - [ ] **Analytics & SEO**
   - [x] Configure SEO fundamentals: meta tags, Open Graph, structured data (JSON-LD).
-  - [ ] Generate sitemap and robots.txt during the Eleventy build.
+  - [x] Generate sitemap and robots.txt during the Eleventy build.
   - [x] Draft analytics plan and integrate Plausible toggle (requires `PLAUSIBLE_DOMAIN` to activate). Final hookup pending account creation and domain configuration.
 
 - [ ] **Performance & accessibility audit**
@@ -80,8 +80,8 @@ _Status legend_
 - [ ] **Deployment & CI** _(in progress)_
   - [x] Choose hosting provider (GitHub Pages) and configure automated deployment (`.github/workflows/pages.yml`).
   - [x] Ensure Eleventy copies static assets and respects `pathPrefix` for GitHub Pages URLs.
-  - [ ] Add secrets management guidance for future API keys or environment variables needed during build.
-  - [ ] Document rollback/redeployment procedures and monitoring expectations.
+  - [x] Add secrets management guidance for future API keys or environment variables needed during build.
+  - [x] Document rollback/redeployment procedures and monitoring expectations.
 
 - [ ] **Post-launch marketing**
   - [ ] Plan social media campaigns for product launches and seasonal events.
