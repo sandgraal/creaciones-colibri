@@ -1,0 +1,19 @@
+---
+layout: layouts/base.njk
+title: Página no encontrada
+description: No encontramos la página que buscabas. Regresa al inicio o explora la despensa de Creaciones Colibrí.
+permalink: es/404/index.html
+locale: es
+localeLinks:
+  en: /404.html
+---
+
+<section class="content-section">
+  <h1>No pudimos encontrar esa página.</h1>
+  <p>El colibrí recorrió todo el sitio y no vio la URL que ingresaste. Puede que se haya movido o que haya un error tipográfico.</p>
+  <ul class="link-list">
+    <li><a class="button button-primary" href="{{ '/es/' | url }}">Volver al inicio</a></li>
+    <li><a class="button button-secondary" href="{{ '/es/productos/' | url }}">Explorar el catálogo</a></li>
+    <li><a class="button button-secondary" href="{{ '/es/contacto/' | url }}">Contactar al equipo</a></li>
+  </ul>
+</section>

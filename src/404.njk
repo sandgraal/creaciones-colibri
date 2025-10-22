@@ -1,0 +1,18 @@
+---
+layout: layouts/base.njk
+title: Page not found
+description: We couldn't find the page you're looking for. Explore Creaciones Colibrí products or return home.
+permalink: 404.html
+localeLinks:
+  es: /es/404/
+---
+
+<section class="content-section">
+  <h1>We looked everywhere.</h1>
+  <p>The hummingbird couldn't locate that page. It may have moved, or the URL might be misspelled.</p>
+  <ul class="link-list">
+    <li><a class="button button-primary" href="{{ '/' | url }}">Return home</a></li>
+    <li><a class="button button-secondary" href="{{ '/products/' | url }}">Browse the catalog</a></li>
+    <li><a class="button button-secondary" href="{{ '/contact/' | url }}">Contact the team</a></li>
+  </ul>
+</section>
