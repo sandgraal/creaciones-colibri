@@ -79,7 +79,7 @@ npm run build
 
 ## Deployment
 
-Deployments are handled by GitHub Pages. The workflow in `.github/workflows/pages.yml` builds the Eleventy site and publishes the `_site` output whenever you push to `main`. Make sure the repository’s Pages settings are set to “GitHub Actions,” then the site will update automatically after each successful run.
+Deployments are handled by GitHub Pages. The workflow in `.github/workflows/pages.yml` builds the Eleventy site on every push to `main` and then publishes the generated `_site` directory to the `gh-pages` branch using the official token. Ensure the repository’s Pages settings point to the `gh-pages` branch (root) so the freshly published files—complete with the emitted `.nojekyll` marker—go live after each successful run.
 
 ## Project Structure
 
