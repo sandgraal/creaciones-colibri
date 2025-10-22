@@ -13,7 +13,10 @@ localeLinks:
 
 <section class="hero">
   <div class="hero-media">
-    <img class="hero-logo" src="{{ '/img/creaciones_colibri_logo.png' | url }}" alt="Logotipo de Colibrí">
+    <picture>
+      <source srcset="{{ '/img/branding/creaciones-colibri-logo.svg' | url }}" type="image/svg+xml">
+      <img class="hero-logo" src="{{ '/img/branding/creaciones-colibri-logo.svg' | url }}" alt="Logotipo de Colibrí">
+    </picture>
   </div>
   <div class="hero-content">
     <h1>{{ t.hero.title }}</h1>

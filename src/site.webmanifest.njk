@@ -1,0 +1,29 @@
+---
+permalink: /site.webmanifest
+layout: null
+content-type: application/manifest+json
+---
+{
+  "name": "Creaciones Colibrí",
+  "short_name": "Colibrí",
+  "description": "Small-batch hot sauces and pantry goods inspired by Costa Rica and Florida gardens.",
+  "lang": "en",
+  "start_url": "{{ '/' | url }}",
+  "scope": "{{ '/' | url }}",
+  "display": "standalone",
+  "background_color": "#fdf8f3",
+  "theme_color": "#f16745",
+  "icons": [
+    {
+      "src": "{{ '/img/branding/creaciones-colibri-logo.svg' | url }}",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "{{ '/img/branding/maskable-icon.svg' | url }}",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

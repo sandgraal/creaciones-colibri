@@ -7,7 +7,14 @@ localeLinks:
 
 <section class="hero">
   <div class="hero-media">
-    <img class="hero-logo" src="{{ '/img/creaciones_colibri_logo.png' | url }}" alt="Creaciones Colibrí hummingbird logo">
+    <picture>
+      <source srcset="{{ '/img/branding/creaciones-colibri-logo.svg' | url }}" type="image/svg+xml">
+      <img
+        class="hero-logo"
+        src="{{ '/img/branding/creaciones-colibri-logo.svg' | url }}"
+        alt="Creaciones Colibrí hummingbird logo"
+      >
+    </picture>
   </div>
   <div class="hero-content">
     <h1>Botanical heat and vibrant pantry creations.</h1>
