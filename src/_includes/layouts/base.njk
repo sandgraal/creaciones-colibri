@@ -50,6 +50,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ metaTitle }}</title>
     <meta name="description" content="{{ metaDescription }}">
+    <meta name="theme-color" content="#f16745">
+    <meta name="application-name" content="Creaciones Colibrí">
     {% if canonicalUrl %}
       <link rel="canonical" href="{{ canonicalUrl }}">
       <meta property="og:url" content="{{ canonicalUrl }}">
@@ -74,6 +76,12 @@
     <meta name="twitter:title" content="{{ metaTitle }}">
     <meta name="twitter:description" content="{{ metaDescription }}">
     <meta name="twitter:image" content="{{ siteMeta.socialImage | url | absoluteUrl(siteMeta.url) }}">
+    <link rel="icon" type="image/svg+xml" href="{{ '/img/branding/creaciones-colibri-logo.svg' | url }}">
+    <link rel="icon" type="image/svg+xml" sizes="any" href="{{ '/img/branding/maskable-icon.svg' | url }}">
+    <link rel="apple-touch-icon" type="image/svg+xml" href="{{ '/img/branding/maskable-icon.svg' | url }}">
+    <link rel="manifest" href="{{ '/site.webmanifest' | url }}">
+    <link rel="mask-icon" href="{{ '/img/branding/maskable-icon.svg' | url }}" color="#f16745">
+    <meta name="msapplication-TileColor" content="#f16745">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -90,7 +98,11 @@
   <body class="site">
     <header class="site-header">
       <a class="brand" href="{{ '/' | url }}">
-        <img class="brand-logo" src="{{ '/img/creaciones_colibri_logo.png' | url }}" alt="Creaciones Colibrí logo">
+        <img
+          class="brand-logo"
+          src="{{ '/img/branding/creaciones-colibri-logo.svg' | url }}"
+          alt="Creaciones Colibrí logo"
+        >
         <span class="brand-title">Creaciones Colibrí</span>
       </a>
       <nav class="site-nav">

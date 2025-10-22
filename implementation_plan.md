@@ -26,8 +26,8 @@ _Status legend_
 
 - [ ] **Visual design** _(in progress)_
   - [x] Establish color palette, typography, and foundational styling (`src/css/main.css`).
-  - [ ] Produce favicon set and responsive logo variants; wire them into the base layout.
-  - [ ] Document an image optimization workflow (responsive `srcset`, compression, naming).
+  - [x] Produce SVG favicon/logo variants; wire them into the base layout without adding binary assets to the repo.
+  - [x] Document an image optimization workflow (responsive `srcset`, compression, naming).
   - [ ] Conduct accessibility review of typography, color contrast, and interactive states.
 
 ---

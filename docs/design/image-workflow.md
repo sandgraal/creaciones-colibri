@@ -17,8 +17,12 @@ This guide explains how we manage product imagery while we gather final photogra
 - Target file sizes under 200 KB for hero imagery and under 150 KB for product cards.
 - Maintain consistent framing (centered product on neutral background) to reinforce brand cohesion.
 
-## 4. Favicon & Logo Variants (TODO)
-- Create favicon set and responsive logos; store under `src/img/branding/`. Update `implementation_plan.md` once completed.
+## 4. Favicon & Logo Variants
+- Brand assets live in `src/img/branding/`.
+- `creaciones-colibri-logo.svg` powers the hero, header, and Open Graph fallbacks.
+- Browser icons currently rely on SVG exports (`creaciones-colibri-logo.svg` and `maskable-icon.svg`) so the repository stays text-only. When production-ready raster icons are approved, generate them during the build pipeline (e.g., with `sharp`) or host them on the CDN before wiring them into the layout.
+- Update `src/site.webmanifest.njk` and `src/_includes/layouts/base.njk` if you add or rename icons so the manifest and link tags stay accurate.
+- Safari pinned tabs read from `maskable-icon.svg`; keep paths synchronized with the `<link rel="mask-icon">` tag in `src/_includes/layouts/base.njk`.
 
 Document updates here when new assets replace placeholders:
 ```
