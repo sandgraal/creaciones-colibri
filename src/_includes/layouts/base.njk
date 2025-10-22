@@ -15,6 +15,8 @@
   {% set navProductsLabel = 'Productos' %}
   {% set navNewsletterLabel = 'Boletín' %}
   {% set navContactLabel = 'Contacto' %}
+  {% set navBlogLabel = 'Blog' %}
+  {% set cartLabel = 'Carrito' %}
 {% else %}
   {% set productsPath = '/products/' %}
   {% set blogPath = '/blog/' %}
@@ -23,7 +25,10 @@
   {% set navProductsLabel = 'Products' %}
   {% set navNewsletterLabel = 'Stay in Touch' %}
   {% set navContactLabel = 'Contact' %}
+  {% set navBlogLabel = 'Blog' %}
+  {% set cartLabel = 'Cart' %}
 {% endif %}
+{% set localeLinksMap = localeLinks or {} %}
 {% set siteMeta = siteMeta or {} %}
 {% set baseTitle = siteMeta.title or '' %}
 {% set metaTitle = baseTitle %}
@@ -91,21 +96,22 @@
       <nav class="site-nav">
         <a class="nav-link" href="{{ visionPath | url }}">{{ navVisionLabel }}</a>
         <a class="nav-link" href="{{ productsPath | url }}">{{ navProductsLabel }}</a>
-        <a class="nav-link" href="{{ blogPath | url }}">Blog</a>
+        <a class="nav-link" href="{{ blogPath | url }}">{{ navBlogLabel }}</a>
         <a class="nav-link" href="{{ newsletterPath | url }}">{{ navNewsletterLabel }}</a>
         <a class="nav-link" href="{{ contactPath | url }}">{{ navContactLabel }}</a>
-    {% if site.alternateLocales and site.alternateLocales | length %}
-      <div class="locale-switcher" role="navigation" aria-label="Language selector">
-        {% for localeCode in site.alternateLocales %}
-          {% if localeCode != currentLocale %}
-            <a class="locale-switcher__link" href="/{{ localeCode }}/" hreflang="{{ localeCode }}">{{ localeCode | upper }}</a>
-          {% endif %}
+        {% if site.alternateLocales and site.alternateLocales | length %}
+          <div class="locale-switcher" role="navigation" aria-label="Language selector">
+            {% for localeCode in site.alternateLocales %}
+              {% set alternateHref = localeLinksMap[localeCode] %}
+              {% if localeCode != currentLocale and alternateHref %}
+                <a class="locale-switcher__link" href="{{ alternateHref | url }}" hreflang="{{ localeCode }}">{{ localeCode | upper }}</a>
+              {% endif %}
             {% endfor %}
           </div>
         {% endif %}
         {% if site.snipcart.publicKey %}
           <button class="cart-button snipcart-checkout" type="button">
-            <span class="cart-button__label">Cart</span>
+            <span class="cart-button__label">{{ cartLabel }}</span>
             <span class="cart-button__count snipcart-items-count">0</span>
           </button>
         {% endif %}

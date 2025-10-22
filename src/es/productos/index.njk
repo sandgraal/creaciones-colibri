@@ -2,27 +2,126 @@
 layout: layouts/base.njk
 title: Productos
 locale: es
-search: false
+search: true
+localeLinks:
+  en: /products/
 ---
 
 {% set translations = collections.i18n[0].data.i18n %}
 {% set t = translations.es %}
-{% set catalogData = catalog %}
+{% set catalogData = catalog.catalog or catalog %}
+{% set categories = catalogData.categories or [] %}
+{% set dietaryTags = catalogData.dietaryTags or [] %}
+{% set benefitTags = catalogData.benefitTags or [] %}
 
 <section class="page-intro">
   <h1 class="page-title">Nuestra despensa</h1>
   <p class="page-subtitle">Selecciona tu categoría favorita o usa la búsqueda para encontrar sabores, ingredientes o beneficios en español.</p>
 </section>
 
-{% for category in catalogData.categories %}
-  <section class="product-category" id="categoria-{{ category.id }}">
+<section
+  class="search-panel"
+  data-search-root
+  data-search-endpoint="{{ '/es/search.json' | url }}"
+  data-search-empty="No encontramos productos con esos criterios. Ajusta los filtros o el término de búsqueda."
+  data-search-error="La búsqueda no está disponible en este momento. Inténtalo más tarde."
+  data-search-clear-label="Limpiar">
+  <div class="search-panel__header">
+    <h2>Busca en la despensa</h2>
+    <p>Descubre ingredientes, beneficios o productos específicos en español.</p>
+  </div>
+  <div class="search-panel__controls">
+    <label class="search-panel__label" for="catalogo-busqueda">Buscar productos</label>
+    <div class="search-panel__input-group">
+      <input
+        id="catalogo-busqueda"
+        class="search-panel__input"
+        type="search"
+        name="search"
+        placeholder="Prueba “jengibre”, “vegana” o “cacao”"
+        autocomplete="off"
+        data-search-input>
+      <button class="button button-secondary search-panel__clear" type="button" data-search-clear>Limpiar</button>
+    </div>
+  </div>
+  <div class="search-filters">
+    {% if categories | length %}
+      <fieldset class="filter-group">
+        <legend class="filter-group__title">Categorías</legend>
+        <div class="filter-list">
+          {% for category in categories %}
+            {% set categorySlug = category.slug or category.id %}
+            {% set inputId = 'filtro-categoria-' ~ categorySlug %}
+            <label class="filter-chip" for="{{ inputId }}">
+              <input
+                id="{{ inputId }}"
+                class="filter-chip__input"
+                type="checkbox"
+                value="{{ category.name }}"
+                data-filter-checkbox
+                data-filter-type="category">
+              <span class="filter-chip__label">{{ category.name }}</span>
+            </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+    {% endif %}
+
+    {% if dietaryTags | length %}
+      <fieldset class="filter-group">
+        <legend class="filter-group__title">Dietas</legend>
+        <div class="filter-list">
+          {% for tag in dietaryTags %}
+            {% set inputId = 'filtro-dieta-' ~ tag.slug %}
+            <label class="filter-chip" for="{{ inputId }}">
+              <input
+                id="{{ inputId }}"
+                class="filter-chip__input"
+                type="checkbox"
+                value="{{ tag.tag }}"
+                data-filter-checkbox
+                data-filter-type="dietary">
+              <span class="filter-chip__label">{{ tag.tag }}</span>
+            </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+    {% endif %}
+
+    {% if benefitTags | length %}
+      <fieldset class="filter-group">
+        <legend class="filter-group__title">Beneficios</legend>
+        <div class="filter-list">
+          {% for tag in benefitTags %}
+            {% set inputId = 'filtro-beneficio-' ~ tag.slug %}
+            <label class="filter-chip" for="{{ inputId }}">
+              <input
+                id="{{ inputId }}"
+                class="filter-chip__input"
+                type="checkbox"
+                value="{{ tag.tag }}"
+                data-filter-checkbox
+                data-filter-type="benefits">
+              <span class="filter-chip__label">{{ tag.tag }}</span>
+            </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+    {% endif %}
+  </div>
+  <div class="search-results" data-search-results></div>
+</section>
+
+{% for category in categories %}
+  {% set categorySlug = category.slug or category.id %}
+  <section class="product-category" id="categoria-{{ categorySlug }}">
     <div class="product-category__headline">
       <h2>{{ category.name }}</h2>
     </div>
     <div class="product-grid">
       {% for product in category.products %}
         <article class="product-card">
-          <a class="product-card__link" href="{{ '/es/productos/' ~ product.id ~ '/' | url }}">
+          <a class="product-card__link" href="{{ product.url | default('/es/productos/' ~ product.id ~ '/') | url }}">
             <div class="product-card__media">
               <img src="{{ product.image.src | url }}" alt="{{ product.image.alt }}">
             </div>
@@ -36,7 +135,7 @@ search: false
               <span class="product-card__amount">${{ product.price }}</span>
               <span class="product-card__unit">{{ product.unit }}</span>
             </div>
-            <a class="button button-secondary product-card__cart" href="{{ '/es/productos/' ~ product.id ~ '/' | url }}">Ver detalles</a>
+            <a class="button button-secondary product-card__cart" href="{{ product.url | default('/es/productos/' ~ product.id ~ '/') | url }}">Ver detalles</a>
           </div>
         </article>
       {% endfor %}

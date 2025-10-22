@@ -6,9 +6,18 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
   const clearButton = searchRoot.querySelector("[data-search-clear]");
   const filterInputs = Array.from(searchRoot.querySelectorAll("[data-filter-checkbox]"));
   const endpoint = searchRoot.dataset.searchEndpoint || "/search.json";
+  const emptyMessage = searchRoot.dataset.searchEmpty ||
+    "No products match your criteria right now. Try adjusting filters or search terms.";
+  const errorMessage = searchRoot.dataset.searchError ||
+    "Search is unavailable right now. Please try again later.";
+  const clearLabel = searchRoot.dataset.searchClearLabel;
 
   if (!searchInput || !resultsContainer) {
     return;
+  }
+
+  if (clearButton && clearLabel) {
+    clearButton.textContent = clearLabel;
   }
 
   const hasFiltersSelected = filters =>
@@ -56,7 +65,10 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
     resultsContainer.innerHTML = "";
 
     if (!items.length) {
-      resultsContainer.innerHTML = "<p class='search-empty'>No products match your criteria right now. Try adjusting filters or search terms.</p>";
+      const emptyState = document.createElement("p");
+      emptyState.className = "search-empty";
+      emptyState.textContent = emptyMessage;
+      resultsContainer.appendChild(emptyState);
       return;
     }
 
@@ -121,6 +133,10 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
       });
     })
     .catch(() => {
-      resultsContainer.innerHTML = "<p class='search-error'>Search is unavailable right now. Please try again later.</p>";
+      resultsContainer.innerHTML = "";
+      const errorState = document.createElement("p");
+      errorState.className = "search-error";
+      errorState.textContent = errorMessage;
+      resultsContainer.appendChild(errorState);
     });
 }
