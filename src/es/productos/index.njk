@@ -8,8 +8,22 @@ localeLinks:
   en: /products/
 ---
 
-{% set translations = collections.i18n[0].data.i18n %}
-{% set t = translations.es %}
+{% set translations = collections.i18n and collections.i18n[0].data.i18n %}
+{% set defaultLocale = site.locale | default('en') %}
+{% set currentLocale = locale | default('es') %}
+{% set localeStrings = translations and translations[currentLocale] %}
+{% if localeStrings == null and translations and translations['es'] %}
+  {% set localeStrings = translations['es'] %}
+{% endif %}
+{% set fallbackStrings = translations and translations['en'] %}
+{% set catalogPageStrings = localeStrings and localeStrings.catalogPage %}
+{% if catalogPageStrings == null and fallbackStrings %}
+  {% set catalogPageStrings = fallbackStrings.catalogPage %}
+{% endif %}
+{% set catalogPageStrings = catalogPageStrings or {} %}
+{% set searchStrings = catalogPageStrings.search or {} %}
+{% set filterStrings = catalogPageStrings.filters or {} %}
+
 {% set catalogData = catalog.catalog %}
 {% if catalogData == null %}
   {% set catalogData = catalog %}
@@ -19,39 +33,41 @@ localeLinks:
 {% set benefitTags = catalogData.benefitTags %}
 
 <section class="page-intro">
-  <h1 class="page-title">Nuestra despensa</h1>
-  <p class="page-subtitle">Selecciona tu categoría favorita o usa la búsqueda para encontrar sabores, ingredientes o beneficios en español.</p>
+  <h1 class="page-title">{{ catalogPageStrings.title or 'Nuestra despensa' }}</h1>
+  <p class="page-subtitle">{{ catalogPageStrings.subtitle or 'Selecciona tu categoría favorita o usa la búsqueda para encontrar sabores, ingredientes o beneficios en español.' }}</p>
 </section>
 
 <section
   class="search-panel"
   data-search-root
   data-search-endpoint="{{ '/es/search.json' | url }}"
-  data-search-empty="No encontramos productos con esos criterios. Ajusta los filtros o el término de búsqueda."
-  data-search-error="La búsqueda no está disponible en este momento. Inténtalo más tarde."
-  data-search-clear-label="Limpiar">
+  data-search-empty="{{ searchStrings.emptyMessage or 'No encontramos productos con esos criterios. Ajusta los filtros o el término de búsqueda.' }}"
+  data-search-error="{{ searchStrings.errorMessage or 'La búsqueda no está disponible en este momento. Inténtalo más tarde.' }}"
+  data-search-clear-label="{{ searchStrings.clearLabel or 'Limpiar' }}">
   <div class="search-panel__header">
-    <h2>Busca en la despensa</h2>
-    <p>Descubre ingredientes, beneficios o productos específicos en español.</p>
+    <h2>{{ searchStrings.title or 'Busca en la despensa' }}</h2>
+    <p>{{ searchStrings.intro or 'Descubre ingredientes, beneficios o productos específicos en español.' }}</p>
   </div>
   <div class="search-panel__controls">
-    <label class="search-panel__label" for="catalogo-busqueda">Buscar productos</label>
+    <label class="search-panel__label" for="catalogo-busqueda">{{ searchStrings.label or 'Buscar productos' }}</label>
     <div class="search-panel__input-group">
       <input
         id="catalogo-busqueda"
         class="search-panel__input"
         type="search"
         name="search"
-        placeholder="Prueba “jengibre”, “vegana” o “cacao”"
+        placeholder="{{ searchStrings.placeholder or 'Prueba “jengibre”, “vegana” o “cacao”' }}"
         autocomplete="off"
         data-search-input>
-      <button class="button button-secondary search-panel__clear" type="button" data-search-clear>Limpiar</button>
+      <button class="button button-secondary search-panel__clear" type="button" data-search-clear>
+        {{ searchStrings.clearLabel or 'Limpiar' }}
+      </button>
     </div>
   </div>
   <div class="search-filters">
     {% if categories and categories | length > 0 %}
       <fieldset class="filter-group">
-        <legend class="filter-group__title">Categorías</legend>
+        <legend class="filter-group__title">{{ filterStrings.categories or 'Categorías' }}</legend>
         <div class="filter-list">
           {% for category in categories %}
             {% set categorySlug = category.slug | default(category.id) %}
@@ -73,7 +89,7 @@ localeLinks:
 
     {% if dietaryTags and dietaryTags | length > 0 %}
       <fieldset class="filter-group">
-        <legend class="filter-group__title">Dietas</legend>
+        <legend class="filter-group__title">{{ filterStrings.dietary or 'Dietas' }}</legend>
         <div class="filter-list">
           {% for tag in dietaryTags %}
             {% set inputId = 'filtro-dieta-' ~ tag.slug %}
@@ -94,7 +110,7 @@ localeLinks:
 
     {% if benefitTags and benefitTags | length > 0 %}
       <fieldset class="filter-group">
-        <legend class="filter-group__title">Beneficios</legend>
+        <legend class="filter-group__title">{{ filterStrings.benefits or 'Beneficios' }}</legend>
         <div class="filter-list">
           {% for tag in benefitTags %}
             {% set inputId = 'filtro-beneficio-' ~ tag.slug %}
@@ -116,44 +132,18 @@ localeLinks:
   <div class="search-results" data-search-results></div>
 </section>
 
-  {% if categories and categories | length > 0 %}
-    {% for category in categories %}
-      {% set categorySlug = category.slug | default(category.id) %}
-      <section class="product-category" id="categoria-{{ categorySlug }}">
-        <div class="product-category__headline">
-          <h2>{{ category.name }}</h2>
-        </div>
-        <div class="product-grid">
-          {% for product in category.products %}
-            {% set fallbackUrl = '/es/productos/' ~ product.id ~ '/' %}
-            {% set productUrl = product.url | default(fallbackUrl) %}
-            <article class="product-card">
-              <a class="product-card__link" href="{{ productUrl | url }}">
-                <div class="product-card__media">
-                  <img src="{{ product.image.src | url }}" alt="{{ product.image.alt }}">
-                </div>
-                <div class="product-card__content">
-                  {% if product.labels and product.labels | length %}
-                    <ul class="product-card__labels">
-                      {% for label in product.labels %}
-                        <li class="product-card__label">{{ label }}</li>
-                      {% endfor %}
-                    </ul>
-                  {% endif %}
-                  <h3 class="product-card__title">{{ product.name }}</h3>
-                  <p class="product-card__summary">{{ product.shortDescription }}</p>
-                </div>
-              </a>
-              <div class="product-card__footer">
-                <div class="product-card__price">
-                  <span class="product-card__amount">${{ product.price }}</span>
-                  <span class="product-card__unit">{{ product.unit }}</span>
-                </div>
-                <a class="button button-secondary product-card__cart" href="{{ productUrl | url }}">Ver detalles</a>
-              </div>
-            </article>
-          {% endfor %}
-        </div>
-      </section>
-    {% endfor %}
-  {% endif %}
+{% if categories and categories | length > 0 %}
+  {% for category in categories %}
+    {% set categorySlug = category.slug | default(category.id) %}
+    <section class="product-category" id="categoria-{{ categorySlug }}">
+      <div class="product-category__headline">
+        <h2>{{ category.name }}</h2>
+      </div>
+      <div class="product-grid">
+        {% for product in category.products %}
+          {% include "partials/product-card.njk" %}
+        {% endfor %}
+      </div>
+    </section>
+  {% endfor %}
+{% endif %}

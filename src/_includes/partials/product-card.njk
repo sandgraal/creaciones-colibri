@@ -1,5 +1,31 @@
+{% set defaultLocale = site.locale | default('en') %}
+{% set currentLocale = locale | default(defaultLocale) %}
+{% set translations = collections.i18n and collections.i18n[0].data.i18n %}
+{% set localeStrings = translations and translations[currentLocale] %}
+{% if localeStrings == null and translations and translations['en'] %}
+  {% set localeStrings = translations['en'] %}
+{% endif %}
+{% set fallbackStrings = translations and translations['en'] %}
+{% set productCardStrings = localeStrings and localeStrings.ui and localeStrings.ui.productCard %}
+{% if (productCardStrings == null or productCardStrings == undefined) and fallbackStrings %}
+  {% set productCardStrings = fallbackStrings.ui and fallbackStrings.ui.productCard %}
+{% endif %}
+{% set productCardStrings = productCardStrings or {} %}
+{% set categoryLabel = productCardStrings.categoryLabel or 'Category' %}
+{% set dietaryLabel = productCardStrings.dietaryLabel or 'Dietary' %}
+{% set addToCartLabel = productCardStrings.addToCart or 'Add to cart' %}
+{% set viewDetailsLabel = productCardStrings.viewDetails or 'View details' %}
+{% set productUrl = product.url %}
+{% if not productUrl %}
+  {% if currentLocale == 'es' %}
+    {% set productUrl = '/es/productos/' ~ product.id ~ '/' %}
+  {% else %}
+    {% set productUrl = '/products/' ~ product.id ~ '/' %}
+  {% endif %}
+{% endif %}
+
 <article class="product-card">
-  <a class="product-card__link" href="{{ product.url | url }}">
+  <a class="product-card__link" href="{{ productUrl | url }}">
     <div class="product-card__media">
       {% if product.image.src | isSvg %}
         <img src="{{ product.image.src | url }}" alt="{{ product.image.alt }}" loading="lazy" decoding="async">
@@ -19,13 +45,13 @@
       <p class="product-card__summary">{{ product.shortDescription }}</p>
       <dl class="product-card__meta">
         <div class="product-card__meta-row">
-          <dt>Category</dt>
+          <dt>{{ categoryLabel }}</dt>
           <dd>{{ product.category }}</dd>
         </div>
         {% if product.dietary and product.dietary | length %}
           <div class="product-card__meta-row">
-            <dt>Dietary</dt>
-            <dd>{{ product.dietary | join(", ") }}</dd>
+            <dt>{{ dietaryLabel }}</dt>
+            <dd>{{ product.dietary | join(', ') }}</dd>
           </div>
         {% endif %}
       </dl>
@@ -43,14 +69,12 @@
         data-item-id="{{ product.id }}"
         data-item-name="{{ product.name }}"
         data-item-price="{{ product.price }}"
-        data-item-url="{{ product.url | url }}"
+        data-item-url="{{ productUrl | url }}"
         data-item-description="{{ product.shortDescription }}"
         data-item-image="{{ product.image.src | url }}"
-        data-item-quantity="1">
-        Add to cart
-      </button>
+        data-item-quantity="1">{{ addToCartLabel }}</button>
     {% else %}
-      <a class="button button-secondary product-card__cart" href="{{ product.url | url }}">View details</a>
+      <a class="button button-secondary product-card__cart" href="{{ productUrl | url }}">{{ viewDetailsLabel }}</a>
     {% endif %}
   </div>
 </article>

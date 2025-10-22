@@ -34,7 +34,26 @@
     "intro": "We’re developing new recipes, gathering stories from our community partners, and preparing for launch. Drop your email to be first in line when the shop opens.",
     "label": "Email address",
     "cta": "Notify me",
+    "placeholderInput": "you@example.com",
     "placeholder": "We’re setting up our newsletter service. Until then, email us at <a href=\"mailto:hola@creacionescolibri.com\">hola@creacionescolibri.com</a>."
+  },
+  "catalogPage": {
+    "title": "Explore Our Catalog",
+    "subtitle": "Small-batch sauces, snacks, and wellness pantry staples inspired by the biodiversity of Costa Rica and our Florida gardens. Browse by category or dive into each story-rich product.",
+    "search": {
+      "title": "Search the pantry",
+      "intro": "Look up ingredients, benefits, or product names to find the perfect match.",
+      "label": "Search products",
+      "placeholder": "Try “ginger”, “vegan”, or “cacao”",
+      "clearLabel": "Clear",
+      "emptyMessage": "No products match your criteria right now. Try adjusting filters or search terms.",
+      "errorMessage": "Search is unavailable right now. Please try again later."
+    },
+    "filters": {
+      "categories": "Categories",
+      "dietary": "Dietary",
+      "benefits": "Benefits"
+    }
   },
   "ui": {
     "nav": {
@@ -57,6 +76,12 @@
     },
     "localeSwitcher": {
       "ariaLabel": "Language selector"
+    },
+    "productCard": {
+      "categoryLabel": "Category",
+      "dietaryLabel": "Dietary",
+      "addToCart": "Add to cart",
+      "viewDetails": "View details"
     }
   },
   "bundles": {

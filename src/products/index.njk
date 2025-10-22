@@ -7,37 +7,58 @@ localeLinks:
   es: /es/productos/
 ---
 
+{% set translations = collections.i18n and collections.i18n[0].data.i18n %}
+{% set defaultLocale = site.locale | default('en') %}
+{% set currentLocale = locale | default(defaultLocale) %}
+{% set localeStrings = translations and translations[currentLocale] %}
+{% if localeStrings == null and translations and translations['en'] %}
+  {% set localeStrings = translations['en'] %}
+{% endif %}
+{% set fallbackStrings = translations and translations['en'] %}
+{% set catalogPageStrings = localeStrings and localeStrings.catalogPage %}
+{% if catalogPageStrings == null and fallbackStrings %}
+  {% set catalogPageStrings = fallbackStrings.catalogPage %}
+{% endif %}
+{% set catalogPageStrings = catalogPageStrings or {} %}
+{% set searchStrings = catalogPageStrings.search or {} %}
+{% set filterStrings = catalogPageStrings.filters or {} %}
+
 <section class="page-intro">
-  <h1 class="page-title">Explore Our Catalog</h1>
-  <p class="page-subtitle">Small-batch sauces, snacks, and wellness pantry staples inspired by the biodiversity of Costa Rica and our Florida gardens. Browse by category or dive into each story-rich product.</p>
+  <h1 class="page-title">{{ catalogPageStrings.title or 'Explore Our Catalog' }}</h1>
+  <p class="page-subtitle">{{ catalogPageStrings.subtitle or 'Small-batch sauces, snacks, and wellness pantry staples inspired by the biodiversity of Costa Rica and our Florida gardens. Browse by category or dive into each story-rich product.' }}</p>
 </section>
 
 <section
   class="search-panel"
   data-search-root
-  data-search-endpoint="{{ '/search.json' | url }}">
+  data-search-endpoint="{{ '/search.json' | url }}"
+  data-search-empty="{{ searchStrings.emptyMessage or 'No products match your criteria right now. Try adjusting filters or search terms.' }}"
+  data-search-error="{{ searchStrings.errorMessage or 'Search is unavailable right now. Please try again later.' }}"
+  data-search-clear-label="{{ searchStrings.clearLabel or 'Clear' }}">
   <div class="search-panel__header">
-    <h2>Search the pantry</h2>
-    <p>Look up ingredients, benefits, or product names to find the perfect match.</p>
+    <h2>{{ searchStrings.title or 'Search the pantry' }}</h2>
+    <p>{{ searchStrings.intro or 'Look up ingredients, benefits, or product names to find the perfect match.' }}</p>
   </div>
   <div class="search-panel__controls">
-    <label class="search-panel__label" for="catalog-search">Search products</label>
+    <label class="search-panel__label" for="catalog-search">{{ searchStrings.label or 'Search products' }}</label>
     <div class="search-panel__input-group">
       <input
         id="catalog-search"
         class="search-panel__input"
         type="search"
         name="search"
-        placeholder="Try “ginger”, “vegan”, or “cacao”"
+        placeholder="{{ searchStrings.placeholder or 'Try “ginger”, “vegan”, or “cacao”' }}"
         autocomplete="off"
         data-search-input>
-      <button class="button button-secondary search-panel__clear" type="button" data-search-clear>Clear</button>
+      <button class="button button-secondary search-panel__clear" type="button" data-search-clear>
+        {{ searchStrings.clearLabel or 'Clear' }}
+      </button>
     </div>
   </div>
   <div class="search-filters">
     {% if collections.productCategories | length %}
       <fieldset class="filter-group">
-        <legend class="filter-group__title">Categories</legend>
+        <legend class="filter-group__title">{{ filterStrings.categories or 'Categories' }}</legend>
         <div class="filter-list">
           {% for category in collections.productCategories %}
             {% set inputId = 'filter-category-' ~ category.slug %}
@@ -58,7 +79,7 @@ localeLinks:
 
     {% if collections.productDietaryTags | length %}
       <fieldset class="filter-group">
-        <legend class="filter-group__title">Dietary</legend>
+        <legend class="filter-group__title">{{ filterStrings.dietary or 'Dietary' }}</legend>
         <div class="filter-list">
           {% for tag in collections.productDietaryTags %}
             {% set inputId = 'filter-dietary-' ~ tag.slug %}
@@ -79,7 +100,7 @@ localeLinks:
 
     {% if collections.productBenefitTags | length %}
       <fieldset class="filter-group">
-        <legend class="filter-group__title">Benefits</legend>
+        <legend class="filter-group__title">{{ filterStrings.benefits or 'Benefits' }}</legend>
         <div class="filter-list">
           {% for tag in collections.productBenefitTags %}
             {% set inputId = 'filter-benefit-' ~ tag.slug %}

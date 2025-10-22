@@ -1,0 +1,87 @@
+---
+layout: layouts/base.njk
+title: Home
+description: Small-batch hot sauces, snacks, and wellness pantry goods crafted between Florida and Costa Rica.
+localeLinks:
+  es: /es/
+---
+
+{% set translations = collections.i18n and collections.i18n[0].data.i18n %}
+{% set defaultLocale = site.locale | default('en') %}
+{% set currentLocale = locale | default(defaultLocale) %}
+{% set localeStrings = translations and translations[currentLocale] %}
+{% if localeStrings == null and translations and translations['en'] %}
+  {% set localeStrings = translations['en'] %}
+{% endif %}
+{% set t = localeStrings or {} %}
+{% set heroStrings = t.hero or {} %}
+{% set visionStrings = t.vision or {} %}
+{% set categoriesStrings = t.categories or {} %}
+{% set newsletterStrings = t.newsletter or {} %}
+
+{% set categoryCards = [
+  {
+    anchor: '/products/#category-hot-sauces',
+    data: categoriesStrings.items and categoriesStrings.items.sauces
+  },
+  {
+    anchor: '/products/#category-granola-crunch',
+    data: categoriesStrings.items and categoriesStrings.items.granola
+  },
+  {
+    anchor: '/products/#category-wellness-pantry',
+    data: categoriesStrings.items and categoriesStrings.items.wellness
+  }
+] %}
+
+<section class="hero">
+  <div class="hero-media">
+    <picture>
+      <source srcset="{{ '/img/branding/creaciones-colibri-logo.svg' | url }}" type="image/svg+xml">
+      <img
+        class="hero-logo"
+        src="{{ '/img/branding/creaciones-colibri-logo.svg' | url }}"
+        alt="Creaciones Colibrí hummingbird logo"
+      >
+    </picture>
+  </div>
+  <div class="hero-content">
+    <h1>{{ heroStrings.title or 'Botanical heat and vibrant pantry creations.' }}</h1>
+    <p>{{ heroStrings.intro or 'Creaciones Colibrí is a small-batch food studio blending tropical ingredients, bold chiles, and regenerative sourcing into sauces, snacks, and sips that nourish the body and the story behind every jar.' }}</p>
+    <a class="button button-primary" href="{{ '/products/' | url }}">{{ heroStrings.cta or 'Explore the flavors' }}</a>
+  </div>
+</section>
+
+<section id="vision" class="content-section">
+  <h2>{{ visionStrings.title or 'Rooted in Story &amp; Sustainability' }}</h2>
+  <p>{{ visionStrings.intro or 'From our home gardens in Florida and Costa Rica, we craft recipes that honor Central American biodiversity while respecting the land. Expect compostable packaging, fairly sourced ingredients, and a healthy dose of culinary storytelling.' }}</p>
+</section>
+
+<section id="catalog" class="content-section content-grid">
+  <h2 class="visually-hidden">{{ categoriesStrings.title or 'Explore Our Catalog' }}</h2>
+  {% for card in categoryCards %}
+    {% set data = card.data or {} %}
+    <article class="card">
+      <h3>{{ data.title or 'Category' }}</h3>
+      <p>{{ data.description or '' }}</p>
+      <a class="button button-secondary" href="{{ card.anchor | url }}">{{ data.cta or 'Shop now' }}</a>
+    </article>
+  {% endfor %}
+</section>
+
+<section id="newsletter" class="content-section newsletter">
+  <h2>{{ newsletterStrings.title or 'Stay in the Loop' }}</h2>
+  <p>{{ newsletterStrings.intro or 'We’re developing new recipes, gathering stories from our community partners, and preparing for launch. Drop your email to be first in line when the shop opens.' }}</p>
+  {% if site.forms.newsletterAction %}
+    <form class="newsletter-form" action="{{ site.forms.newsletterAction }}" method="POST">
+      <label class="newsletter-form__label" for="newsletter-email">{{ newsletterStrings.label or 'Email address' }}</label>
+      <div class="newsletter-form__controls">
+        <input id="newsletter-email" class="newsletter-form__input" type="email" name="email" placeholder="{{ newsletterStrings.placeholderInput or 'you@example.com' }}" autocomplete="email" required>
+        <button class="button button-primary newsletter-form__submit" type="submit">{{ newsletterStrings.cta or 'Notify me' }}</button>
+      </div>
+    </form>
+  {% else %}
+    {% set placeholderCopy = newsletterStrings.placeholder or 'We’re setting up our newsletter service. Until then, email us at <a href="mailto:hola@creacionescolibri.com">hola@creacionescolibri.com</a>.' %}
+    <p class="newsletter-placeholder">{{ placeholderCopy | safe }}</p>
+  {% endif %}
+</section>

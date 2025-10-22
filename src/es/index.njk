@@ -7,8 +7,15 @@ localeLinks:
   en: /
 ---
 
-{% set translations = collections.i18n[0].data.i18n %}
-{% set t = translations.es %}
+{% set translations = collections.i18n and collections.i18n[0].data.i18n %}
+{% set localeStrings = translations and translations.es %}
+{% if localeStrings == null and translations and translations['en'] %}
+  {% set localeStrings = translations['en'] %}
+{% endif %}
+{% set t = localeStrings or {} %}
+{% set heroStrings = t.hero or {} %}
+{% set visionStrings = t.vision or {} %}
+{% set newsletterStrings = t.newsletter or {} %}
 {% set catalogData = catalog.catalog %}
 {% if catalogData == null %}
   {% set catalogData = catalog %}
@@ -23,15 +30,15 @@ localeLinks:
     </picture>
   </div>
   <div class="hero-content">
-    <h1>{{ t.hero.title }}</h1>
-    <p>{{ t.hero.intro }}</p>
-    <a class="button button-primary" href="{{ '/es/productos/' | url }}">{{ t.hero.cta }}</a>
+    <h1>{{ heroStrings.title or 'Calor botánico y despensa vibrante.' }}</h1>
+    <p>{{ heroStrings.intro or 'Creaciones Colibrí es un estudio culinario artesanal que combina ingredientes tropicales, chiles audaces y prácticas regenerativas en salsas, snacks y bebidas que nutren el cuerpo y la historia detrás de cada frasco.' }}</p>
+    <a class="button button-primary" href="{{ '/es/productos/' | url }}">{{ heroStrings.cta or 'Descubre los sabores' }}</a>
   </div>
 </section>
 
 <section id="vision" class="content-section">
-  <h2>{{ t.vision.title }}</h2>
-  <p>{{ t.vision.intro }}</p>
+  <h2>{{ visionStrings.title or 'Enraizados en la historia y la sostenibilidad' }}</h2>
+  <p>{{ visionStrings.intro or 'Desde nuestros huertos en Florida y Costa Rica honramos la biodiversidad centroamericana mientras cuidamos la tierra. Espera empaques compostables, ingredientes de comercio justo y mucho storytelling culinario.' }}</p>
 </section>
 
 <section id="catalogo" class="content-section content-grid">
@@ -52,17 +59,18 @@ localeLinks:
 </section>
 
 <section id="newsletter" class="content-section newsletter">
-  <h2>{{ t.newsletter.title }}</h2>
-  <p>{{ t.newsletter.intro }}</p>
+  <h2>{{ newsletterStrings.title or 'Permanece al tanto' }}</h2>
+  <p>{{ newsletterStrings.intro or 'Estamos desarrollando nuevas recetas, recopilando historias de nuestros aliados y preparando el lanzamiento. Deja tu correo para enterarte primero.' }}</p>
   {% if site.forms.newsletterAction %}
     <form class="newsletter-form" action="{{ site.forms.newsletterAction }}" method="POST">
-      <label class="newsletter-form__label" for="newsletter-email-es">{{ t.newsletter.label }}</label>
+      <label class="newsletter-form__label" for="newsletter-email-es">{{ newsletterStrings.label or 'Correo electrónico' }}</label>
       <div class="newsletter-form__controls">
-        <input id="newsletter-email-es" class="newsletter-form__input" type="email" name="email" placeholder="tú@ejemplo.com" autocomplete="email" required>
-        <button class="button button-primary newsletter-form__submit" type="submit">{{ t.newsletter.cta }}</button>
+        <input id="newsletter-email-es" class="newsletter-form__input" type="email" name="email" placeholder="{{ newsletterStrings.placeholderInput or 'tú@ejemplo.com' }}" autocomplete="email" required>
+        <button class="button button-primary newsletter-form__submit" type="submit">{{ newsletterStrings.cta or 'Avisarme' }}</button>
       </div>
     </form>
   {% else %}
-    <p class="newsletter-placeholder">{{ t.newsletter.placeholder | safe }}</p>
+    {% set placeholderCopy = newsletterStrings.placeholder or 'Pronto activaremos nuestro boletín. Por ahora escríbenos a <a href="mailto:hola@creacionescolibri.com">hola@creacionescolibri.com</a>.' %}
+    <p class="newsletter-placeholder">{{ placeholderCopy | safe }}</p>
   {% endif %}
 </section>
