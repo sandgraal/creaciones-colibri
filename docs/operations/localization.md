@@ -12,7 +12,8 @@
 
 ### Product Catalog
 - English product data lives in `src/_data/catalog.js` (built from `products.js`).
-- Spanish translations for product copy are stored in `src/_data/i18n/products.es.json`.
+- Run `npm run translate` (or any build command) to generate machine translations in `.cache/i18n/products.es.json`.
+- Manual overrides stay in `src/_data/i18n/products.es.overrides.json`; they win over machine output when present.
 - `src/es/_data/catalog.js` merges those translations and provides `catalogProductsEs` for detail pages.
 - Spanish catalog listing: `src/es/productos/index.njk`
 - Spanish product detail template: `src/es/productos/product.njk`
@@ -22,6 +23,9 @@
 ## Environment Variables
 - `SITE_LOCALE`: default locale (fallback for pages without `locale` front matter).
 - `SITE_ALT_LOCALES`: comma-separated list of alternate locales to show in the switcher.
+- `TRANSLATION_PROVIDER`: which machine translation vendor to use (`deepl` supported today).
+- `DEEPL_API_KEY`: API key for the DeepL translator (required when `TRANSLATION_PROVIDER=deepl`).
+- `DEEPL_SOURCE_LANG`: optional source language override (defaults to English when omitted).
 
 ## Workflow Checklist
 - [ ] Translate homepage content (`src/es/index.njk`).

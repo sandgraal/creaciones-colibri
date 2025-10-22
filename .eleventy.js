@@ -1,3 +1,4 @@
+const fs = require("fs");
 const path = require("path");
 const generateImage = require("./.eleventy.images");
 
@@ -38,13 +39,34 @@ const getProducts = () => {
   return require("./src/_data/products.js");
 };
 
+const resolveFromRoot = relativePath => path.join(__dirname, relativePath);
+
+const loadProductTranslations = () => {
+  const candidates = [
+    resolveFromRoot(".cache/i18n/products.es.json"),
+    resolveFromRoot("src/_data/i18n/products.es.overrides.json")
+  ];
+
+  for (const candidate of candidates) {
+    try {
+      if (fs.existsSync(candidate)) {
+        delete require.cache[require.resolve(candidate)];
+        return require(candidate);
+      }
+    } catch (error) {
+      console.warn(`[i18n] Failed to load ${candidate}: ${error.message}`);
+    }
+  }
+
+  return {};
+};
+
 const loadTranslations = () => {
   const files = [
     "./src/_data/i18n/en.json",
     "./src/_data/i18n/es.json",
     "./src/_data/i18n/catalog.en.json",
-    "./src/_data/i18n/catalog.es.json",
-    "./src/_data/i18n/products.es.json"
+    "./src/_data/i18n/catalog.es.json"
   ];
 
   for (const file of files) {
@@ -59,7 +81,7 @@ const loadTranslations = () => {
       es: require("./src/_data/i18n/catalog.es.json")
     },
     products: {
-      es: require("./src/_data/i18n/products.es.json")
+      es: loadProductTranslations()
     }
   };
 };

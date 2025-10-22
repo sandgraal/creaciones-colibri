@@ -1,5 +1,29 @@
+const fs = require("fs");
+const path = require("path");
+
 const baseCatalog = require("../../_data/catalog");
-const productTranslations = require("../../_data/i18n/products.es.json");
+
+const loadProductTranslations = () => {
+  const candidates = [
+    path.join(process.cwd(), ".cache", "i18n", "products.es.json"),
+    path.join(process.cwd(), "src", "_data", "i18n", "products.es.overrides.json")
+  ];
+
+  for (const candidate of candidates) {
+    try {
+      if (fs.existsSync(candidate)) {
+        delete require.cache[require.resolve(candidate)];
+        return require(candidate);
+      }
+    } catch (error) {
+      console.warn(`[i18n] Failed to load ${candidate}: ${error.message}`);
+    }
+  }
+
+  return {};
+};
+
+const productTranslations = loadProductTranslations();
 
 const slugify = value =>
   value
