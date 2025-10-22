@@ -7,31 +7,31 @@
         {
           "id": "salsa-picante-chocolate-habanero",
           "name": "Salsa Picante Chocolate Habanero",
-          "shortDescription": "Smoky chocolate habaneros balanced with pineapple and cacao nibs for a layered heat.",
+          "shortDescription": "Habaneros chocolate ahumados equilibrados con piña y nibs de cacao.",
           "price": 14,
-          "unit": "5 oz bottle",
+          "unit": "Botella de 147 ml",
           "dietary": [
-            "vegan",
-            "gluten-free"
+            "vegana",
+            "sin gluten"
           ],
           "benefits": [
-            "anti-inflammatory",
-            "metabolism-support"
+            "antiinflamatorio",
+            "apoyo al metabolismo"
           ]
         },
         {
           "id": "mango-guava-fire",
           "name": "Mango Guava Fire",
-          "shortDescription": "Bright mango and guava sweetness layered with charred Scotch bonnet heat.",
+          "shortDescription": "Dulzor de mango y guayaba con el calor de chiles Scotch bonnet.",
           "price": 16,
-          "unit": "5 oz bottle",
+          "unit": "Botella de 147 ml",
           "dietary": [
-            "vegan",
-            "gluten-free"
+            "vegana",
+            "sin gluten"
           ],
           "benefits": [
-            "vitamin-c",
-            "anti-inflammatory"
+            "vitamina C",
+            "antiinflamatorio"
           ]
         }
       ]
@@ -43,15 +43,15 @@
         {
           "id": "sunrise-citrus-granola",
           "name": "Sunrise Citrus Granola",
-          "shortDescription": "Crunchy oats, sprouted cashews, and candied orange peel with a hint of cardamom.",
+          "shortDescription": "Avena crujiente con anacardos germinados y piel de naranja confitada.",
           "price": 12,
-          "unit": "12 oz bag",
+          "unit": "Bolsa de 340 g",
           "dietary": [
-            "gluten-free"
+            "sin gluten"
           ],
           "benefits": [
-            "anti-inflammatory",
-            "immune-support"
+            "antiinflamatorio",
+            "refuerzo inmunológico"
           ]
         }
       ]
@@ -62,48 +62,84 @@
       "products": [
         {
           "id": "selva-noche-cashew-butter",
-          "name": "Selva Noche Cashew Butter",
-          "shortDescription": "Stone-ground cashew butter with cacao, cardamom, and adaptogenic lion’s mane.",
+          "name": "Mantequilla de Anacardo Selva Noche",
+          "shortDescription": "Anacardos molidos con cacao, cardamomo y melena de león adaptógena.",
           "price": 15,
-          "unit": "9 oz jar",
+          "unit": "Frasco de 255 g",
           "dietary": [
-            "vegan",
-            "gluten-free"
+            "vegana",
+            "sin gluten"
           ],
           "benefits": [
-            "adaptogenic",
-            "brain-support"
+            "adaptógeno",
+            "apoyo cognitivo"
           ]
         },
         {
           "id": "hibiscus-ginger-spritzer-kit",
-          "name": "Hibiscus Ginger Spritzer Kit",
-          "shortDescription": "Tart hibiscus, fresh ginger, and pink peppercorn sachets for sparkling refrescos.",
+          "name": "Kit Spritzer de Hibisco y Jengibre",
+          "shortDescription": "Sobres de hibisco, jengibre y pimienta rosa para refrescos espumosos.",
           "price": 22,
-          "unit": "6 sachets",
+          "unit": "6 sobres",
           "dietary": [
-            "vegan",
-            "gluten-free"
+            "vegana",
+            "sin gluten"
           ],
           "benefits": [
-            "hydration-support",
-            "immune-support"
+            "hidratación",
+            "refuerzo inmunológico"
           ]
         },
         {
           "id": "verde-vibrante-sipping-broth",
-          "name": "Verde Vibrante Sipping Broth",
-          "shortDescription": "Herbal sipping broth packed with chayote greens, moringa, and lime leaf.",
+          "name": "Caldo para Sorber Verde Vibrante",
+          "shortDescription": "Caldo herbal con hoja de chayote, moringa y hoja de lima.",
           "price": 18,
-          "unit": "8 sachets",
+          "unit": "8 sobres",
           "dietary": [
-            "vegan",
-            "gluten-free",
-            "keto-friendly"
+            "vegana",
+            "sin gluten",
+            "apta para keto"
           ],
           "benefits": [
-            "hydration-support",
-            "adaptogenic"
+            "hidratación",
+            "adaptógeno"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bundles_subscriptions",
+      "name": "Paquetes y suscripciones",
+      "products": [
+        {
+          "id": "botanical-sauce-trio",
+          "name": "Trío de Salsas Botánicas",
+          "shortDescription": "Caja regalo con nuestras salsas estrella y una edición de temporada.",
+          "price": 36,
+          "unit": "3 botellas de 147 ml",
+          "dietary": [
+            "vegana",
+            "sin gluten"
+          ],
+          "benefits": [
+            "listo para regalar",
+            "lote pequeño"
+          ]
+        },
+        {
+          "id": "rainforest-granola-club",
+          "name": "Club Granola Bosque Lluvioso",
+          "shortDescription": "Suscripción mensual de granola con ingredientes botánicos y recetas.",
+          "price": 28,
+          "unit": "Entrega mensual",
+          "dietary": [
+            "sin gluten",
+            "sin soya"
+          ],
+          "benefits": [
+            "adaptogénico",
+            "soporte de fibra"
           ]
         }
       ]

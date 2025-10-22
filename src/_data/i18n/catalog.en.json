@@ -107,6 +107,42 @@
           ]
         }
       ]
+    },
+    {
+      "id": "bundles_subscriptions",
+      "name": "Bundles & Subscriptions",
+      "products": [
+        {
+          "id": "botanical-sauce-trio",
+          "name": "Botanical Sauce Trio",
+          "shortDescription": "Giftable trio featuring our signature sauces plus a rotating seasonal release.",
+          "price": 36,
+          "unit": "3 x 5 oz bottles",
+          "dietary": [
+            "vegan",
+            "gluten-free"
+          ],
+          "benefits": [
+            "gift-ready",
+            "small-batch"
+          ]
+        },
+        {
+          "id": "rainforest-granola-club",
+          "name": "Rainforest Granola Club",
+          "shortDescription": "Seasonal granola subscription with adaptogenic boosts and storytelling recipe cards.",
+          "price": 28,
+          "unit": "Monthly delivery",
+          "dietary": [
+            "gluten-free",
+            "soy-free"
+          ],
+          "benefits": [
+            "adaptogenic",
+            "fiber-support"
+          ]
+        }
+      ]
     }
   ]
 }

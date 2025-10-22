@@ -8,6 +8,13 @@
       {% endif %}
     </div>
     <div class="product-card__content">
+      {% if product.labels and product.labels | length %}
+        <ul class="product-card__labels">
+          {% for label in product.labels %}
+            <li class="product-card__label">{{ label }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
       <h3 class="product-card__title">{{ product.name }}</h3>
       <p class="product-card__summary">{{ product.shortDescription }}</p>
       <dl class="product-card__meta">

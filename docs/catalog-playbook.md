@@ -20,7 +20,14 @@ Products live in `src/_data/products.js` as an array of objects. Each entry shou
 | `benefits` | Optional | Array of lowercase functional tags (`anti-inflammatory`, `hydration-support`). |
 | `heatLevel` | Optional | Integer 0–5 for sauce heat meter. |
 | `image.src` | ✅ | Path under `/img/`. Prefer `.webp` or optimized PNG. |
-| `image.alt` | ✅ | Descriptive alt text.
+| `image.alt` | ✅ | Descriptive alt text. |
+| `labels` | Optional | Array of short badges shown on cards (e.g., `"Bundle"`, `"Subscription"`). |
+| `includedHeading` | Optional | Heading override for the “What’s inside” section on detail pages. |
+| `includedProducts` | Optional | Array of objects (`id`, `name`, `note`, optional `quantity`) describing bundle contents. |
+| `bundleExtrasHeading` | Optional | Heading override for bundle perks on detail pages. |
+| `bundleExtras` | Optional | Array of strings listing bundle perks or extras. |
+| `subscription` | Optional | Object with `heading`, `frequency`, `summary`, `perks` (array), and `renewalNote` for subscription products. |
+| `shippingNote` | Optional | Text block shown at the end of the detail page for fulfillment context. |
 
 Update the Eleventy build with `npm run build` after edits to confirm URLs render.
 

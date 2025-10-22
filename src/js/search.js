@@ -61,6 +61,18 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
       return true;
     });
 
+  const createLabelsMarkup = labels => {
+    if (!Array.isArray(labels) || !labels.length) {
+      return "";
+    }
+
+    return `
+      <ul class="search-result-card__labels">
+        ${labels.map(label => `<li class="search-result-card__label">${label}</li>`).join("")}
+      </ul>
+    `.trim();
+  };
+
   const renderResults = items => {
     resultsContainer.innerHTML = "";
 
@@ -75,20 +87,22 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
     const list = document.createElement("div");
     list.classList.add("search-results-list");
 
-    items.forEach(item => {
-      const card = document.createElement("article");
-      card.className = "search-result-card";
-      card.innerHTML = `
-        <a href="${item.url}" class="search-result-card__link">
-          <div class="search-result-card__image">
-            <img src="${item.image}" alt="${item.name}">
-          </div>
-          <div class="search-result-card__content">
-            <h3>${item.name}</h3>
-            <p>${item.shortDescription}</p>
-            <span class="search-result-card__meta">${item.category}</span>
-          </div>
-        </a>
+      items.forEach(item => {
+        const card = document.createElement("article");
+        card.className = "search-result-card";
+        const labelsMarkup = createLabelsMarkup(item.labels);
+        card.innerHTML = `
+          <a href="${item.url}" class="search-result-card__link">
+            <div class="search-result-card__image">
+              <img src="${item.image}" alt="${item.name}">
+            </div>
+            <div class="search-result-card__content">
+              ${labelsMarkup}
+              <h3>${item.name}</h3>
+              <p>${item.shortDescription}</p>
+              <span class="search-result-card__meta">${item.category}</span>
+            </div>
+          </a>
       `;
       list.appendChild(card);
     });
@@ -114,9 +128,58 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
 
   fetch(endpoint)
     .then(response => response.json())
-    .then(products => {
+    .then(rawProducts => {
+      const products = rawProducts.map(product => {
+        const includedText = Array.isArray(product.includedProducts)
+          ? product.includedProducts
+              .map(entry => [entry.name, entry.note].filter(Boolean).join(" "))
+              .join(" ")
+          : "";
+        const extrasText = Array.isArray(product.bundleExtras)
+          ? product.bundleExtras.join(" ")
+          : "";
+        const subscriptionText = product.subscription
+          ? [
+              product.subscription.frequency,
+              product.subscription.summary,
+              Array.isArray(product.subscription.perks)
+                ? product.subscription.perks.join(" ")
+                : "",
+              product.subscription.renewalNote
+            ]
+              .filter(Boolean)
+              .join(" ")
+          : "";
+        const labelsText = Array.isArray(product.labels)
+          ? product.labels.join(" ")
+          : "";
+        const shippingText = product.shippingNote || "";
+
+        return {
+          ...product,
+          searchKeywords: [
+            includedText,
+            extrasText,
+            subscriptionText,
+            labelsText,
+            shippingText
+          ]
+            .filter(Boolean)
+            .join(" ")
+            .trim()
+        };
+      });
+
       const fuse = new window.Fuse(products, {
-        keys: ["name", "category", "shortDescription", "description", "dietary", "benefits"],
+        keys: [
+          "name",
+          "category",
+          "shortDescription",
+          "description",
+          "dietary",
+          "benefits",
+          "searchKeywords"
+        ],
         threshold: 0.3,
         ignoreLocation: true
       });

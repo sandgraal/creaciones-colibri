@@ -140,5 +140,90 @@
       "hidratación",
       "adaptógeno"
     ]
+  },
+  "botanical-sauce-trio": {
+    "name": "Trío de Salsas Botánicas",
+    "shortDescription": "Estuche para regalo con nuestras salsas insignia más una edición estacional.",
+    "description": "Pensado para exploradoras del sabor, este trío reúne dos favoritas de la casa con una salsa de temporada salida del laboratorio. Cada set incluye guía de degustación, sugerencias de maridaje y una caja compostable lista para obsequiar apenas llegue.",
+    "unit": "3 botellas de 147 ml",
+    "dietary": [
+      "vegana",
+      "sin gluten"
+    ],
+    "benefits": [
+      "listo para regalar",
+      "lote pequeño"
+    ],
+    "labels": ["Paquete"],
+    "includedHeading": "Qué incluye",
+    "includedProducts": [
+      {
+        "id": "salsa-picante-chocolate-habanero",
+        "name": "Salsa Picante Chocolate Habanero",
+        "note": "Picor profundo con cacao"
+      },
+      {
+        "id": "mango-guava-fire",
+        "name": "Mango Guava Fire",
+        "note": "Mango y guayaba tropical"
+      },
+      {
+        "id": "seasonal-limited-sauce",
+        "name": "Salsa edición limitada",
+        "note": "Sabor rotativo del chef"
+      }
+    ],
+    "bundleExtrasHeading": "Extras del paquete",
+    "bundleExtras": [
+      "Incluye guía impresa con ideas de maridaje.",
+      "Caja compostable con cinta reutilizable.",
+      "Opción de nota escrita a mano en el checkout."
+    ],
+    "shippingNote": "Despachamos en 3 días hábiles desde Florida; pedidos internacionales incluyen fichas de ingredientes bilingües."
+  },
+  "rainforest-granola-club": {
+    "name": "Club Granola Bosque Lluvioso",
+    "shortDescription": "Suscripción mensual de granolas estacionales con tarjetas de historia y receta.",
+    "description": "Únete a nuestra rotación mensual y recibe mezclas artesanales que celebran la biodiversidad costarricense. Cada caja destaca a un agricultor o ingrediente—desde crocante de cáscara de cacao hasta jackfruit con jengibre—más tarjetas para mantener el desayuno inspirado todo el mes.",
+    "unit": "Entrega mensual",
+    "dietary": [
+      "sin gluten",
+      "sin soya"
+    ],
+    "benefits": [
+      "adaptogénico",
+      "soporte de fibra"
+    ],
+    "labels": ["Suscripción"],
+    "includedHeading": "Tu primera entrega incluye",
+    "includedProducts": [
+      {
+        "id": "sunrise-citrus-granola",
+        "name": "Sunrise Citrus Granola",
+        "note": "Sabor inicial con anacardos germinados"
+      },
+      {
+        "id": "granola-tasting-guide",
+        "name": "Guía de degustación",
+        "note": "Consejos bilingües para servir"
+      },
+      {
+        "id": "bonus-adaptogen-sachet",
+        "name": "Sobre de impulso adaptógeno",
+        "note": "Mezcla de melena de león y cúrcuma"
+      }
+    ],
+    "subscription": {
+      "heading": "Beneficios de la suscripción",
+      "frequency": "Envío cada 30 días con un nuevo sabor de granola.",
+      "summary": "Puedes pausar, saltar o cambiar sabores desde tu portal de Snipcart.",
+      "perks": [
+        "Acceso exclusivo a lotes de temporada limitados.",
+        "5% de descuento en snacks adicionales en cada envío.",
+        "Notas de cata anticipadas desde nuestra cocina experimental."
+      ],
+      "renewalNote": "La facturación se renueva mensualmente; cancela en cualquier momento después de la segunda entrega."
+    },
+    "shippingNote": "Los envíos nacionales son gratuitos; suscriptoras internacionales reciben tarifas consolidadas con descuento."
   }
 }

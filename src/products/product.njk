@@ -17,6 +17,13 @@ eleventyComputed:
     <a class="product-detail__back" href="{{ '/products/' | url }}">← Back to catalog</a>
     <h1>{{ product.name }}</h1>
     <p class="product-detail__summary">{{ product.shortDescription }}</p>
+    {% if product.labels and product.labels | length %}
+      <ul class="product-detail__labels">
+        {% for label in product.labels %}
+          <li class="product-detail__label">{{ label }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
     <div class="product-detail__meta">
       <span class="product-detail__price">${{ product.price }} <small>{{ product.unit }}</small></span>
       <span class="product-detail__category">{{ product.category }}</span>
@@ -64,6 +71,30 @@ eleventyComputed:
       <h2>About this product</h2>
       <p>{{ product.description }}</p>
 
+      {% if product.includedProducts and product.includedProducts | length %}
+        <h3>{{ product.includedHeading | default("What's inside") }}</h3>
+        <ul class="product-detail__list">
+          {% for item in product.includedProducts %}
+            <li>
+              {% if item.quantity %}<strong>{{ item.quantity }}×</strong> {% endif %}
+              {{ item.name }}
+              {% if item.note %}
+                <span class="product-detail__note">{{ item.note }}</span>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% if product.bundleExtras and product.bundleExtras | length %}
+        <h3>{{ product.bundleExtrasHeading | default("Bundle perks") }}</h3>
+        <ul class="product-detail__list">
+          {% for extra in product.bundleExtras %}
+            <li>{{ extra }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
       {% if product.ingredients and product.ingredients | length %}
         <h3>Ingredients</h3>
         <ul class="product-detail__list">
@@ -89,6 +120,32 @@ eleventyComputed:
             <li>{{ benefit }}</li>
           {% endfor %}
         </ul>
+      {% endif %}
+
+      {% if product.subscription %}
+        <div class="product-detail__subscription">
+          <h3>{{ product.subscription.heading | default("Subscription perks") }}</h3>
+          {% if product.subscription.frequency %}
+            <p class="product-detail__note">{{ product.subscription.frequency }}</p>
+          {% endif %}
+          {% if product.subscription.summary %}
+            <p>{{ product.subscription.summary }}</p>
+          {% endif %}
+          {% if product.subscription.perks and product.subscription.perks | length %}
+            <ul class="product-detail__list">
+              {% for perk in product.subscription.perks %}
+                <li>{{ perk }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+          {% if product.subscription.renewalNote %}
+            <p class="product-detail__note">{{ product.subscription.renewalNote }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if product.shippingNote %}
+        <p class="product-detail__note">{{ product.shippingNote }}</p>
       {% endif %}
     </section>
   </div>

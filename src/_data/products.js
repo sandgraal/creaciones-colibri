@@ -164,5 +164,101 @@ module.exports = [
       src: "/img/products/verde_vibrante_sipping_broth.svg",
       alt: "Abstract verdant gradient representing Verde Vibrante Sipping Broth."
     }
+  },
+  {
+    id: "botanical-sauce-trio",
+    name: "Botanical Sauce Trio",
+    category: "Bundles & Subscriptions",
+    price: 36,
+    unit: "3 x 5 oz bottles",
+    shortDescription:
+      "Giftable trio featuring our signature sauces plus a rotating seasonal release.",
+    description:
+      "Curated for flavor explorers, this trio bundles two house favorites with a limited small-batch sauce fresh from our test kitchen. Each set ships with a tasting guide, pairing suggestions, and a compostable gift box so it’s ready to share the moment it arrives.",
+    ingredients: [],
+    dietary: ["vegan", "gluten-free"],
+    benefits: ["gift-ready", "small-batch"],
+    labels: ["Bundle"],
+    includedHeading: "What's inside",
+    includedProducts: [
+      {
+        id: "salsa-picante-chocolate-habanero",
+        name: "Salsa Picante Chocolate Habanero",
+        note: "Smoky cacao heat"
+      },
+      {
+        id: "mango-guava-fire",
+        name: "Mango Guava Fire",
+        note: "Tropical mango + guava"
+      },
+      {
+        id: "seasonal-limited-sauce",
+        name: "Seasonal limited-batch sauce",
+        note: "Rotating chef-driven flavor"
+      }
+    ],
+    bundleExtrasHeading: "Bundle perks",
+    bundleExtras: [
+      "Includes printed tasting guide with pairing ideas.",
+      "Compostable gift box tied with reusable ribbon.",
+      "Add a handwritten note at checkout."
+    ],
+    shippingNote:
+      "Ships within 3 business days from Florida; international orders include bilingual ingredient cards.",
+    image: {
+      src: "/img/products/botanical_sauce_trio.svg",
+      alt: "Abstract trio of sauce bottles representing the Botanical Sauce Trio bundle."
+    }
+  },
+  {
+    id: "rainforest-granola-club",
+    name: "Rainforest Granola Club",
+    category: "Bundles & Subscriptions",
+    price: 28,
+    unit: "Monthly delivery",
+    shortDescription:
+      "Seasonal granola subscription with adaptogenic boosts and storytelling recipe cards.",
+    description:
+      "Join our monthly granola rotation and receive small-batch blends that celebrate Costa Rican biodiversity. Each box spotlights a new farmer or ingredient—from cacao husk crunch to gingered jackfruit—plus recipe cards to keep breakfast inspired all month.",
+    ingredients: [],
+    dietary: ["gluten-free", "soy-free"],
+    benefits: ["adaptogenic", "fiber-support"],
+    labels: ["Subscription"],
+    includedHeading: "First delivery includes",
+    includedProducts: [
+      {
+        id: "sunrise-citrus-granola",
+        name: "Sunrise Citrus Granola",
+        note: "Launch flavor with sprouted cashews"
+      },
+      {
+        id: "granola-tasting-guide",
+        name: "Tasting + pairing guide",
+        note: "Bilingual tips for serving"
+      },
+      {
+        id: "bonus-adaptogen-sachet",
+        name: "Adaptogen boost sachet",
+        note: "Lion’s mane & turmeric sprinkle"
+      }
+    ],
+    subscription: {
+      heading: "Subscription perks",
+      frequency: "Ships every 30 days with a new granola flavor.",
+      summary:
+        "Skip, pause, or swap flavors anytime from your Snipcart customer portal.",
+      perks: [
+        "Exclusive access to limited seasonal blends.",
+        "5% off any add-on snacks bundled with your monthly shipment.",
+        "Early tasting notes from our test kitchen."
+      ],
+      renewalNote: "Billing renews monthly; cancel anytime after your second delivery."
+    },
+    shippingNote:
+      "Domestic orders ship free; international subscribers see discounted consolidated rates.",
+    image: {
+      src: "/img/products/rainforest_granola_club.svg",
+      alt: "Abstract pantry scene illustrating the Rainforest Granola Club subscription."
+    }
   }
 ];
