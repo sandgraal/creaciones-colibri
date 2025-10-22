@@ -65,7 +65,12 @@
       "contact": "Contact"
     },
     "cart": {
-      "label": "Cart"
+      "label": "Cart",
+      "aria": {
+        "empty": "Cart (empty)",
+        "one": "Cart (1 item)",
+        "other": "Cart (%count% items)"
+      }
     },
     "brand": {
       "alt": "Creaciones Colibrí logo"

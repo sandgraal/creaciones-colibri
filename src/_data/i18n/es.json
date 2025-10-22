@@ -65,7 +65,12 @@
       "contact": "Contacto"
     },
     "cart": {
-      "label": "Carrito"
+      "label": "Carrito",
+      "aria": {
+        "empty": "Carrito (vacío)",
+        "one": "Carrito (1 artículo)",
+        "other": "Carrito (%count% artículos)"
+      }
     },
     "brand": {
       "alt": "Logotipo de Creaciones Colibrí"
