@@ -77,6 +77,7 @@ This handbook captures the conventions and best practices for building and maint
    - Testing performed (`npm run build`, Lighthouse report, etc.).
 5. Require at least one review before merging (self-review acceptable for small housekeeping tasks).
 6. After merge, GitHub Actions will rebuild and deploy automatically to GitHub Pages.
+7. Before ending a work session (even if a feature is mid-flight), record the latest status in `docs/status/handoff-log.md` so the next contributor sees current owners, blockers, and next steps.
 
 ---
 
