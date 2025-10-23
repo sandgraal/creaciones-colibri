@@ -23,6 +23,10 @@ Additional documentation, such as runbooks or decision logs, can be added as nee
 | [`colibri-analytics`](./colibri-analytics/README.md) | Active | Nightly schedule (planned) or manual dispatch | Captures performance/analytics baselines and validates Plausible events. |
 | [`colibri-chat`](./colibri-chat/README.md) | Disabled | N/A | Placeholder for future bilingual support assistant. |
 
+> Manifest status drives automation. The `AI Agents` workflow executes only the
+> entries marked **Active** with a defined command; other statuses remain
+> visible in summaries but do not run until promoted.
+
 ## Getting Started
 
 1. Copy the [Agent README template](./README.template.md) into your new agent directory.
