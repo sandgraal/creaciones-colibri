@@ -1,0 +1,35 @@
+{
+  "project_name": "Creaciones Colibrí",
+  "site_url": "https://sandgraal.github.io/creaciones-colibri/",
+  "repository": {
+    "provider": "github",
+    "url": "https://github.com/sandgraal/creaciones-colibri",
+    "default_branch": "main"
+  },
+  "stack": [
+    "Eleventy",
+    "Node.js 20",
+    "npm"
+  ],
+  "build": {
+    "command": "npm run build",
+    "output_dir": "_site-eleventy"
+  },
+  "local_dev": {
+    "command": "npm run start",
+    "port": 8080,
+    "notes": "Runs Eleventy after translating bilingual product content"
+  },
+  "automation": {
+    "deploy_workflow": ".github/workflows/pages.yml",
+    "ai_workflow": "ai/.github/workflows/agents.yml"
+  },
+  "env": {
+    "required": [
+      "SNIPCART_PUBLIC_KEY"
+    ],
+    "optional": [
+      "NEWSLETTER_ACTION"
+    ]
+  }
+}

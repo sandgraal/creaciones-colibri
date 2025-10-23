@@ -1,0 +1,29 @@
+project_name: Creaciones Colibrí
+repository:
+  url: https://github.com/sandgraal/creaciones-colibri
+  default_branch: main
+stack:
+  static_site_generator: Eleventy
+  node_version: 20
+  package_manager: npm
+commands:
+  install: npm install
+  build: npm run build
+  dev: npm run start
+  translate: npm run translate
+directories:
+  source: src
+  build_output: _site-eleventy
+  docs: docs
+deployment:
+  platform: GitHub Pages
+  workflow: .github/workflows/pages.yml
+  artifact: _site-eleventy
+environment:
+  required:
+    - SNIPCART_PUBLIC_KEY
+  optional:
+    - NEWSLETTER_ACTION
+notes: >-
+  Static Eleventy site for the Creaciones Colibrí small-batch food brand with
+  bilingual content (English and Spanish) and Snipcart-powered commerce.
