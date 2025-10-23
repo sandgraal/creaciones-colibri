@@ -40,3 +40,64 @@ All agents must:
 - Tag AI-generated data with:
   ```yaml
   ai-generated: true
+  ```
+
+---
+
+## 5. Autonomy & Oversight
+- Agents execute independently through GitHub Actions triggers.  
+- Human review occurs only through PR review or manual artifact validation.  
+- Conflicts resolved by deterministic file precedence (data → layout → asset).
+
+---
+
+## 6. Data Boundaries
+- No data leaves GitHub or local build.  
+- Secrets stored via `Repository Settings → Secrets and Variables`.  
+- Only `actions/deploy-pages@v4` can publish to production.  
+- Agents must not invoke external APIs without explicit configuration.
+
+---
+
+## 7. Deployment
+- Build runs `npm ci && npm run build` per `.github/workflows/pages.yml`.  
+- Eleventy outputs `_site-eleventy/`, deployed via Pages artifact.  
+- To extend automation, add `.github/workflows/agents.yml` referencing new agents.
+
+Example:
+```yaml
+name: Colibri Agents
+on:
+  schedule:
+    - cron: "0 3 * * *"
+jobs:
+  content-refresh:
+    uses: ./.github/workflows/pages.yml
+```
+
+---
+
+## 8. Contributing Agents
+When adding or updating an agent:
+1. Use prefix `colibri-<role>`.  
+2. Include a README in `/agents/<role>/README.md`.  
+3. Register it in `_data/agents.json`:
+   ```json
+   { "name": "colibri-image", "status": "active", "last_run": "2025-10-23" }
+   ```
+4. Test locally with `npm run build` before committing.  
+5. Ensure outputs are reversible through Git commit history.
+
+---
+
+## 9. References
+- `.github/workflows/pages.yml` — core CI/CD definition.  
+- `docs/operations/deployment-runbook.md` — hosting and deployment notes.  
+- `src/_data/products.js` — agent data model.  
+- `README.md` — developer setup instructions.
+
+---
+
+## 10. Versioning
+This file defines the **baseline agent manifest v1.0**.  
+Subsequent updates should include version history within this file or in `CHANGELOG.md`.
