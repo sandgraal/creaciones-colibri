@@ -43,7 +43,13 @@ localeLinks:
   data-search-endpoint="{{ '/es/search.json' | url }}"
   data-search-empty="{{ searchStrings.emptyMessage or 'No encontramos productos con esos criterios. Ajusta los filtros o el término de búsqueda.' }}"
   data-search-error="{{ searchStrings.errorMessage or 'La búsqueda no está disponible en este momento. Inténtalo más tarde.' }}"
-  data-search-clear-label="{{ searchStrings.clearLabel or 'Limpiar' }}">
+  data-search-clear-label="{{ searchStrings.clearLabel or 'Limpiar' }}"
+  data-search-status-idle="{{ searchStrings.statusIdle or 'Escribe un producto o usa los filtros para ver coincidencias.' }}"
+  data-search-status-cleared="{{ searchStrings.statusCleared or 'Búsqueda reiniciada. Explora las categorías abajo o empieza a escribir para filtrar.' }}"
+  data-search-status-single="{{ searchStrings.statusSingle or '1 resultado coincide con tus filtros.' }}"
+  data-search-status-multiple="{{ searchStrings.statusMultiple or '%count% resultados coinciden con tus filtros.' }}"
+  data-search-status-empty="{{ searchStrings.statusEmpty or 'No hay resultados que coincidan con tus filtros.' }}"
+  data-search-status-error="{{ searchStrings.statusError or searchStrings.errorMessage or 'La búsqueda no está disponible en este momento. Inténtalo más tarde.' }}">
   <div class="search-panel__header">
     <h2>{{ searchStrings.title or 'Busca en la despensa' }}</h2>
     <p>{{ searchStrings.intro or 'Descubre ingredientes, beneficios o productos específicos en español.' }}</p>
@@ -64,6 +70,9 @@ localeLinks:
       </button>
     </div>
   </div>
+  <p class="search-panel__status" data-search-status aria-live="polite" role="status">
+    {{ searchStrings.statusIdle or 'Escribe un producto o usa los filtros para ver coincidencias.' }}
+  </p>
   <div class="search-filters">
     {% if categories and categories | length > 0 %}
       <fieldset class="filter-group">
@@ -132,7 +141,6 @@ localeLinks:
   <div
     class="search-results"
     data-search-results
-    role="status"
     aria-live="polite"
     aria-busy="false"></div>
 </section>

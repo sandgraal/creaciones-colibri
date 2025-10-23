@@ -47,7 +47,13 @@
       "placeholder": "Prueba “jengibre”, “vegana” o “cacao”",
       "clearLabel": "Limpiar",
       "emptyMessage": "No encontramos productos con esos criterios. Ajusta los filtros o el término de búsqueda.",
-      "errorMessage": "La búsqueda no está disponible en este momento. Inténtalo más tarde."
+      "errorMessage": "La búsqueda no está disponible en este momento. Inténtalo más tarde.",
+      "statusIdle": "Escribe un producto o usa los filtros para ver coincidencias.",
+      "statusCleared": "Búsqueda reiniciada. Explora las categorías abajo o empieza a escribir para filtrar.",
+      "statusSingle": "1 resultado coincide con tus filtros.",
+      "statusMultiple": "%count% resultados coinciden con tus filtros.",
+      "statusEmpty": "No hay resultados que coincidan con tus filtros.",
+      "statusError": "La búsqueda no está disponible en este momento. Inténtalo de nuevo pronto."
     },
     "filters": {
       "categories": "Categorías",

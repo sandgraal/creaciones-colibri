@@ -3,6 +3,7 @@ const searchRoot = document.querySelector("[data-search-root]");
 if (searchRoot && typeof window.Fuse !== "undefined") {
   const searchInput = searchRoot.querySelector("[data-search-input]");
   const resultsContainer = searchRoot.querySelector("[data-search-results]");
+  const statusElement = searchRoot.querySelector("[data-search-status]");
   const clearButton = searchRoot.querySelector("[data-search-clear]");
   const filterInputs = Array.from(searchRoot.querySelectorAll("[data-filter-checkbox]"));
   const endpoint = searchRoot.dataset.searchEndpoint || "/search.json";
@@ -11,6 +12,14 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
   const errorMessage = searchRoot.dataset.searchError ||
     "Search is unavailable right now. Please try again later.";
   const clearLabel = searchRoot.dataset.searchClearLabel;
+  const statusMessages = {
+    idle: searchRoot.dataset.searchStatusIdle || "",
+    cleared: searchRoot.dataset.searchStatusCleared || "",
+    single: searchRoot.dataset.searchStatusSingle || "",
+    multiple: searchRoot.dataset.searchStatusMultiple || "",
+    empty: searchRoot.dataset.searchStatusEmpty || emptyMessage,
+    error: searchRoot.dataset.searchStatusError || errorMessage
+  };
 
   if (!searchInput || !resultsContainer) {
     return;
@@ -18,6 +27,31 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
 
   if (clearButton && clearLabel) {
     clearButton.textContent = clearLabel;
+  }
+
+  const formatCountMessage = (template, count) => {
+    const safeCount = Number(count);
+    const defaultMessage = Number.isFinite(safeCount)
+      ? `${safeCount} result${safeCount === 1 ? "" : "s"} found.`
+      : "";
+
+    if (!template) {
+      return defaultMessage;
+    }
+
+    return template.replace(/%count%/g, String(count));
+  };
+
+  const setStatus = message => {
+    if (!statusElement) {
+      return;
+    }
+
+    statusElement.textContent = message || "";
+  };
+
+  if (statusMessages.idle) {
+    setStatus(statusMessages.idle);
   }
 
   const setBusy = isBusy => {
@@ -88,6 +122,7 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
       emptyState.className = "search-empty";
       emptyState.textContent = emptyMessage;
       resultsContainer.appendChild(emptyState);
+      setStatus(statusMessages.empty || emptyMessage);
       setBusy(false);
       return;
     }
@@ -116,6 +151,12 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
     });
 
     resultsContainer.appendChild(list);
+    if (items.length === 1) {
+      const singleMessage = statusMessages.single || statusMessages.multiple;
+      setStatus(formatCountMessage(singleMessage, 1));
+    } else {
+      setStatus(formatCountMessage(statusMessages.multiple, items.length));
+    }
     setBusy(false);
   };
 
@@ -128,6 +169,7 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
     if (!hasQuery && !hasFilters) {
       resultsContainer.innerHTML = "";
       setBusy(false);
+      setStatus(statusMessages.cleared || statusMessages.idle || "");
       return;
     }
 
@@ -215,6 +257,7 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
       errorState.className = "search-error";
       errorState.textContent = errorMessage;
       resultsContainer.appendChild(errorState);
+      setStatus(statusMessages.error || errorMessage);
       setBusy(false);
     });
 }
