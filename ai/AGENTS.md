@@ -27,8 +27,12 @@ provides context for automation that supports the Creaciones Colibrí site.
 ## Existing Helpers
 - **Bootstrap:** `node ai/scripts/bootstrap.mjs` ensures directories exist and
   prints the active configuration pulled from `site-config.json`.
-- **Run Logging:** `node ai/scripts/log-agent-run.mjs` appends a JSON entry to
-  `ai/logs/agent-run.log` capturing timestamps, agent names and GitHub run IDs.
+- **Manifest-driven runs:** `node ai/scripts/run-agent.mjs` reads
+  `ai/agents/manifest.json` to decide which agents to execute, supports dry
+  runs vs. `--execute`, and appends structured results to
+  `ai/logs/agent-run.log`.
+- **Standalone logging:** `node ai/scripts/log-agent-run.mjs` is available when
+  bespoke scripts need to append entries manually.
 
 ## Next Steps
 Populate this document with concrete agent instructions (e.g.,
