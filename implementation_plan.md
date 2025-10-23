@@ -78,6 +78,7 @@ _Status legend_
   - [x] Draft analytics plan and integrate Plausible toggle (requires `PLAUSIBLE_DOMAIN` to activate). Final hookup pending account creation and domain configuration.
 
 - [ ] **Performance & accessibility audit**
+  - [x] Add asset audit tooling (`npm run audit:assets`) and document the Lighthouse playbook (`docs/operations/performance-audit.md`).
   - [ ] Run Lighthouse audits for performance, accessibility, best practices, and SEO; document remediation tasks.
   - [ ] Optimize build times, asset sizes, and caching strategy.
   - [ ] Verify keyboard navigation, focus states, and semantic markup across pages.

@@ -32,6 +32,19 @@ Before launching or after significant updates, run through this list to ensure S
 6. **Success flow**
    - [ ] After successful payment, confirm redirect to `/checkout/success/` and email receipt content.
 
+## Performance & Accessibility Log
+- [ ] Run the asset audit script (`npm run audit:assets`) and record the totals below.
+- [ ] Capture Lighthouse scores for home, products, bundles, and Spanish landing pages. Attach reports in `docs/operations/performance-reports/`.
+- [ ] Note any accessibility issues discovered during keyboard or screen-reader spot checks. Create follow-up tickets as needed.
+
+```
+- Date: __________
+- Asset totals (raw / gzip): ____________________________
+- Lighthouse scores (P / A / BP / SEO): ____________________________
+- Notes & remediation:
+
+```
+
 ## Post-test
 - [ ] Clear test orders from Snipcart dashboard.
 - [ ] Switch dashboard out of test mode and update `.env` with live public key.
