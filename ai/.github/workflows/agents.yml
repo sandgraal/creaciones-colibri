@@ -4,48 +4,133 @@ on:
   workflow_dispatch:
     inputs:
       agent:
-        description: "Agent name (use 'all' for every active agent)"
-        required: true
-        default: all
-      execute:
-        description: "Execute commands instead of a dry run"
-        required: true
-        default: "false"
-        type: choice
-        options:
-          - "false"
-          - "true"
+        description: "Agent to execute (comma-separated). Use 'all' for the full catalog."
+        required: false
+        default: "all"
 
 jobs:
-  run:
-    name: Run selected agent(s)
+  prepare:
+    name: Prepare environment
     runs-on: ubuntu-latest
+    outputs:
+      agents: ${{ steps.select.outputs.agents }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --prefer-offline
 
       - name: Bootstrap AI toolkit
         run: node ai/scripts/bootstrap.mjs
 
-      - name: Run agent dispatcher
+      - name: Select agents
+        id: select
         env:
-          AI_AGENT: ${{ inputs.agent }}
-          AI_AGENT_EXECUTE: ${{ inputs.execute }}
-        run: node ai/scripts/run-agent.mjs
+          AI_AGENT_INPUT: ${{ github.event.inputs.agent }}
+        run: |
+          node <<'NODE' >> "$GITHUB_OUTPUT"
+          const input = (process.env.AI_AGENT_INPUT || "all").trim();
+          const catalog = [
+            "colibri-content",
+            "colibri-image",
+            "colibri-packaging",
+            "colibri-data",
+            "colibri-analytics"
+          ];
 
-      - name: Upload agent logs
+          let selected;
+          if (!input || input.toLowerCase() === "all") {
+            selected = catalog;
+          } else {
+            selected = input
+              .split(",")
+              .map((name) => name.trim())
+              .filter(Boolean);
+
+            const invalid = selected.filter((name) => !catalog.includes(name));
+            if (invalid.length) {
+              console.error(`Unknown agent(s): ${invalid.join(", ")}`);
+              process.exit(1);
+            }
+          }
+
+          if (!selected.length) {
+            console.error("No agents selected for execution.");
+            process.exit(1);
+          }
+
+          console.log(`agents=${JSON.stringify(selected)}`);
+          NODE
+
+      - name: Summarize selection
+        run: |
+          cat <<'SUMMARY' >> "$GITHUB_STEP_SUMMARY"
+          ## AI Agents Run
+          * Selected agents: `${{ steps.select.outputs.agents }}`
+          * Triggered by: @${{ github.actor }}
+          SUMMARY
+
+  run-agent:
+    name: Execute ${{ matrix.agent }}
+    needs: prepare
+    if: needs.prepare.outputs.agents != ''
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        agent: ${{ fromJson(needs.prepare.outputs.agents) }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline
+
+      - name: Prepare AI workspace
+        run: node ai/scripts/bootstrap.mjs
+
+      - name: Log agent start
+        run: node ai/scripts/log-agent-run.mjs
+        env:
+          AI_AGENT: ${{ matrix.agent }}
+          AI_AGENT_STATUS: started
+
+      - name: Execute agent placeholder
+        run: |
+          echo "Running tasks for ${{ matrix.agent }}"
+          # TODO: Replace with real automation for this agent.
+
+      - name: Log agent completion
+        if: always()
+        run: node ai/scripts/log-agent-run.mjs
+        env:
+          AI_AGENT: ${{ matrix.agent }}
+          AI_AGENT_STATUS: ${{ job.status }}
+
+      - name: Upload agent log
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: ai-agent-logs
+          name: ${{ matrix.agent }}-logs
           path: ai/logs/agent-run.log
-          if-no-files-found: ignore
+          if-no-files-found: warn
+
+      - name: Append job summary
+        if: always()
+        run: |
+          cat <<'SUMMARY' >> "$GITHUB_STEP_SUMMARY"
+          ### ${{ matrix.agent }}
+          * Status: `${{ job.status }}`
+          * Log artifact: `${{ matrix.agent }}-logs`
+          SUMMARY

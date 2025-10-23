@@ -1,3 +1,66 @@
-name: Changelog
-on: {workflow_dispatch: {}}
-jobs: {}
+name: Changelog Snapshot
+
+on:
+  workflow_dispatch:
+    inputs:
+      from:
+        description: "Base ref/commit (optional). Leave empty to use the latest 20 commits."
+        required: false
+        default: ""
+      to:
+        description: "Head ref/commit (optional). Defaults to the current ref."
+        required: false
+        default: ""
+
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.inputs.to || github.ref }}
+
+      - name: Generate changelog
+        id: log
+        env:
+          BASE_REF: ${{ github.event.inputs.from }}
+          HEAD_REF: ${{ github.event.inputs.to }}
+        run: |
+          set -eo pipefail
+          BASE_REF="${BASE_REF}"
+          HEAD_REF="${HEAD_REF}"
+          if [ -z "$HEAD_REF" ]; then
+            HEAD_REF="HEAD"
+          fi
+
+          if [ -n "$BASE_REF" ]; then
+            RANGE="$BASE_REF..$HEAD_REF"
+            git log "$RANGE" --pretty=format:'- %s (%an)' > changelog.md || true
+          else
+            git log "$HEAD_REF" -n 20 --pretty=format:'- %s (%an)' > changelog.md || true
+          fi
+
+          if [ ! -s changelog.md ]; then
+            echo "- No commits found in the requested range." > changelog.md
+          fi
+
+          echo "notes<<'LOG'" >> "$GITHUB_OUTPUT"
+          cat changelog.md >> "$GITHUB_OUTPUT"
+          echo "LOG" >> "$GITHUB_OUTPUT"
+
+      - name: Upload changelog artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: changelog
+          path: changelog.md
+
+      - name: Append summary
+        run: |
+          cat <<'SUMMARY' >> "$GITHUB_STEP_SUMMARY"
+          ## Changelog
+          Generated for `${{ github.event.inputs.from || 'last 20 commits' }} → ${{ github.event.inputs.to || github.ref }}`
+
+          ${{ steps.log.outputs.notes }}
+          SUMMARY

@@ -8,6 +8,9 @@ _site-eleventy/
 # Translation cache
 .cache/
 
+# AI toolkit artifacts
+ai-template-kit.zip
+
 # OS files
 .DS_Store
 Thumbs.db

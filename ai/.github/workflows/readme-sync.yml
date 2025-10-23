@@ -1,3 +1,70 @@
-name: Sync README
-on: {workflow_dispatch: {}}
-jobs: {}
+name: Sync README Archive
+
+on:
+  workflow_dispatch:
+    inputs:
+      upload_archive:
+        description: "Upload a refreshed ai-template-kit.zip artifact even when already in sync"
+        required: false
+        default: "never"
+        type: choice
+        options:
+          - never
+          - always
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check for existing archive
+        id: archive
+        run: |
+          if [ -f ai-template-kit.zip ]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Extract archived README
+        if: steps.archive.outputs.exists == 'true'
+        run: unzip -p ai-template-kit.zip ai/README.md > archived.md
+
+      - name: Compare README files
+        id: compare
+        run: |
+          set -eo pipefail
+          if [ -f archived.md ]; then
+            if cmp -s ai/README.md archived.md; then
+              echo "match=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "match=false" >> "$GITHUB_OUTPUT"
+              echo "README files differ:" >> "$GITHUB_STEP_SUMMARY"
+              diff --unified=3 archived.md ai/README.md | sed 's/^/    /' >> "$GITHUB_STEP_SUMMARY" || true
+            fi
+          else
+            echo "match=false" >> "$GITHUB_OUTPUT"
+            echo "No existing ai-template-kit.zip archive found. A fresh package will be generated." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Refresh template archive
+        if: steps.compare.outputs.match == 'false'
+        run: |
+          rm -f ai-template-kit.zip
+          zip -r ai-template-kit.zip ai
+
+      - name: Upload template kit
+        if: steps.compare.outputs.match == 'false' || github.event.inputs.upload_archive == 'always'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-template-kit
+          path: ai-template-kit.zip
+
+      - name: Append summary
+        if: steps.compare.outputs.match == 'true'
+        run: |
+          cat <<'SUMMARY' >> "$GITHUB_STEP_SUMMARY"
+          README archive already matches the working copy.
+          SUMMARY
