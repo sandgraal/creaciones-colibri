@@ -14,6 +14,7 @@ ai/
 ├── AGENTS.md              # Agent-specific documentation entry point
 ├── logs/                  # Runtime logs captured by workflows
 ├── _state/                # Persistent scratch space for agent runs
+├── agents/                # Machine-readable manifest describing available agents
 ├── scripts/               # Node helpers used by the workflows
 └── .github/workflows/     # Self-contained automation entry points
 ```
@@ -32,12 +33,14 @@ secrets change.
 
 - `scripts/bootstrap.mjs` prepares local folders and prints a summary of the
   current configuration. Run it in CI prior to executing agent logic.
-- `scripts/log-agent-run.mjs` appends structured JSON log entries to
-  `logs/agent-run.log`, capturing metadata such as the agent name and GitHub
-  run identifier.
+- `scripts/run-agent.mjs` loads `agents/manifest.json`, selects the requested
+  agent(s), optionally executes their commands, and logs results to
+  `logs/agent-run.log`.
+- `scripts/log-agent-run.mjs` remains available for lightweight logging needs,
+  though `run-agent.mjs` now handles most workflows automatically.
 
-Both scripts rely on Node.js 20+, matching the runtime of the production
-Pages workflow.
+All scripts rely on Node.js 20+, matching the runtime of the production Pages
+workflow.
 
 ## GitHub Workflows
 
@@ -54,7 +57,9 @@ single Action run.
 2. Call `node ai/scripts/bootstrap.mjs` locally or in CI to verify the kit is
    wired correctly.
 3. Trigger `AI Agents` from GitHub Actions with `agent=all` once the workflows
-   are connected, then inspect `ai/logs/agent-run.log` for run metadata.
+   are connected. Use the `execute` input when you want to run commands instead
+   of a dry run. Inspect `ai/logs/agent-run.log` for run metadata or download
+   the workflow artifact for deeper analysis.
 
 As you build out additional agents, add their documentation under `ai/AGENTS.md`
 or create per-agent subdirectories to keep instructions organized.

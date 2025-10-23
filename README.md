@@ -78,6 +78,15 @@ npm run start
 npm run build
 ```
 
+## Automation & AI Agents
+
+- `npm run ai:run -- --list` — view available automation agents registered in `ai/agents/manifest.json`.
+- `npm run ai:run -- --agent=colibri-content --execute` — run a specific agent locally, mirroring the `AI Agents` workflow.
+- `npm run images:audit -- --strict` — generate an image optimization report (`scripts/image-optimize.mjs`).
+- `npm run packaging:export -- --format=csv` — export packaging/label data for fulfillment partners (`scripts/package-render.mjs`).
+
+See `agents/` for agent-specific runbooks and `ai/README.md` for GitHub Actions integration details.
+
 ## Deployment
 
 Deployments are handled by GitHub Pages. The workflow in `.github/workflows/pages.yml` builds the Eleventy site on every push to `main`, writing the static output to `_site-eleventy/`. That directory is uploaded directly as the Pages artifact and published with `actions/deploy-pages@v4`—no Jekyll build or separate `gh-pages` branch required.

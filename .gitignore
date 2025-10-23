@@ -14,3 +14,9 @@ Thumbs.db
 
 # Environment files
 .env
+
+# AI automation artifacts
+ai/logs/*
+!ai/logs/.gitkeep
+ai/_state/*
+!ai/_state/.gitkeep
