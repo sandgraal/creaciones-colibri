@@ -75,7 +75,7 @@ _Status legend_
 - [ ] **Analytics & SEO**
   - [x] Configure SEO fundamentals: meta tags, Open Graph, structured data (JSON-LD).
   - [x] Generate sitemap and robots.txt during the Eleventy build.
-  - [x] Draft analytics plan and integrate Plausible toggle (requires `PLAUSIBLE_DOMAIN` to activate). Final hookup pending account creation and domain configuration.
+  - [x] Draft analytics plan and integrate Plausible toggle (requires `PLAUSIBLE_DOMAIN` to activate). Plausible now ships with automatic checkout/newsletter event tracking; final account provisioning and domain configuration remain.
 
 - [ ] **Performance & accessibility audit**
   - [x] Add asset audit tooling (`npm run audit:assets`) and document the Lighthouse playbook (`docs/operations/performance-audit.md`).

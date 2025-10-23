@@ -8,7 +8,7 @@ This plan outlines how we will introduce privacy-friendly analytics and basic mo
   1. Create a site in [Plausible](https://plausible.io/) for the production domain (`creaciones-colibri.com` or GitHub Pages URL).
   2. Copy the JavaScript snippet domain (e.g., `creaciones-colibri.com`) and set it in `.env` as `PLAUSIBLE_DOMAIN`.
   3. Deploy; Eleventy injects the script automatically via the `analytics` shortcode when the env var is present.
-  4. Enable goal tracking inside Plausible for events like `checkout_started` and `order_completed` (Snipcart webhooks can trigger custom events later).
+  4. Enable goal tracking inside Plausible. When `PLAUSIBLE_DOMAIN` is set the site automatically emits `checkout_started`, `order_completed`, `newsletter_signup`, and `contact_form_submitted` events; map these to Plausible goals. Snipcart webhooks can trigger additional events later if needed.
 
 - **Staging:** Leave `PLAUSIBLE_DOMAIN` empty in staging `.env` files to avoid recording test traffic.
 

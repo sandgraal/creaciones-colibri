@@ -13,7 +13,13 @@ localeLinks:
 
 <section class="content-section contact-section">
   {% if site.forms.contactEndpoint %}
-    <form class="contact-form" action="{{ site.forms.contactEndpoint }}" method="POST">
+    <form
+      class="contact-form"
+      action="{{ site.forms.contactEndpoint }}"
+      method="POST"
+      data-analytics-event="contact_form_submitted"
+      data-analytics-form="contact"
+    >
       <div class="contact-form__field">
         <label for="contact-name">Name</label>
         <input id="contact-name" name="name" type="text" autocomplete="name" required>
