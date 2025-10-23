@@ -19,4 +19,4 @@ Additional documentation, such as runbooks or decision logs, can be added as nee
 2. Rename placeholders and fill in the required sections.
 3. Register the agent in `_data/agents.json` and update automation workflows as needed.
 
-Refer to `AGENTS.md` at the repository root for the authoritative agent manifest and contribution guidelines.
+Refer to `AGENT.md` at the repository root for the authoritative agent manifest and contribution guidelines.
