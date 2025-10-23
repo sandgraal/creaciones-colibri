@@ -1,0 +1,32 @@
+[
+  {
+    "name": "colibri-content",
+    "status": "active",
+    "last_run": "2024-01-15"
+  },
+  {
+    "name": "colibri-image",
+    "status": "active",
+    "last_run": "2024-01-10"
+  },
+  {
+    "name": "colibri-packaging",
+    "status": "pending",
+    "last_run": null
+  },
+  {
+    "name": "colibri-data",
+    "status": "active",
+    "last_run": "2024-01-12"
+  },
+  {
+    "name": "colibri-analytics",
+    "status": "active",
+    "last_run": "2024-01-09"
+  },
+  {
+    "name": "colibri-chat",
+    "status": "disabled",
+    "last_run": null
+  }
+]
