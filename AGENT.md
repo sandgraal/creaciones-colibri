@@ -8,6 +8,8 @@ Agents manage creative, operational, and publishing workflows using GitHub Actio
 
 ## 2. Agent Directory
 
+Authoritative documentation for each agent lives under [`/agents`](./agents/README.md). Every agent must maintain a dedicated subdirectory with a README derived from the [agent template](./agents/README.template.md).
+
 | Agent Name | Role | Trigger | Linked Script/Workflow |
 |-------------|------|----------|------------------------|
 | `colibri-content` | Builds and updates site pages, product catalog, and blog content | On push to `main` | `.github/workflows/pages.yml` |
@@ -80,7 +82,7 @@ jobs:
 ## 8. Contributing Agents
 When adding or updating an agent:
 1. Use prefix `colibri-<role>`.  
-2. Include a README in `/agents/<role>/README.md`.  
+2. Include a README in `/agents/<role>/README.md` based on [`agents/README.template.md`](./agents/README.template.md).
 3. Register it in `_data/agents.json`:
    ```json
    { "name": "colibri-image", "status": "active", "last_run": "2025-10-23" }
