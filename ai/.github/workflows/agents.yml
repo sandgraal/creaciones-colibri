@@ -7,6 +7,12 @@ on:
         description: "Agent to execute (comma-separated). Use 'all' for the full catalog."
         required: false
         default: "all"
+  workflow_call:
+    inputs:
+      agent:
+        description: "Agent to execute (comma-separated). Use 'all' for the full catalog."
+        required: false
+        type: string
 
 jobs:
   prepare:
@@ -36,6 +42,7 @@ jobs:
         id: select
         env:
           AI_AGENT_INPUT: ${{ github.event.inputs.agent }}
+          AI_AGENT_INPUT_CALL: ${{ inputs.agent }}
         run: |
           node <<'NODE' >> "$GITHUB_OUTPUT"
           const fs = require("fs");
@@ -51,7 +58,11 @@ jobs:
             process.exit(1);
           }
 
-          const inputRaw = (process.env.AI_AGENT_INPUT || "all").trim();
+          const inputRaw = (
+            process.env.AI_AGENT_INPUT ||
+            process.env.AI_AGENT_INPUT_CALL ||
+            "all"
+          ).trim();
           const isAll = !inputRaw || inputRaw.toLowerCase() === "all";
           const requestedNames = isAll
             ? agents.filter((agent) => (agent.status || "").toLowerCase() !== "disabled").map((agent) => agent.name)

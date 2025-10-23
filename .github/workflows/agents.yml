@@ -1,15 +1,14 @@
-# .github/workflows/agents.yml
-name: Colibri Agents
+name: Colibrí Agents
 
 on:
   workflow_dispatch:
     inputs:
       agent:
-        description: 'Run a specific agent (content, image, packaging, data, analytics)'
+        description: "Agent(s) to run from ai/agents/manifest.json (comma-separated). Use 'all' for the full catalog."
         required: false
-        default: 'all'
+        default: "all"
   schedule:
-    - cron: '0 3 * * *' # Run daily at 03:00 UTC
+    - cron: "0 3 * * *"
 
 permissions:
   contents: read
@@ -17,71 +16,8 @@ permissions:
   id-token: write
 
 jobs:
-  content:
-    if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.agent == 'content' || github.event.inputs.agent == 'all' }}
-    uses: ./.github/workflows/pages.yml
+  run-agents:
+    uses: ./ai/.github/workflows/agents.yml
+    with:
+      agent: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.agent || '' }}
     secrets: inherit
-
-  image:
-    if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.agent == 'image' || github.event.inputs.agent == 'all' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: npm
-      - name: Install dependencies
-        run: npm ci
-      - name: Optimize images
-        run: node scripts/image-optimize.mjs || echo "No image agent script found, skipping."
-
-  packaging:
-    if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.agent == 'packaging' || github.event.inputs.agent == 'all' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: npm
-      - name: Install dependencies
-        run: npm ci
-      - name: Generate packaging exports
-        run: node scripts/package-render.mjs || echo "No packaging script found, skipping."
-
-  data:
-    if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.agent == 'data' || github.event.inputs.agent == 'all' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: npm
-      - name: Install dependencies
-        run: npm ci
-      - name: Sync product data
-        run: node scripts/data-sync.mjs || echo "No data agent script found, skipping."
-
-  analytics:
-    if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.agent == 'analytics' || github.event.inputs.agent == 'all' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: npm
-      - name: Install dependencies
-        run: npm ci
-      - name: Generate analytics report
-        run: node scripts/analytics.mjs || echo "No analytics script found, skipping."
-
-  finalize:
-    needs: [content, image, packaging, data, analytics]
-    runs-on: ubuntu-latest
-    if: ${{ always() }}
-    steps:
-      - name: Mark agent run complete
-        run: echo "Colibri agents completed at $(date -u)"
