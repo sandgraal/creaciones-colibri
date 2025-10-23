@@ -1,10 +1,11 @@
 # Performance & Accessibility Audit Playbook
 
-Use this guide whenever we prepare a release or introduce major UX changes. It pairs the new asset-weight report with manual Lighthouse checks so we can spot regressions early and document the results for the team.
+Use this guide whenever we prepare a release or introduce major UX changes. It pairs the asset-weight report with automated Lighthouse checks so we can spot regressions early and document the results for the team.
 
 ## 1. Prerequisites
 - Node.js 20+ installed locally.
 - Chrome or Chromium browser for running Lighthouse (either via DevTools or the CLI).
+- Lighthouse CLI available globally (`npm install -g lighthouse`) or via your package manager.
 - The repository cloned and dependencies installed (`npm install`).
 
 ## 2. Generate the asset baseline
@@ -17,27 +18,24 @@ npm run audit:assets
 Record the summary (especially total gzipped weight and the heaviest assets) in your release notes or in `docs/operations/qa-checklist.md` under the new performance section.
 
 ## 3. Run Lighthouse
-Choose at least the following URLs for every audit cycle:
-- `/creaciones-colibri/`
-- `/creaciones-colibri/products/`
-- `/creaciones-colibri/bundles/`
-- `/creaciones-colibri/es/`
-
-### Option A — Chrome DevTools
-1. Build and serve locally with `npm start`.
-2. Open Chrome DevTools → Lighthouse tab.
-3. Run reports for **Performance**, **Accessibility**, **Best Practices**, and **SEO**.
-4. Export the report as JSON or HTML. Store artifacts in `docs/operations/performance-reports/` (create the folder if it does not exist) and link them from the QA checklist.
-
-### Option B — Lighthouse CLI
-If you have `lighthouse` installed globally (or run via `npx`):
+`npm run audit:lighthouse` automates the Lighthouse workflow by rebuilding the site, serving `_site-eleventy` locally, and invoking the Lighthouse CLI for the standard set of URLs.
 
 ```bash
-npm run build
-npx lighthouse http://localhost:8080/creaciones-colibri/ --view --output=json --output-path=./docs/operations/performance-reports/home.json
+npm run audit:lighthouse
 ```
 
-Repeat for the other target URLs. When using the CLI, serve `_site-eleventy` locally (e.g., `npx http-server _site-eleventy`) or run against the staging deployment.
+Reports are saved in `docs/operations/performance-reports/<timestamp>-lighthouse/` with both JSON + HTML artifacts and a Markdown summary. The script looks for a local Lighthouse CLI installation; if the binary is missing or Chrome/Chromium is unavailable, it exits with a helpful message so you can install the prerequisites and re-run.
+
+To extend coverage (e.g., add blog posts or checkout flows), set the `LIGHTHOUSE_TARGETS` environment variable before running the script. Provide a comma-separated list of `<label>:<path>` entries relative to the GitHub Pages prefix:
+
+```bash
+LIGHTHOUSE_TARGETS="home:,products:products,checkout:checkout/success" npm run audit:lighthouse
+```
+
+The script automatically prefixes each entry with `/creaciones-colibri/` so the URLs match production.
+
+### Manual alternative
+If you prefer an interactive run, you can still open Chrome DevTools → Lighthouse or execute the CLI manually. Be sure to store the resulting reports under `docs/operations/performance-reports/` and update the QA checklist with the new scores.
 
 ## 4. Accessibility spot checks
 Beyond Lighthouse, run the following manual checks:

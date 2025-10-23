@@ -34,7 +34,7 @@ Before launching or after significant updates, run through this list to ensure S
 
 ## Performance & Accessibility Log
 - [x] Run the asset audit script (`npm run audit:assets`) and record the totals below.
-- [ ] Capture Lighthouse scores for home, products, bundles, and Spanish landing pages. Attach reports in `docs/operations/performance-reports/`.
+- [ ] Capture Lighthouse scores for home, products, bundles, and Spanish landing pages (`npm run audit:lighthouse`). Attach reports in `docs/operations/performance-reports/`.
 - [ ] Note any accessibility issues discovered during keyboard or screen-reader spot checks. Create follow-up tickets as needed.
 
 ```
