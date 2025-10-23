@@ -41,11 +41,24 @@ Pages workflow.
 
 ## GitHub Workflows
 
-Minimal placeholder workflows live in `ai/.github/workflows/`. These can be
-symlinked or referenced from the main repository workflows when you begin to
-orchestrate agents. Start by wiring `ai/.github/workflows/agents.yml` into a
-repository-level workflow dispatch so you can trigger all agents with a
-single Action run.
+Three reusable workflows ship with the kit and are scoped to the `ai/`
+directory:
+
+- **`AI Agents` (`ai/.github/workflows/agents.yml`)** — orchestrates one or
+  more agents selected via workflow dispatch input. Each agent runs in its own
+  matrix job, bootstraps the toolkit, and logs start/completion events to
+  `ai/logs/agent-run.log`.
+- **`Changelog Snapshot` (`ai/.github/workflows/changelog.yml`)** — generates a
+  markdown summary of recent commits. Provide optional `from`/`to` refs to
+  shape the range or leave blank to capture the latest 20 commits.
+- **`Sync README Archive` (`ai/.github/workflows/readme-sync.yml`)** — packages
+  the current toolkit into an `ai-template-kit.zip` artifact. If a prior
+  archive is available it compares the README snapshot before bundling;
+  otherwise it simply produces a fresh download. The zip artifact is published
+  for convenience and is not stored in the repository.
+
+Reference these workflows from repository-level automation or trigger them via
+the Actions tab as needed.
 
 ## Getting Started
 
