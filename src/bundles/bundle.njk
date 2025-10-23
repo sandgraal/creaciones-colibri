@@ -8,7 +8,7 @@ permalink: "bundles/{{ bundle.id }}/"
 eleventyComputed:
   title: "{{ (bundle.translations and bundle.translations[locale] and bundle.translations[locale].name) or bundle.name }}"
   description: "{{ (bundle.translations and bundle.translations[locale] and bundle.translations[locale].shortDescription) or bundle.shortDescription or bundle.description }}"
-  tags: ["bundle", "{{ bundle.type }}"]
+  tags: ["bundle", "{{ bundle.type }}", "product"]
   localeLinks:
     es: "/es/suscripciones/{{ bundle.id }}/"
 ---

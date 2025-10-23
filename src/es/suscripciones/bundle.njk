@@ -4,20 +4,21 @@ locale: es
 pagination:
   data: bundles
   size: 1
-  alias: baseBundle
-permalink: "es/suscripciones/{{ baseBundle.id }}/"
+  alias: bundle
+permalink: "es/suscripciones/{{ bundle.id }}/"
 eleventyComputed:
   title: >-
-    {% set translation = baseBundle.translations and baseBundle.translations['es'] %}
-    {{ (translation and translation.name) or baseBundle.name }}
+    {% set translation = bundle.translations and bundle.translations['es'] %}
+    {{ (translation and translation.name) or bundle.name }}
   description: >-
-    {% set translation = baseBundle.translations and baseBundle.translations['es'] %}
-    {{ (translation and translation.shortDescription) or baseBundle.shortDescription or baseBundle.description }}
+    {% set translation = bundle.translations and bundle.translations['es'] %}
+    {{ (translation and translation.shortDescription) or bundle.shortDescription or bundle.description }}
   tags:
     - bundle
-    - "{{ baseBundle.type }}"
+    - "{{ bundle.type }}"
+    - product
   localeLinks:
-    en: "/bundles/{{ baseBundle.id }}/"
+    en: "/bundles/{{ bundle.id }}/"
 ---
 
 {% set currentLocale = 'es' %}
@@ -25,15 +26,15 @@ eleventyComputed:
 {% set bundleStrings = translations and translations['es'] and translations['es'].bundles %}
 {% set fallbackBundleStrings = translations and translations['en'] and translations['en'].bundles %}
 {% set strings = bundleStrings or fallbackBundleStrings %}
-{% set bundleTranslation = baseBundle.translations and baseBundle.translations['es'] %}
+{% set bundleTranslation = bundle.translations and bundle.translations['es'] %}
 {% set productTranslations = translations and translations.products and translations.products['es'] %}
-{% set bundleName = bundleTranslation and bundleTranslation.name or baseBundle.name %}
-{% set bundleSummary = bundleTranslation and bundleTranslation.shortDescription or baseBundle.shortDescription %}
-{% set bundleDescription = bundleTranslation and bundleTranslation.description or baseBundle.description %}
-{% set bundleUnit = bundleTranslation and bundleTranslation.unit or baseBundle.unit %}
-{% set bundlePerks = bundleTranslation and bundleTranslation.perks or baseBundle.perks %}
+{% set bundleName = bundleTranslation and bundleTranslation.name or bundle.name %}
+{% set bundleSummary = bundleTranslation and bundleTranslation.shortDescription or bundle.shortDescription %}
+{% set bundleDescription = bundleTranslation and bundleTranslation.description or bundle.description %}
+{% set bundleUnit = bundleTranslation and bundleTranslation.unit or bundle.unit %}
+{% set bundlePerks = bundleTranslation and bundleTranslation.perks or bundle.perks %}
 {% set subscribeLabel = strings and strings.subscribeButton or 'Suscribirme' %}
-{% set billing = baseBundle.billing or {} %}
+{% set billing = bundle.billing or {} %}
 {% set billingInterval = billing.interval %}
 {% set billingIntervalCount = billing.intervalCount or 1 %}
 {% set intervalLabel = billingInterval %}
@@ -55,48 +56,48 @@ eleventyComputed:
     <h1>{{ bundleName }}</h1>
     <p class="bundle-detail__summary">{{ bundleSummary }}</p>
     <div class="bundle-detail__meta">
-      <span class="bundle-detail__price">${{ baseBundle.price }} <small>{{ bundleUnit }}</small></span>
-      {% if baseBundle.type == 'subscription' and baseBundle.billing %}
+      <span class="bundle-detail__price">${{ bundle.price }} <small>{{ bundleUnit }}</small></span>
+      {% if bundle.type == 'subscription' and bundle.billing %}
         <span class="bundle-detail__billing">{{ strings.subscriptionBilling if strings else 'Frecuencia de cobro' }}: {{ billingIntervalCount }} {{ intervalLabel }}</span>
       {% endif %}
     </div>
-    {% if baseBundle.type == 'bundle' and site.snipcart.publicKey %}
+    {% if bundle.type == 'bundle' and site.snipcart.publicKey %}
       <div class="bundle-detail__purchase">
         <button
           class="button button-primary bundle-detail__cart snipcart-add-item"
           type="button"
-          data-item-id="bundle-{{ baseBundle.id }}"
+          data-item-id="bundle-{{ bundle.id }}"
           data-item-name="{{ bundleName }}"
-          data-item-price="{{ baseBundle.price }}"
+          data-item-price="{{ bundle.price }}"
           data-item-url="{{ page.url | url }}"
           data-item-description="{{ bundleSummary }}"
-          data-item-image="{{ baseBundle.image.src | url }}">
+          data-item-image="{{ bundle.image.src | url }}">
           Agregar al carrito
         </button>
       </div>
-    {% elseif baseBundle.type == 'subscription' and site.snipcart.publicKey %}
+    {% elseif bundle.type == 'subscription' and site.snipcart.publicKey %}
       <div class="bundle-detail__purchase">
         <button
           class="button button-primary bundle-detail__cart snipcart-add-item"
           type="button"
-          data-item-id="bundle-{{ baseBundle.id }}"
+          data-item-id="bundle-{{ bundle.id }}"
           data-item-name="{{ bundleName }}"
-          data-item-price="{{ baseBundle.price }}"
+          data-item-price="{{ bundle.price }}"
           data-item-url="{{ page.url | url }}"
           data-item-description="{{ bundleSummary }}"
-          data-item-image="{{ baseBundle.image.src | url }}"
-          data-plan-id="plan-{{ baseBundle.id }}"
+          data-item-image="{{ bundle.image.src | url }}"
+          data-plan-id="plan-{{ bundle.id }}"
           data-plan-name="{{ bundleName }}"
           data-plan-interval="{{ billingInterval }}"
           data-plan-interval-count="{{ billingIntervalCount }}"
           {% if billing.trialDays %}
             data-plan-trial-period-days="{{ billing.trialDays }}"
           {% endif %}
-          data-plan-amount="{{ baseBundle.price }}">
+          data-plan-amount="{{ bundle.price }}">
           {{ subscribeLabel }}
         </button>
       </div>
-    {% elseif baseBundle.type == 'subscription' %}
+    {% elseif bundle.type == 'subscription' %}
       <div class="bundle-detail__purchase bundle-detail__purchase--info">
         <p>Estamos finalizando la facturación automática vía Snipcart. Escríbenos para unirte: <a href="mailto:hola@creacionescolibri.com?subject={{ bundleName | urlencode }}">hola@creacionescolibri.com</a></p>
       </div>
@@ -105,16 +106,16 @@ eleventyComputed:
 
   <div class="bundle-detail__body">
     <figure class="bundle-detail__figure">
-      <img src="{{ baseBundle.image.src | url }}" alt="{{ baseBundle.image.alt }}" loading="lazy" decoding="async">
+      <img src="{{ bundle.image.src | url }}" alt="{{ bundle.image.alt }}" loading="lazy" decoding="async">
     </figure>
     <section class="bundle-detail__content">
       <h2>Descripción</h2>
       <p>{{ bundleDescription }}</p>
 
-      {% if baseBundle.contents and baseBundle.contents | length %}
+      {% if bundle.contents and bundle.contents | length %}
         <h3>{{ strings.bundleContents if strings else 'Qué incluye' }}</h3>
         <ul class="bundle-detail__list">
-          {% for item in baseBundle.contents %}
+          {% for item in bundle.contents %}
             {% set product = item.product %}
             {% set productTranslation = productTranslations and productTranslations[item.productId] %}
             {% set productName = productTranslation and productTranslation.name or (product and product.name) or item.name %}
