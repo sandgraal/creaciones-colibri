@@ -1,4 +1,4 @@
-# AGENTS.md
+# AGENT.md
 
 ## 1. Purpose
 Defines the autonomous agent system for the **Creaciones Colibrí** site.  
