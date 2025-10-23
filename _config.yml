@@ -1,0 +1,21 @@
+# Prevent the GitHub Pages fallback build from trying to process the Eleventy source files.
+# The official deployment workflow uploads the prebuilt site from `_site-eleventy`, so we
+# explicitly exclude everything that belongs to the Eleventy source tree.
+exclude:
+  - src
+  - .eleventy.js
+  - .eleventy.images.js
+  - node_modules
+  - package.json
+  - package-lock.json
+  - README.md
+  - LICENSE
+  - implementation_plan.md
+  - AGENT.md
+  - base.njk
+  - index.md
+  - .env.example
+  - docs
+  - agents
+  - scripts
+  - .github
