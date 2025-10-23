@@ -27,6 +27,7 @@ const parseLocaleMapping = value => {
 };
 
 const snipcartLocaleMap = parseLocaleMapping(process.env.SNIPCART_LOCALE_MAP);
+const plausibleDomain = (process.env.PLAUSIBLE_DOMAIN || "").trim();
 
 if (!process.env.SNIPCART_LOCALE_MAP) {
   // Ensure Spanish storefronts fall back to Snipcart's built-in es locale by default.
@@ -34,6 +35,10 @@ if (!process.env.SNIPCART_LOCALE_MAP) {
 }
 
 module.exports = {
+  analytics: {
+    plausibleDomain,
+    enabled: Boolean(plausibleDomain)
+  },
   snipcart: {
     publicKey: process.env.SNIPCART_PUBLIC_KEY || "",
     currency: process.env.SNIPCART_CURRENCY || "USD",

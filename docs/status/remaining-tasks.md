@@ -13,5 +13,6 @@
 
 ## Analytics & Monitoring
 - [ ] Run Lighthouse performance audits on the stabilized staging build and document remediation items.
-- [ ] Wire up Plausible analytics (script embed, goal tracking) and validate event capture.
+- [x] Wire up Plausible analytics (script embed + client event tracking).
+- [ ] Validate Plausible event capture on staging once the production domain is live.
 

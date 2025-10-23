@@ -195,7 +195,9 @@
 {% if currentLocale == 'es' %}
   {% set schemaLanguage = 'es-CR' %}
 {% endif %}
-<html lang="{{ currentLocale }}">
+{% set analyticsEnabled = site.analytics and site.analytics.enabled %}
+{% set analyticsDomain = analyticsEnabled and site.analytics.plausibleDomain %}
+<html lang="{{ currentLocale }}"{% if analyticsDomain %} data-analytics-domain="{{ analyticsDomain }}"{% endif %}>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -271,8 +273,9 @@
       href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&family=Work+Sans:wght@300;400;500&display=swap"
       rel="stylesheet">
     <link rel="stylesheet" href="{{ '/css/main.css' | url }}">
-    {% if analytics %}
+    {% if analytics and analyticsEnabled %}
       {{ analytics() | safe }}
+      <script defer src="{{ '/js/analytics.js' | url }}"></script>
     {% endif %}
     {% if site.snipcart.publicKey %}
       <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.0.33/default/snipcart.css">

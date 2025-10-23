@@ -62,7 +62,13 @@ localeLinks:
   <h2>{{ newsletterStrings.title or 'Permanece al tanto' }}</h2>
   <p>{{ newsletterStrings.intro or 'Estamos desarrollando nuevas recetas, recopilando historias de nuestros aliados y preparando el lanzamiento. Deja tu correo para enterarte primero.' }}</p>
   {% if site.forms.newsletterAction %}
-    <form class="newsletter-form" action="{{ site.forms.newsletterAction }}" method="POST">
+    <form
+      class="newsletter-form"
+      action="{{ site.forms.newsletterAction }}"
+      method="POST"
+      data-analytics-event="newsletter_signup"
+      data-analytics-form="newsletter"
+    >
       <label class="newsletter-form__label" for="newsletter-email-es">{{ newsletterStrings.label or 'Correo electrónico' }}</label>
       <div class="newsletter-form__controls">
         <input id="newsletter-email-es" class="newsletter-form__input" type="email" name="email" placeholder="{{ newsletterStrings.placeholderInput or 'tú@ejemplo.com' }}" autocomplete="email" required>
