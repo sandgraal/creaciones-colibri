@@ -14,6 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       agents: ${{ steps.select.outputs.agents }}
+      skipped: ${{ steps.select.outputs.skipped }}
+      requested: ${{ steps.select.outputs.requested }}
+      has_agents: ${{ steps.select.outputs.has_agents }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -35,51 +38,136 @@ jobs:
           AI_AGENT_INPUT: ${{ github.event.inputs.agent }}
         run: |
           node <<'NODE' >> "$GITHUB_OUTPUT"
-          const input = (process.env.AI_AGENT_INPUT || "all").trim();
-          const catalog = [
-            "colibri-content",
-            "colibri-image",
-            "colibri-packaging",
-            "colibri-data",
-            "colibri-analytics"
-          ];
+          const fs = require("fs");
+          const path = require("path");
 
-          let selected;
-          if (!input || input.toLowerCase() === "all") {
-            selected = catalog;
-          } else {
-            selected = input
-              .split(",")
-              .map((name) => name.trim())
-              .filter(Boolean);
+          const manifestPath = path.join(process.cwd(), "ai", "agents", "manifest.json");
+          const manifestRaw = fs.readFileSync(manifestPath, "utf8");
+          const manifest = JSON.parse(manifestRaw);
+          const agents = Array.isArray(manifest.agents) ? manifest.agents : [];
 
-            const invalid = selected.filter((name) => !catalog.includes(name));
-            if (invalid.length) {
-              console.error(`Unknown agent(s): ${invalid.join(", ")}`);
-              process.exit(1);
-            }
+          if (!agents.length) {
+            console.error("No agents registered in ai/agents/manifest.json");
+            process.exit(1);
           }
 
-          if (!selected.length) {
+          const inputRaw = (process.env.AI_AGENT_INPUT || "all").trim();
+          const isAll = !inputRaw || inputRaw.toLowerCase() === "all";
+          const requestedNames = isAll
+            ? agents.filter((agent) => (agent.status || "").toLowerCase() !== "disabled").map((agent) => agent.name)
+            : inputRaw
+                .split(",")
+                .map((value) => value.trim())
+                .filter(Boolean);
+
+          if (!requestedNames.length) {
             console.error("No agents selected for execution.");
             process.exit(1);
           }
 
-          console.log(`agents=${JSON.stringify(selected)}`);
+          const byName = new Map(agents.map((agent) => [agent.name, agent]));
+          const unknown = requestedNames.filter((name) => !byName.has(name));
+          if (unknown.length) {
+            console.error(`Unknown agent(s): ${unknown.join(", ")}`);
+            process.exit(1);
+          }
+
+          const seen = new Set();
+          const requestedAgents = requestedNames
+            .map((name) => byName.get(name))
+            .filter((agent) => {
+              if (seen.has(agent.name)) {
+                return false;
+              }
+              seen.add(agent.name);
+              return true;
+            });
+
+          const runnable = [];
+          const skipped = [];
+
+          for (const agent of requestedAgents) {
+            const reasons = [];
+            const status = (agent.status || "unknown").toLowerCase();
+            if (!agent.command || !String(agent.command).trim()) {
+              reasons.push("missing command");
+            }
+            if (status !== "active") {
+              reasons.push(`status=${agent.status || "unknown"}`);
+            }
+
+            if (reasons.length === 0) {
+              runnable.push(agent.name);
+            } else {
+              skipped.push({
+                name: agent.name,
+                status: agent.status || "unknown",
+                reason: reasons.join("; ")
+              });
+            }
+          }
+
+          if (!runnable.length) {
+            console.error("No runnable agents matched the selection.");
+            if (skipped.length) {
+              console.error("Skipped agents:");
+              skipped.forEach((entry) => {
+                console.error(`  - ${entry.name}: ${entry.reason}`);
+              });
+            }
+            process.exit(1);
+          }
+
+          console.log(`agents=${JSON.stringify(runnable)}`);
+          console.log(`skipped=${JSON.stringify(skipped)}`);
+          console.log(`requested=${JSON.stringify(requestedAgents.map((agent) => agent.name))}`);
+          console.log(`has_agents=true`);
           NODE
 
       - name: Summarize selection
+        env:
+          SELECTED: ${{ steps.select.outputs.agents }}
+          REQUESTED: ${{ steps.select.outputs.requested }}
+          SKIPPED: ${{ steps.select.outputs.skipped }}
+          ACTOR: ${{ github.actor }}
         run: |
-          cat <<'SUMMARY' >> "$GITHUB_STEP_SUMMARY"
-          ## AI Agents Run
-          * Selected agents: `${{ steps.select.outputs.agents }}`
-          * Triggered by: @${{ github.actor }}
-          SUMMARY
+          node <<'NODE' >> "$GITHUB_STEP_SUMMARY"
+          const toArray = (value) => {
+            if (!value) return [];
+            try {
+              return JSON.parse(value);
+            } catch (error) {
+              return [];
+            }
+          };
+
+          const selected = toArray(process.env.SELECTED);
+          const requested = toArray(process.env.REQUESTED);
+          const skipped = toArray(process.env.SKIPPED);
+
+          console.log("## AI Agents Run");
+          console.log(`* Triggered by: @${process.env.ACTOR}`);
+          if (requested.length) {
+            console.log(`* Requested agents: ${requested.join(", ")}`);
+          }
+
+          if (selected.length) {
+            console.log("\n### Runnable agents");
+            selected.forEach((name) => console.log(`- ${name}`));
+          }
+
+          if (skipped.length) {
+            console.log("\n### Skipped (not runnable)");
+            skipped.forEach((entry) => {
+              console.log(`- ${entry.name} — ${entry.reason}`);
+            });
+          }
+          NODE
 
   run-agent:
     name: Execute ${{ matrix.agent }}
     needs: prepare
-    if: needs.prepare.outputs.agents != ''
+    if: needs.prepare.outputs.has_agents == 'true'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -100,16 +188,41 @@ jobs:
       - name: Prepare AI workspace
         run: node ai/scripts/bootstrap.mjs
 
+      - name: Resolve agent metadata
+        id: metadata
+        env:
+          AI_AGENT_NAME: ${{ matrix.agent }}
+        run: |
+          node <<'NODE' >> "$GITHUB_OUTPUT"
+          const fs = require("fs");
+          const path = require("path");
+          const agentName = process.env.AI_AGENT_NAME;
+          const manifestPath = path.join(process.cwd(), "ai", "agents", "manifest.json");
+          const manifestRaw = fs.readFileSync(manifestPath, "utf8");
+          const manifest = JSON.parse(manifestRaw);
+          const agents = Array.isArray(manifest.agents) ? manifest.agents : [];
+          const agent = agents.find((entry) => entry.name === agentName);
+          if (!agent) {
+            throw new Error(`Agent not found in manifest: ${agentName}`);
+          }
+
+          const status = agent.status || "unknown";
+          const command = agent.command ? String(agent.command) : "";
+          const delimiter = "CMD_EOF";
+          console.log(`manifest_status=${status}`);
+          console.log(`command<<${delimiter}`);
+          console.log(command);
+          console.log(delimiter);
+          NODE
+
       - name: Log agent start
         run: node ai/scripts/log-agent-run.mjs
         env:
           AI_AGENT: ${{ matrix.agent }}
           AI_AGENT_STATUS: started
 
-      - name: Execute agent placeholder
-        run: |
-          echo "Running tasks for ${{ matrix.agent }}"
-          # TODO: Replace with real automation for this agent.
+      - name: Run agent command
+        run: node ai/scripts/run-agent.mjs --agent=${{ matrix.agent }} --execute
 
       - name: Log agent completion
         if: always()
@@ -131,6 +244,8 @@ jobs:
         run: |
           cat <<'SUMMARY' >> "$GITHUB_STEP_SUMMARY"
           ### ${{ matrix.agent }}
-          * Status: `${{ job.status }}`
+          * Manifest status: `${{ steps.metadata.outputs.manifest_status }}`
+          * Command: `${{ steps.metadata.outputs.command }}`
+          * Workflow status: `${{ job.status }}`
           * Log artifact: `${{ matrix.agent }}-logs`
           SUMMARY

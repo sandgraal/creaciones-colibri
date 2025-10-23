@@ -48,9 +48,12 @@ Three reusable workflows ship with the kit and are scoped to the `ai/`
 directory:
 
 - **`AI Agents` (`ai/.github/workflows/agents.yml`)** — orchestrates one or
-  more agents selected via workflow dispatch input. Each agent runs in its own
-  matrix job, bootstraps the toolkit, and logs start/completion events to
-  `ai/logs/agent-run.log`.
+  more agents selected via workflow dispatch input. The workflow resolves the
+  request against `agents/manifest.json`, filters to runnable (active +
+  command-configured) agents, and surfaces any skipped entries in the job
+  summary. Each runnable agent executes `scripts/run-agent.mjs --execute` in its
+  own matrix job after bootstrapping the toolkit and logs start/completion
+  events to `ai/logs/agent-run.log`.
 - **`Changelog Snapshot` (`ai/.github/workflows/changelog.yml`)** — generates a
   markdown summary of recent commits. Provide optional `from`/`to` refs to
   shape the range or leave blank to capture the latest 20 commits.

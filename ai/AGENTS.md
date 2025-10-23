@@ -24,6 +24,11 @@ provides context for automation that supports the Creaciones Colibrí site.
 > **Status:** All agents currently execute placeholder steps that log their runs.
 > Expand each agent with concrete scripts or integrations as automation matures.
 
+> **Automation note:** The `AI Agents` workflow reads this manifest to decide
+> which commands to run. Only agents marked `active` with a configured
+> `command` execute automatically; entries flagged as `pending` or `disabled`
+> are reported in the workflow summary as skipped.
+
 ## Existing Helpers
 - **Bootstrap:** `node ai/scripts/bootstrap.mjs` ensures directories exist and
   prints the active configuration pulled from `site-config.json`.
