@@ -166,6 +166,15 @@ body {
   outline-offset: 4px;
 }
 
+.nav-link[aria-current="page"] {
+  color: var(--color-secondary);
+  font-weight: 600;
+}
+
+.nav-link[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
 .nav-link:focus-visible::after,
 .nav-link:hover::after {
   transform: scaleX(1);
@@ -556,6 +565,12 @@ body {
 
 .search-panel__clear {
   white-space: nowrap;
+}
+
+.search-panel__status {
+  margin: -0.25rem 0 0;
+  color: var(--color-muted);
+  font-size: 0.95rem;
 }
 
 .search-filters {

@@ -117,6 +117,15 @@
 {% if localePrefix != '' %}
   {% set homePath = localePrefix ~ '/' %}
 {% endif %}
+{% set pageUrl = page and page.url or '/' %}
+{% if pageUrl and not pageUrl.endsWith('/') %}
+  {% set pageUrl = pageUrl ~ '/' %}
+{% endif %}
+{% set isHomeActive = pageUrl == homePath %}
+{% set isProductsActive = pageUrl.startsWith(productsPath) %}
+{% set isBundlesActive = pageUrl.startsWith(bundlesPath) %}
+{% set isBlogActive = pageUrl.startsWith(blogPath) %}
+{% set isContactActive = pageUrl.startsWith(contactPath) %}
 {% set localeLinksMap = localeLinks %}
 {% set snipcartLocaleMap = site.snipcart and site.snipcart.localeMap or {} %}
 {% set snipcartDefaultLanguage = site.snipcart and site.snipcart.defaultLanguage or 'en' %}
@@ -392,7 +401,7 @@
   <body class="site">
     <a class="skip-link" href="#main-content">{{ skipLinkLabel }}</a>
     <header class="site-header">
-      <a class="brand" href="{{ homePath | url }}">
+      <a class="brand" href="{{ homePath | url }}"{% if isHomeActive %} aria-current="page"{% endif %}>
         <img
           class="brand-logo"
           src="{{ '/img/branding/creaciones-colibri-logo.svg' | url }}"
@@ -402,11 +411,11 @@
       </a>
       <nav class="site-nav">
         <a class="nav-link" href="{{ visionPath | url }}">{{ navVisionLabel }}</a>
-        <a class="nav-link" href="{{ productsPath | url }}">{{ navProductsLabel }}</a>
-        <a class="nav-link" href="{{ bundlesPath | url }}">{{ navBundlesLabel }}</a>
-        <a class="nav-link" href="{{ blogPath | url }}">{{ navBlogLabel }}</a>
+        <a class="nav-link" href="{{ productsPath | url }}"{% if isProductsActive %} aria-current="page"{% endif %}>{{ navProductsLabel }}</a>
+        <a class="nav-link" href="{{ bundlesPath | url }}"{% if isBundlesActive %} aria-current="page"{% endif %}>{{ navBundlesLabel }}</a>
+        <a class="nav-link" href="{{ blogPath | url }}"{% if isBlogActive %} aria-current="page"{% endif %}>{{ navBlogLabel }}</a>
         <a class="nav-link" href="{{ newsletterPath | url }}">{{ navNewsletterLabel }}</a>
-        <a class="nav-link" href="{{ contactPath | url }}">{{ navContactLabel }}</a>
+        <a class="nav-link" href="{{ contactPath | url }}"{% if isContactActive %} aria-current="page"{% endif %}>{{ navContactLabel }}</a>
         {% if site.alternateLocales and site.alternateLocales | length %}
           <div class="locale-switcher" role="navigation" aria-label="{{ localeSwitcherLabel }}">
             {% for localeCode in site.alternateLocales %}

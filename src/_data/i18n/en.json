@@ -47,7 +47,13 @@
       "placeholder": "Try “ginger”, “vegan”, or “cacao”",
       "clearLabel": "Clear",
       "emptyMessage": "No products match your criteria right now. Try adjusting filters or search terms.",
-      "errorMessage": "Search is unavailable right now. Please try again later."
+      "errorMessage": "Search is unavailable right now. Please try again later.",
+      "statusIdle": "Type a product name or select filters to see matching items.",
+      "statusCleared": "Search reset. Browse the categories below or start typing to filter.",
+      "statusSingle": "1 result matches your filters.",
+      "statusMultiple": "%count% results match your filters.",
+      "statusEmpty": "No results match your filters.",
+      "statusError": "Search temporarily unavailable. Please try again soon."
     },
     "filters": {
       "categories": "Categories",
