@@ -33,15 +33,17 @@ Before launching or after significant updates, run through this list to ensure S
    - [ ] After successful payment, confirm redirect to `/checkout/success/` and email receipt content.
 
 ## Performance & Accessibility Log
-- [ ] Run the asset audit script (`npm run audit:assets`) and record the totals below.
+- [x] Run the asset audit script (`npm run audit:assets`) and record the totals below.
 - [ ] Capture Lighthouse scores for home, products, bundles, and Spanish landing pages. Attach reports in `docs/operations/performance-reports/`.
 - [ ] Note any accessibility issues discovered during keyboard or screen-reader spot checks. Create follow-up tickets as needed.
 
 ```
-- Date: __________
-- Asset totals (raw / gzip): ____________________________
-- Lighthouse scores (P / A / BP / SEO): ____________________________
+- Date: 2025-10-23
+- Asset totals (raw / gzip): 492 KB / 122 KB (see `docs/operations/performance-reports/2025-10-23-asset-audit.md`)
+- Lighthouse scores (P / A / BP / SEO): pending — run after Snipcart sandbox stabilizes
 - Notes & remediation:
+  - Largest assets are `css/main.css` (30 KB raw / 4.5 KB gz) and catalog indexes (`products/index.html`, `es/productos/index.html`).
+  - Revisit bundle/product templates if Lighthouse flags layout shift or interaction delays.
 
 ```
 
