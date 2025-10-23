@@ -176,10 +176,10 @@
 {% if not metaImage and meta and meta.image %}
   {% set metaImage = meta.image %}
 {% endif %}
-{% if not metaImage and product and product.image and product.image.src %}
-  {% set metaImage = product.image.src %}
-  {% if product.image.alt %}
-    {% set metaImageAlt = product.image.alt %}
+{% if not metaImage and productData and productData.image and productData.image.src %}
+  {% set metaImage = productData.image.src %}
+  {% if productData.image.alt %}
+    {% set metaImageAlt = productData.image.alt %}
   {% endif %}
 {% endif %}
 {% if not metaImage %}
@@ -197,10 +197,31 @@
     {% set pageTags = tags %}
   {% endif %}
 {% endif %}
+{% set bundleData = bundle %}
+{% if bundleData == null and baseBundle %}
+  {% set bundleData = baseBundle %}
+{% endif %}
+{% set productData = product %}
+{% if productData == null and bundleData %}
+  {% set productData = bundleData %}
+{% endif %}
+{% if productData and productData.translations and productData.translations[currentLocale] %}
+  {% set productTranslation = productData.translations[currentLocale] %}
+  {% set localizedProductData = productData | merge({
+    'name': productTranslation.name or productData.name,
+    'shortDescription': productTranslation.shortDescription or productData.shortDescription,
+    'description': productTranslation.description or productData.description,
+    'unit': productTranslation.unit or productData.unit,
+    'perks': productTranslation.perks or productData.perks
+  }) %}
+  {% set productData = localizedProductData %}
+{% endif %}
 {% set ogType = 'website' %}
 {% if 'post' in pageTags %}
   {% set ogType = 'article' %}
 {% elseif 'product' in pageTags %}
+  {% set ogType = 'product' %}
+{% elseif bundleData %}
   {% set ogType = 'product' %}
 {% endif %}
 {% set canonicalUrl = '' %}
@@ -269,8 +290,8 @@
         <meta property="article:modified_time" content="{{ updated | date('iso') }}">
       {% endif %}
     {% endif %}
-    {% if ogType == 'product' and product %}
-      <meta property="product:price:amount" content="{{ product.price }}">
+    {% if ogType == 'product' and productData %}
+      <meta property="product:price:amount" content="{{ productData.price }}">
       <meta property="product:price:currency" content="{{ site.snipcart.currency }}">
     {% endif %}
     <link rel="icon" type="image/svg+xml" href="{{ '/img/branding/creaciones-colibri-logo.svg' | url }}">
@@ -368,35 +389,51 @@
         {{ articleSchema | json | safe }}
       </script>
     {% endif %}
-    {% if ogType == 'product' and product %}
-      {% set productUrl = canonicalUrl or siteMeta.url %}
-      {% set productSchema = {
-        '@context': 'https://schema.org',
-        '@type': 'Product',
-        'name': product.name,
-        'description': product.description or product.shortDescription,
-        'image': [metaImageAbsolute],
-        'sku': product.id,
-        'brand': {
-          '@type': 'Brand',
-          'name': publisher.name
-        },
-        'offers': {
-          '@type': 'Offer',
-          'priceCurrency': site.snipcart.currency,
-          'price': product.price,
-          'availability': 'https://schema.org/InStock',
-          'itemCondition': 'https://schema.org/NewCondition',
-          'url': productUrl
-        }
-      } %}
-      {% if product.dietary and product.dietary | length %}
-        {% set productSchema = productSchema | merge({ 'keywords': product.dietary | join(', ') }) %}
+{% if ogType == 'product' and productData %}
+  {% set productUrl = canonicalUrl or siteMeta.url %}
+  {% set productSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    'name': productData.name,
+    'description': productData.description or productData.shortDescription,
+    'image': [metaImageAbsolute],
+    'sku': productData.id,
+    'brand': {
+      '@type': 'Brand',
+      'name': publisher.name
+    },
+    'offers': {
+      '@type': 'Offer',
+      'priceCurrency': site.snipcart.currency,
+      'price': productData.price,
+      'availability': 'https://schema.org/InStock',
+      'itemCondition': 'https://schema.org/NewCondition',
+      'url': productUrl
+    }
+  } %}
+  {% if bundleData and bundleData.type == 'subscription' and bundleData.billing %}
+    {% set billingData = bundleData.billing %}
+    {% set billingInterval = billingData.interval or '' %}
+    {% set billingIntervalCount = billingData.intervalCount or 1 %}
+    {% set offerDescription = productSchema.offers.description or '' %}
+    {% if billingInterval %}
+      {% if offerDescription %}
+        {% set offerDescription = offerDescription ~ ' ' %}
       {% endif %}
-      <script type="application/ld+json">
-        {{ productSchema | json | safe }}
-      </script>
+      {% set offerDescription = offerDescription ~ 'Billed every ' ~ billingIntervalCount ~ ' ' ~ billingInterval %}
     {% endif %}
+    {% set offersWithSubscription = productSchema.offers | merge({
+      'description': offerDescription | trim
+    }) %}
+    {% set productSchema = productSchema | merge({ 'offers': offersWithSubscription }) %}
+  {% endif %}
+  {% if productData.dietary and productData.dietary | length %}
+    {% set productSchema = productSchema | merge({ 'keywords': productData.dietary | join(', ') }) %}
+  {% endif %}
+  <script type="application/ld+json">
+    {{ productSchema | json | safe }}
+  </script>
+{% endif %}
   </head>
   <body class="site">
     <a class="skip-link" href="#main-content">{{ skipLinkLabel }}</a>
