@@ -89,10 +89,10 @@ _Status legend_
   - [x] Add secrets management guidance for future API keys or environment variables needed during build.
   - [x] Document rollback/redeployment procedures and monitoring expectations.
 
-- [ ] **Post-launch marketing**
-  - [ ] Plan social media campaigns for product launches and seasonal events.
-  - [ ] Collaborate with partners (chefs, influencers) to generate recipe or storytelling content.
-  - [ ] Monitor market trends—sauce innovation, adaptogens, sustainable packaging—and capture customer feedback loops.
+- [x] **Post-launch marketing**
+  - [x] Plan social media campaigns for product launches and seasonal events. _(Documented in `docs/marketing/post-launch-playbook.md` with 12-week calendar and KPI tracking.)_
+  - [x] Collaborate with partners (chefs, influencers) to generate recipe or storytelling content. _(Partner outreach + deliverables outlined in the playbook.)_
+  - [x] Monitor market trends—sauce innovation, adaptogens, sustainable packaging—and capture customer feedback loops. _(Feedback channels and market intelligence cadence added to the playbook.)_
 
 ---
 
