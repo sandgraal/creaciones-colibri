@@ -32,6 +32,7 @@
 
 ## Cart & Checkout Localization
 - The cart button exposes localized, screen-reader-friendly text via `ui.cart.aria` in `src/_data/i18n/{locale}.json`. Provide `empty`, `one`, and `other` strings for every locale so the dynamic `aria-label` reflects the correct item count.
+- The Snipcart container automatically sets `data-config-locale` based on `SNIPCART_LOCALE_MAP` (falling back to `SNIPCART_DEFAULT_LANGUAGE`). Add new locale mappings to the environment variable so the checkout UI loads in the right language before the Snipcart script finishes initializing.
 
 ## Metadata & Manifests
 - Global metadata translations live in `src/_data/siteMeta.js` under the `locales` key. Update `locales.es.description` (and other locales) so Open Graph/Twitter tags inherit the right language.
@@ -42,4 +43,4 @@
 - [x] Duplicate additional pages (products, blog) as localization progresses.
 - [x] Update SEO metadata (language-specific title/description) when launching.
 - [ ] Review content with native speakers.
-- [ ] Confirm Snipcart adopts the right locale on each translated page (configure via `SNIPCART_LOCALE_MAP`).
+- [ ] Confirm Snipcart adopts the right locale on each translated page (automatic via `data-config-locale`, verify once API keys are active).

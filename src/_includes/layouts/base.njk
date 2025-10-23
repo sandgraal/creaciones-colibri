@@ -118,6 +118,13 @@
   {% set homePath = localePrefix ~ '/' %}
 {% endif %}
 {% set localeLinksMap = localeLinks %}
+{% set snipcartLocaleMap = site.snipcart and site.snipcart.localeMap or {} %}
+{% set snipcartDefaultLanguage = site.snipcart and site.snipcart.defaultLanguage or 'en' %}
+{% set snipcartTargetLanguage = snipcartLocaleMap[currentLocale] or snipcartDefaultLanguage %}
+{% if snipcartTargetLanguage %}
+  {% set snipcartTargetLanguage = snipcartTargetLanguage | trim %}
+{% endif %}
+{% set snipcartShouldSetLocale = snipcartTargetLanguage and (snipcartTargetLanguage | lower) != 'auto' %}
 {% set siteMeta = siteMeta %}
 {% set siteMetaTranslations = siteMeta.translations %}
 {% set metaLocale = null %}
@@ -512,14 +519,25 @@
       <script>
         (function() {
           var currentLocale = "{{ currentLocale }}";
-          var defaultLanguage = "{{ site.snipcart.defaultLanguage | default('en') }}";
+          var defaultLanguage = {{ snipcartDefaultLanguage | default('') | dump | safe }};
           var localeMap = {{ site.snipcart.localeMap | default({}) | dump | safe }};
 
           if (typeof localeMap !== "object" || localeMap === null) {
             localeMap = {};
           }
 
-          var targetLanguage = localeMap[currentLocale] || defaultLanguage;
+          var targetLanguage = {{ snipcartTargetLanguage | default('') | dump | safe }};
+          if (typeof targetLanguage === "string") {
+            targetLanguage = targetLanguage.trim();
+          }
+
+          if (!targetLanguage) {
+            var resolvedDefault = typeof defaultLanguage === "string" ? defaultLanguage.trim() : "";
+            targetLanguage = localeMap[currentLocale] || resolvedDefault;
+            if (typeof targetLanguage === "string") {
+              targetLanguage = targetLanguage.trim();
+            }
+          }
 
           if (!targetLanguage || targetLanguage === "auto") {
             return;
@@ -545,7 +563,12 @@
         })();
       </script>
       <script async src="https://cdn.snipcart.com/themes/v3.0.33/default/snipcart.js"></script>
-      <div hidden id="snipcart" data-api-key="{{ site.snipcart.publicKey }}" data-currency="{{ site.snipcart.currency }}"></div>
+      <div
+        hidden
+        id="snipcart"
+        data-api-key="{{ site.snipcart.publicKey }}"
+        data-currency="{{ site.snipcart.currency }}"
+        {% if snipcartShouldSetLocale %}data-config-locale="{{ snipcartTargetLanguage }}"{% endif %}></div>
     {% endif %}
   </body>
 </html>

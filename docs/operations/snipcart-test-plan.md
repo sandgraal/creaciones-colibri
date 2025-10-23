@@ -36,6 +36,7 @@ Record each scenario in the table below. Attach supporting screenshots or export
 |      | International order 1.1–2.5 kg | Pending | Verify $44.95 tier and customs fields. |
 |      | Subscription checkout | Pending | Add Granola subscription, confirm plan auto-creates. |
 |      | Subscription renewal | Pending | Use Snipcart dashboard to simulate renewal (run once plan exists). |
+|      | Checkout UI locale (es) | Pending | Open `/es/` catalog, launch checkout, confirm interface renders in Spanish. |
 |      | Discount code | Pending | Apply promo and ensure totals update. |
 |      | Cancel flow | Pending | Cancel payment and ensure cancel page renders copy in both locales. |
 |      | Cart persistence | Pending | Reload page; cart contents remain via Snipcart storage. |
