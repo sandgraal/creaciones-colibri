@@ -1,0 +1,65 @@
+{
+  "agents": [
+    {
+      "name": "colibri-content",
+      "status": "active",
+      "description": "Builds the Eleventy site and publishes GitHub Pages artifacts.",
+      "command": "npm run build",
+      "working_directory": ".",
+      "triggers": [
+        "workflow:.github/workflows/pages.yml",
+        "manual:ai/.github/workflows/agents.yml"
+      ]
+    },
+    {
+      "name": "colibri-image",
+      "status": "active",
+      "description": "Audits storefront imagery for optimization and missing derivatives.",
+      "command": "node scripts/image-optimize.mjs --strict --report=ai/_state/image-report.json",
+      "working_directory": ".",
+      "triggers": [
+        "manual:ai/.github/workflows/agents.yml"
+      ]
+    },
+    {
+      "name": "colibri-packaging",
+      "status": "pending",
+      "description": "Generates packaging label exports for fulfillment partners.",
+      "command": "node scripts/package-render.mjs --format=csv --out=ai/_state/labels.csv",
+      "working_directory": ".",
+      "triggers": [
+        "path:assets/labels/"
+      ]
+    },
+    {
+      "name": "colibri-data",
+      "status": "active",
+      "description": "Keeps catalog and translation data synchronized before builds.",
+      "command": "npm run translate",
+      "working_directory": ".",
+      "triggers": [
+        "path:src/_data/",
+        "manual:ai/.github/workflows/agents.yml"
+      ]
+    },
+    {
+      "name": "colibri-analytics",
+      "status": "active",
+      "description": "Captures performance baselines and validates analytics integrations.",
+      "command": "npm run audit:assets",
+      "working_directory": ".",
+      "triggers": [
+        "schedule:nightly",
+        "manual:ai/.github/workflows/agents.yml"
+      ]
+    },
+    {
+      "name": "colibri-chat",
+      "status": "disabled",
+      "description": "Placeholder for a future bilingual support assistant.",
+      "command": null,
+      "working_directory": ".",
+      "triggers": []
+    }
+  ]
+}

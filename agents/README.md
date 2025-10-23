@@ -13,6 +13,16 @@ Each agent lives in its own subdirectory named after the agent identifier (for e
 
 Additional documentation, such as runbooks or decision logs, can be added as needed.
 
+## Registered Agents
+| Agent | Status | Trigger | Notes |
+|-------|--------|---------|-------|
+| [`colibri-content`](./colibri-content/README.md) | Active | Push to `main` via `.github/workflows/pages.yml` | Rebuilds the Eleventy storefront and publishes GitHub Pages artifacts. |
+| [`colibri-image`](./colibri-image/README.md) | Active | Manual or scheduled (`AI Agents` workflow) | Audits product imagery and prepares optimization reports. |
+| [`colibri-packaging`](./colibri-packaging/README.md) | Pending | Future commits under `/assets/labels/` | Generates packaging label exports for fulfillment partners. |
+| [`colibri-data`](./colibri-data/README.md) | Active | Changes to `src/_data/` or translation scripts | Syncs catalog data and localization assets before builds. |
+| [`colibri-analytics`](./colibri-analytics/README.md) | Active | Nightly schedule (planned) or manual dispatch | Captures performance/analytics baselines and validates Plausible events. |
+| [`colibri-chat`](./colibri-chat/README.md) | Disabled | N/A | Placeholder for future bilingual support assistant. |
+
 ## Getting Started
 
 1. Copy the [Agent README template](./README.template.md) into your new agent directory.

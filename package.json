@@ -7,7 +7,10 @@
     "build": "node ./scripts/translate-products.js && eleventy",
     "start": "node ./scripts/translate-products.js && eleventy --serve",
     "audit:assets": "npm run build && node ./scripts/report-performance.js",
-    "audit:lighthouse": "npm run build && node ./scripts/run-lighthouse.js"
+    "audit:lighthouse": "npm run build && node ./scripts/run-lighthouse.js",
+    "ai:run": "node ./ai/scripts/run-agent.mjs",
+    "images:audit": "node ./scripts/image-optimize.mjs",
+    "packaging:export": "node ./scripts/package-render.mjs"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.2"
