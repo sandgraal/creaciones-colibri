@@ -1,0 +1,7 @@
+name: Colibri Agents
+on:
+  schedule:
+    - cron: "0 3 * * *"
+jobs:
+  content-refresh:
+    uses: ./.github/workflows/pages.yml
