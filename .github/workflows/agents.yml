@@ -12,81 +12,76 @@ on:
     - cron: '0 3 * * *' # Run daily at 03:00 UTC
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
 jobs:
-  setup:
-    runs-on: ubuntu-latest
-    outputs:
-      node_version: ${{ steps.node.outputs.version }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Use Node.js
-        id: node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm ci
-
   content:
-    needs: setup
-    if: ${{ github.event.inputs.agent == 'content' || github.event.inputs.agent == 'all' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Build Eleventy site
-        run: npm run build
-      - name: Deploy via pages.yml
-        uses: actions/deploy-pages@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          artifact_name: site
+    if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.agent == 'content' || github.event.inputs.agent == 'all' }}
+    uses: ./.github/workflows/pages.yml
+    secrets: inherit
 
   image:
-    needs: setup
-    if: ${{ github.event.inputs.agent == 'image' || github.event.inputs.agent == 'all' }}
+    if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.agent == 'image' || github.event.inputs.agent == 'all' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
       - name: Optimize images
         run: node scripts/image-optimize.mjs || echo "No image agent script found, skipping."
 
   packaging:
-    needs: setup
-    if: ${{ github.event.inputs.agent == 'packaging' || github.event.inputs.agent == 'all' }}
+    if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.agent == 'packaging' || github.event.inputs.agent == 'all' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
       - name: Generate packaging exports
         run: node scripts/package-render.mjs || echo "No packaging script found, skipping."
 
   data:
-    needs: setup
-    if: ${{ github.event.inputs.agent == 'data' || github.event.inputs.agent == 'all' }}
+    if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.agent == 'data' || github.event.inputs.agent == 'all' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
       - name: Sync product data
         run: node scripts/data-sync.mjs || echo "No data agent script found, skipping."
 
   analytics:
-    needs: setup
-    if: ${{ github.event.inputs.agent == 'analytics' || github.event.inputs.agent == 'all' }}
+    if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.agent == 'analytics' || github.event.inputs.agent == 'all' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
       - name: Generate analytics report
         run: node scripts/analytics.mjs || echo "No analytics script found, skipping."
 
   finalize:
     needs: [content, image, packaging, data, analytics]
     runs-on: ubuntu-latest
+    if: ${{ always() }}
     steps:
       - name: Mark agent run complete
         run: echo "Colibri agents completed at $(date -u)"
