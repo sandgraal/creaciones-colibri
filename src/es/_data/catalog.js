@@ -43,6 +43,8 @@ const translateCategory = name => {
       return "Granolas y crujientes";
     case "Wellness Pantry":
       return "Despensa de bienestar";
+    case "Bundles & Subscriptions":
+      return "Paquetes y suscripciones";
     default:
       return name;
   }

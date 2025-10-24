@@ -72,6 +72,29 @@
       "antiinflamatorio"
     ]
   },
+  "picante-del-gringo-ahumado-dulce": {
+    "name": "Picante del Gringo – Ahumado Dulce",
+    "shortDescription": "Salsa ahumada con plátano maduro y panela para un picor envolvente.",
+    "description": "Inspirada en las parrilladas de Pejibaye, esta salsa combina tomates asados al fuego y chiles ahumados con plátano maduro y sirope de panela. El calor se construye poco a poco dentro de un dulzor caramelizado que realza carnes a la parrilla, verduras rostizadas o arroces contundentes.",
+    "unit": "Botella de 147 ml",
+    "ingredients": [
+      "Tomate asado al fuego",
+      "Chile ahumado",
+      "Plátano maduro",
+      "Vinagre de caña",
+      "Sirope de panela",
+      "Ajo",
+      "Pimentón ahumado"
+    ],
+    "dietary": [
+      "vegana",
+      "sin gluten"
+    ],
+    "benefits": [
+      "sin azúcar refinada",
+      "sabor ahumado"
+    ]
+  },
   "selva-noche-cashew-butter": {
     "name": "Mantequilla de Anacardo Selva Noche",
     "shortDescription": "Anacardos molidos con cacao, cardamomo y melena de león adaptógena.",
