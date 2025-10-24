@@ -86,6 +86,34 @@ module.exports = [
     }
   },
   {
+    id: "picante-del-gringo-ahumado-dulce",
+    name: "Picante del Gringo – Ahumado Dulce",
+    category: "Hot Sauces",
+    price: 15,
+    unit: "5 oz bottle",
+    aiGenerated: true,
+    shortDescription:
+      "Smoky Costa Rican hot sauce sweetened with roasted plantain and panela.",
+    description:
+      "Inspired by backyard parrilladas in Pejibaye, this sauce layers fire-roasted tomatoes and smoked chiles with ripe plantain and panela syrup. The result is a slow-building warmth wrapped in caramelized sweetness that pairs beautifully with grilled meats, roasted vegetables, or hearty rice dishes.",
+    ingredients: [
+      "Fire-roasted tomato",
+      "Smoked chile",
+      "Ripe plantain",
+      "Cane vinegar",
+      "Panela syrup",
+      "Garlic",
+      "Smoked paprika"
+    ],
+    dietary: ["vegan", "gluten-free"],
+    benefits: ["no-refined-sugar", "smoked-flavor"],
+    heatLevel: 2,
+    image: {
+      src: "/img/products/picante_del_gringo.svg",
+      alt: "Golden label illustration for Picante del Gringo Ahumado Dulce hot sauce with smoked plantain."
+    }
+  },
+  {
     id: "selva-noche-cashew-butter",
     name: "Selva Noche Cashew Butter",
     category: "Wellness Pantry",
