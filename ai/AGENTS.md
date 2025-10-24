@@ -36,6 +36,9 @@ provides context for automation that supports the Creaciones Colibrí site.
   `ai/agents/manifest.json` to decide which agents to execute, supports dry
   runs vs. `--execute`, and appends structured results to
   `ai/logs/agent-run.log`.
+- **Log summaries:** `node ai/scripts/report-status.mjs` (or `npm run
+  ai:report`) aggregates the manifest and log history into a per-agent
+  snapshot, with optional filters and JSON output for dashboards.
 - **Standalone logging:** `node ai/scripts/log-agent-run.mjs` is available when
   bespoke scripts need to append entries manually.
 
