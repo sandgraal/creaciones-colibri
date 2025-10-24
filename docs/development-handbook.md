@@ -68,10 +68,10 @@ This handbook captures the conventions and best practices for building and maint
 
 ## 3. Workflow & Branching
 
-1. Create a feature branch from `main` for every change. Use descriptive names such as `feature/product-cards` or `fix/cart-spacing`.
+1. Create a feature branch from `work` (the default branch) for every change. Use descriptive names such as `feature/product-cards` or `fix/cart-spacing`.
 2. Keep commits focused. Reference the task you are addressing in the commit message (e.g., `Add product listing collection`).
 3. Run `npm run build` locally before opening a pull request to catch template or path issues.
-4. Open a pull request targeting `main`. Summaries should cover:
+4. Open a pull request targeting `work`. Summaries should cover:
    - What changed and why.
    - Any manual steps required after merging (e.g., update environment secrets).
    - Testing performed (`npm run build`, Lighthouse report, etc.).
@@ -126,7 +126,7 @@ This handbook captures the conventions and best practices for building and maint
 
 - GitHub Pages + Actions handle continuous deployment. No manual steps required unless secrets change. Refer to `docs/operations/deployment-runbook.md` for the full deployment and rollback playbook.
 - Deployment workflow:
-  1. Push to `main`.
+  1. Push to `work` (default branch) or `main`.
   2. GitHub Actions installs dependencies, runs `npm run build`, uploads `_site-eleventy/` as the artifact, and publishes it with `actions/deploy-pages@v4`.
   3. Monitor the Action run for failures. If a build breaks, fix on a branch and merge again; avoid force-pushing to history.
 - Keep environment variables (API keys, form endpoints) in repository or organization secrets. Consult `docs/operations/secrets-management.md` for rotation policies and storage locations. Update this handbook whenever new secrets are introduced.

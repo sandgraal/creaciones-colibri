@@ -2,7 +2,9 @@ name: Deploy Eleventy site to GitHub Pages
 
 on:
   push:
-    branches: ["main"]
+    branches:
+      - "main"
+      - "work"
   workflow_dispatch:
   workflow_call:
 
@@ -12,7 +14,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: "pages-${{ github.ref_name }}"
   cancel-in-progress: true
 
 jobs:

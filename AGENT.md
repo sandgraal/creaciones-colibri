@@ -12,7 +12,7 @@ Authoritative documentation for each agent lives under [`/agents`](./agents/READ
 
 | Agent Name | Role | Trigger | Linked Script/Workflow |
 |-------------|------|----------|------------------------|
-| `colibri-content` | Builds and updates site pages, product catalog, and blog content | On push to `main` | `.github/workflows/pages.yml` |
+| `colibri-content` | Builds and updates site pages, product catalog, and blog content | On push to `main` or `work` | `.github/workflows/pages.yml` |
 | `colibri-image` | Generates and optimizes product and post images for responsive use | Manual or scheduled | `scripts/image-optimize.mjs` *(conceptual placeholder)* |
 | `colibri-packaging` | Produces product label exports and template renders | On commit to `/assets/labels/` | `scripts/package-render.mjs` *(conceptual placeholder)* |
 | `colibri-data` | Syncs product metadata between JSON/YAML and Eleventy collections | On change to `/src/_data/` | `src/_data/products.js` |
@@ -26,7 +26,7 @@ Each agent defines:
 - **Inputs:** files, data directories, or user commits.  
 - **Outputs:** rendered pages, optimized assets, or logs.  
 - **Execution Context:** GitHub Actions VM using Node.js 20.  
-- **Fallback:** Rollback via prior commit; artifacts always generated from `main`.
+- **Fallback:** Rollback via prior commit; artifacts always generated from the release branches (default `work`).
 
 ---
 

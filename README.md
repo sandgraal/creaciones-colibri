@@ -89,7 +89,7 @@ See `agents/` for agent-specific runbooks and `ai/README.md` for GitHub Actions 
 
 ## Deployment
 
-Deployments are handled by GitHub Pages. The workflow in `.github/workflows/pages.yml` builds the Eleventy site on every push to `main`, writing the static output to `_site-eleventy/`. That directory is uploaded directly as the Pages artifact and published with `actions/deploy-pages@v4`—no Jekyll build or separate `gh-pages` branch required.
+Deployments are handled by GitHub Pages. The workflow in `.github/workflows/pages.yml` builds the Eleventy site on every push to the release branches (`work`, the default branch, and `main`), writing the static output to `_site-eleventy/`. That directory is uploaded directly as the Pages artifact and published with `actions/deploy-pages@v4`—no Jekyll build or separate `gh-pages` branch required.
 
 ## Project Structure
 
