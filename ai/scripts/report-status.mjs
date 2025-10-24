@@ -17,7 +17,9 @@ function parseArgs(argv) {
     since: null,
     limit: 20,
     json: false,
-    help: false
+    help: false,
+    summary: false,
+    summaryPath: null
   };
 
   for (const arg of argv) {
@@ -28,6 +30,20 @@ function parseArgs(argv) {
 
     if (arg === "--json") {
       options.json = true;
+      continue;
+    }
+
+    if (arg === "--summary") {
+      options.summary = true;
+      continue;
+    }
+
+    if (arg.startsWith("--summary=")) {
+      options.summary = true;
+      const value = (arg.split("=")[1] ?? "").trim();
+      if (value) {
+        options.summaryPath = value;
+      }
       continue;
     }
 
@@ -357,11 +373,7 @@ function formatRecentRow(entry) {
 }
 
 function printSummary(summary) {
-  const statusKeys = new Set(Object.keys(summary.totals.statusCounts));
-  for (const row of summary.perAgent) {
-    Object.keys(row.statusCounts).forEach((key) => statusKeys.add(key));
-  }
-  const orderedStatusKeys = Array.from(statusKeys).sort();
+  const orderedStatusKeys = collectStatusKeys(summary);
 
   if (summary.perAgent.length) {
     const sortedRows = summary.perAgent
@@ -402,6 +414,129 @@ function printRecentEntries(entries, limit) {
   console.table(rows);
 }
 
+function collectStatusKeys(summary) {
+  const statusKeys = new Set(Object.keys(summary.totals.statusCounts));
+  for (const row of summary.perAgent) {
+    Object.keys(row.statusCounts).forEach((key) => statusKeys.add(key));
+  }
+  return Array.from(statusKeys).sort();
+}
+
+async function writeSummaryMarkdown(summary, entries, options) {
+  const statusKeys = collectStatusKeys(summary);
+  const lines = [];
+  lines.push("# AI Agent Status Report");
+  lines.push("");
+
+  const filters = [];
+  if (options.agentFilter) {
+    filters.push(`Agents: ${Array.from(options.agentFilter.values()).join(", ")}`);
+  }
+  if (options.statusFilter) {
+    filters.push(`Statuses: ${Array.from(options.statusFilter).join(", ")}`);
+  }
+  if (options.since) {
+    filters.push(`Since: ${new Date(options.since).toISOString()}`);
+  }
+  if (filters.length === 0) {
+    filters.push("Agents: all");
+  }
+
+  lines.push("Generated on: " + new Date().toISOString());
+  lines.push("Filters: " + filters.join(" · "));
+  lines.push("");
+
+  if (summary.perAgent.length) {
+    lines.push("## Per-agent snapshot");
+    const header = [
+      "Agent",
+      "Manifest status",
+      "Runs",
+      "Last status",
+      "Last run",
+      "Last duration",
+      "Configured command"
+    ].concat(statusKeys.map((status) => status || "unknown"));
+    lines.push(`| ${header.join(" | ")} |`);
+    lines.push(`| ${header.map(() => "---").join(" | ")} |`);
+
+    const sortedRows = summary.perAgent
+      .slice()
+      .sort((a, b) => {
+        const aTime = a.lastRun ?? 0;
+        const bTime = b.lastRun ?? 0;
+        if (aTime === bTime) {
+          return a.agent.localeCompare(b.agent);
+        }
+        return bTime - aTime;
+      });
+
+    for (const row of sortedRows) {
+      const cells = [
+        row.agent,
+        row.manifestStatus ?? "—",
+        String(row.runs),
+        row.lastStatus ? formatStatusKey(row.lastStatus) : "—",
+        row.lastRun ? new Date(row.lastRun).toISOString() : "—",
+        formatDuration(row.durationMs),
+        row.configuredCommand ?? "—"
+      ];
+
+      for (const statusKey of statusKeys) {
+        const value = row.statusCounts[statusKey] ?? 0;
+        cells.push(String(value));
+      }
+
+      lines.push(`| ${cells.join(" | ")} |`);
+    }
+    lines.push("");
+  } else {
+    lines.push("No agent entries matched the provided filters.");
+    lines.push("");
+  }
+
+  if (summary.totals.statusCounts && Object.keys(summary.totals.statusCounts).length > 0) {
+    lines.push("## Overall status counts");
+    lines.push("| Status | Runs |");
+    lines.push("| --- | --- |");
+    const totalRows = Object.entries(summary.totals.statusCounts)
+      .sort((a, b) => b[1] - a[1]);
+    for (const [status, count] of totalRows) {
+      lines.push(`| ${status} | ${count} |`);
+    }
+    lines.push("");
+  }
+
+  const recentEntries = options.limit > 0 ? entries.slice(0, options.limit) : entries;
+  if (recentEntries.length) {
+    lines.push(`## Recent runs (showing ${recentEntries.length}${options.limit > 0 ? ` of ${entries.length}` : ""})`);
+    lines.push("| Timestamp | Agent | Status | Duration | Notes | Command |");
+    lines.push("| --- | --- | --- | --- | --- | --- |");
+    for (const entry of recentEntries) {
+      lines.push(
+        `| ${entry.timestamp ?? "—"} | ${entry.agent ?? "unknown"} | ${entry.status ?? "unknown"} | ${formatDuration(entry.duration_ms)} | ${entry.notes ?? ""} | ${entry.command ?? ""} |`
+      );
+    }
+    lines.push("");
+  }
+
+  let targetPath = options.summaryPath;
+  if (targetPath) {
+    targetPath = path.isAbsolute(targetPath)
+      ? targetPath
+      : path.join(process.cwd(), targetPath);
+  } else if (process.env.GITHUB_STEP_SUMMARY) {
+    targetPath = process.env.GITHUB_STEP_SUMMARY;
+  } else {
+    targetPath = path.join(rootDir, "_state", "agent-status-summary.md");
+  }
+
+  await fs.mkdir(path.dirname(targetPath), { recursive: true });
+  await fs.writeFile(targetPath, `${lines.join("\n")}\n`, "utf8");
+  const relative = path.relative(process.cwd(), targetPath) || targetPath;
+  console.log(`[agent-report] Summary written to ${relative}`);
+}
+
 async function main() {
   const options = parseArgs(process.argv.slice(2));
 
@@ -413,6 +548,7 @@ async function main() {
       `  --since=<ISO|duration> Filter to runs after a date or relative duration (e.g., 24h, 7d).\n` +
       `  --limit=<number>      Number of recent runs to display (default 20).\n` +
       `  --json                Output JSON instead of formatted tables.\n` +
+      `  --summary[=path]      Write a Markdown summary (uses GITHUB_STEP_SUMMARY or ai/_state by default).\n` +
       `  --help                Show this message.\n`);
     return;
   }
@@ -473,6 +609,10 @@ async function main() {
       }))
     };
 
+    if (options.summary) {
+      await writeSummaryMarkdown(summary, filteredEntries, options);
+    }
+
     console.log(JSON.stringify(jsonOutput, null, 2));
     return;
   }
@@ -488,6 +628,10 @@ async function main() {
 
   printSummary(summary);
   printRecentEntries(filteredEntries, options.limit);
+
+  if (options.summary) {
+    await writeSummaryMarkdown(summary, filteredEntries, options);
+  }
 }
 
 main().catch((error) => {
