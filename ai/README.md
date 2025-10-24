@@ -38,6 +38,9 @@ secrets change.
   `logs/agent-run.log`.
 - `scripts/log-agent-run.mjs` remains available for lightweight logging needs,
   though `run-agent.mjs` now handles most workflows automatically.
+- `scripts/report-status.mjs` summarizes the manifest and log history,
+  producing per-agent snapshots or JSON output for dashboards. Run it via
+  `npm run ai:report`.
 
 All scripts rely on Node.js 20+, matching the runtime of the production Pages
 workflow.
