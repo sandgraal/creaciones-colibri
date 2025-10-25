@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 400" role="img" aria-labelledby="title desc">
+  <title id="title">Sunrise Citrus Granola Placeholder</title>
+  <desc id="desc">Abstract gradient representing bright granola packaging</desc>
+  <defs>
+    <linearGradient id="gran-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe29f" />
+      <stop offset="50%" stop-color="#ffa99f" />
+      <stop offset="100%" stop-color="#ffd77f" />
+    </linearGradient>
+  </defs>
+  <rect width="320" height="400" rx="32" fill="url(#gran-grad)" />
+  <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="'Josefin Sans',sans-serif" font-size="32" fill="#5c4a4a" letter-spacing="4">SUNRISE</text>
+  <text x="50%" y="70%" dominant-baseline="middle" text-anchor="middle" font-family="'Josefin Sans',sans-serif" font-size="28" fill="#5c4a4a" letter-spacing="4">CITRUS</text>
+</svg>

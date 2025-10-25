@@ -1,0 +1,31 @@
+
+
+
+
+  
+  
+
+{
+  "name": "Creaciones Colibrí",
+  "short_name": "Colibrí",
+  "description": "Small-batch hot sauces, snacks, and wellness pantry goods inspired by the biodiversity of Costa Rica and our gardens in Florida.",
+  "lang": "en",
+  "start_url": "/creaciones-colibri/",
+  "scope": "/creaciones-colibri/",
+  "display": "standalone",
+  "background_color": "#fdf8f3",
+  "theme_color": "#f16745",
+  "icons": [
+    {
+      "src": "/creaciones-colibri/img/branding/creaciones-colibri-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/creaciones-colibri/img/branding/maskable-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

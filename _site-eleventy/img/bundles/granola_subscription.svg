@@ -1,0 +1,26 @@
+<svg width="320" height="240" viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Illustration of a granola jar with calendar accents</title>
+  <desc id="desc">Abstract icon representing the Granola of the Month subscription.</desc>
+  <defs>
+    <linearGradient id="granola" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f3c26a" />
+      <stop offset="100%" stop-color="#f28f3b" />
+    </linearGradient>
+    <linearGradient id="calendar" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffdf9f" />
+      <stop offset="100%" stop-color="#fbd87f" />
+    </linearGradient>
+  </defs>
+  <rect width="320" height="240" rx="24" fill="#fff9ef" />
+  <g transform="translate(64 30)">
+    <rect x="16" y="30" width="120" height="160" rx="28" fill="url(#granola)" opacity="0.92" />
+    <rect x="36" y="10" width="80" height="46" rx="16" fill="#fbd87f" opacity="0.85" />
+    <rect x="172" y="48" width="72" height="72" rx="16" fill="url(#calendar)" opacity="0.9" />
+    <rect x="172" y="48" width="72" height="24" rx="12" fill="#f28f3b" opacity="0.85" />
+    <circle cx="76" cy="120" r="32" fill="#ffffff" opacity="0.35" />
+    <circle cx="208" cy="108" r="12" fill="#f16745" opacity="0.8" />
+    <circle cx="236" cy="108" r="12" fill="#44a7b6" opacity="0.8" />
+    <circle cx="196" cy="140" r="12" fill="#6edbb5" opacity="0.8" />
+    <circle cx="224" cy="140" r="12" fill="#f16745" opacity="0.8" />
+  </g>
+</svg>

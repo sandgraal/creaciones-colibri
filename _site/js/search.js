@@ -1,0 +1,126 @@
+const searchRoot = document.querySelector("[data-search-root]");
+
+if (searchRoot && typeof window.Fuse !== "undefined") {
+  const searchInput = searchRoot.querySelector("[data-search-input]");
+  const resultsContainer = searchRoot.querySelector("[data-search-results]");
+  const clearButton = searchRoot.querySelector("[data-search-clear]");
+  const filterInputs = Array.from(searchRoot.querySelectorAll("[data-filter-checkbox]"));
+  const endpoint = searchRoot.dataset.searchEndpoint || "/search.json";
+
+  if (!searchInput || !resultsContainer) {
+    return;
+  }
+
+  const hasFiltersSelected = filters =>
+    Object.values(filters).some(values => values.length > 0);
+
+  const getSelectedFilters = () => {
+    return filterInputs.reduce(
+      (acc, input) => {
+        if (input.checked) {
+          const type = input.dataset.filterType;
+          if (type && Array.isArray(acc[type])) {
+            acc[type].push(input.value);
+          }
+        }
+        return acc;
+      },
+      { category: [], dietary: [], benefits: [] }
+    );
+  };
+
+  const applyFilters = (items, filters) =>
+    items.filter(item => {
+      if (filters.category.length && !filters.category.includes(item.category)) {
+        return false;
+      }
+
+      if (
+        filters.dietary.length &&
+        !filters.dietary.every(tag => Array.isArray(item.dietary) && item.dietary.includes(tag))
+      ) {
+        return false;
+      }
+
+      if (
+        filters.benefits.length &&
+        !filters.benefits.every(tag => Array.isArray(item.benefits) && item.benefits.includes(tag))
+      ) {
+        return false;
+      }
+
+      return true;
+    });
+
+  const renderResults = items => {
+    resultsContainer.innerHTML = "";
+
+    if (!items.length) {
+      resultsContainer.innerHTML = "<p class='search-empty'>No products match your criteria right now. Try adjusting filters or search terms.</p>";
+      return;
+    }
+
+    const list = document.createElement("div");
+    list.classList.add("search-results-list");
+
+    items.forEach(item => {
+      const card = document.createElement("article");
+      card.className = "search-result-card";
+      card.innerHTML = `
+        <a href="${item.url}" class="search-result-card__link">
+          <div class="search-result-card__image">
+            <img src="${item.image}" alt="${item.name}">
+          </div>
+          <div class="search-result-card__content">
+            <h3>${item.name}</h3>
+            <p>${item.shortDescription}</p>
+            <span class="search-result-card__meta">${item.category}</span>
+          </div>
+        </a>
+      `;
+      list.appendChild(card);
+    });
+
+    resultsContainer.appendChild(list);
+  };
+
+  const updateResults = (products, fuse) => {
+    const query = searchInput.value.trim();
+    const filters = getSelectedFilters();
+    const hasQuery = Boolean(query);
+    const hasFilters = hasFiltersSelected(filters);
+
+    if (!hasQuery && !hasFilters) {
+      resultsContainer.innerHTML = "";
+      return;
+    }
+
+    const baseItems = hasQuery ? fuse.search(query).map(result => result.item) : products;
+    const filteredItems = applyFilters(baseItems, filters);
+    renderResults(filteredItems.slice(0, 12));
+  };
+
+  fetch(endpoint)
+    .then(response => response.json())
+    .then(products => {
+      const fuse = new window.Fuse(products, {
+        keys: ["name", "category", "shortDescription", "description", "dietary", "benefits"],
+        threshold: 0.3,
+        ignoreLocation: true
+      });
+
+      const handleUpdate = () => updateResults(products, fuse);
+
+      searchInput.addEventListener("input", handleUpdate);
+      filterInputs.forEach(input => input.addEventListener("change", handleUpdate));
+
+      clearButton?.addEventListener("click", () => {
+        searchInput.value = "";
+        handleUpdate();
+        searchInput.focus();
+      });
+    })
+    .catch(() => {
+      resultsContainer.innerHTML = "<p class='search-error'>Search is unavailable right now. Please try again later.</p>";
+    });
+}

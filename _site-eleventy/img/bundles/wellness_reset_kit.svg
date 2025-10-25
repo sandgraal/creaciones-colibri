@@ -1,0 +1,23 @@
+<svg width="320" height="240" viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Illustration of jars and sachets in calming greens and magentas</title>
+  <desc id="desc">Abstract representation of the Wellness Reset Kit bundle.</desc>
+  <defs>
+    <linearGradient id="herbal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6edbb5" />
+      <stop offset="100%" stop-color="#2fa68e" />
+    </linearGradient>
+    <linearGradient id="berry" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#e25ea2" />
+      <stop offset="100%" stop-color="#9440c9" />
+    </linearGradient>
+  </defs>
+  <rect width="320" height="240" rx="24" fill="#f5f8f3" />
+  <g transform="translate(52 36)">
+    <rect x="12" y="44" width="84" height="132" rx="24" fill="url(#herbal)" opacity="0.9" />
+    <rect x="32" y="22" width="44" height="40" rx="12" fill="#2fa68e" opacity="0.8" />
+    <path d="M150 40 h88 l-18 136 h-88 z" fill="url(#berry)" opacity="0.85" />
+    <rect x="188" y="24" width="32" height="30" rx="10" fill="#c456d1" opacity="0.8" />
+    <rect x="86" y="120" width="52" height="72" rx="16" fill="#c1f4e2" opacity="0.85" />
+    <rect x="100" y="136" width="24" height="40" rx="8" fill="#6edbb5" opacity="0.8" />
+  </g>
+</svg>

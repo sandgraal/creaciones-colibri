@@ -1,0 +1,30 @@
+
+
+
+  
+  
+
+{
+  "name": "Creaciones Colibrí",
+  "short_name": "Colibrí",
+  "description": "Salsas picantes artesanales, snacks botánicos y despensa de bienestar elaborados entre Florida y Costa Rica.",
+  "lang": "es",
+  "start_url": "/creaciones-colibri/es/",
+  "scope": "/creaciones-colibri/es/",
+  "display": "standalone",
+  "background_color": "#fdf8f3",
+  "theme_color": "#f16745",
+  "icons": [
+    {
+      "src": "/creaciones-colibri/img/branding/creaciones-colibri-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/creaciones-colibri/img/branding/maskable-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
