@@ -13,6 +13,8 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
     "Search is unavailable right now. Please try again later.";
   const clearLabel = searchRoot.dataset.searchClearLabel;
   const aiBadgeLabel = searchRoot.dataset.searchAiBadge;
+  const locale = searchRoot.dataset.searchLocale || document.documentElement.lang || "en";
+  const currency = searchRoot.dataset.searchCurrency || "USD";
   const statusMessages = {
     idle: searchRoot.dataset.searchStatusIdle || "",
     cleared: searchRoot.dataset.searchStatusCleared || "",
@@ -102,6 +104,99 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
       return true;
     });
 
+  const buildCurrencyFormatter = () => {
+    const fallbackLocale = "en-US";
+    const fallbackCurrency = "USD";
+    const resolvedLocale = (locale || "").trim() || fallbackLocale;
+    const resolvedCurrency = (currency || "").trim() || fallbackCurrency;
+
+    if (typeof Intl === "undefined" || typeof Intl.NumberFormat !== "function") {
+      return null;
+    }
+
+    const createFormatter = (loc, curr) => new Intl.NumberFormat(loc, {
+      style: "currency",
+      currency: curr,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+
+    const attempts = [
+      [resolvedLocale, resolvedCurrency],
+      [fallbackLocale, resolvedCurrency],
+      [fallbackLocale, fallbackCurrency]
+    ];
+
+    for (const [loc, curr] of attempts) {
+      try {
+        return createFormatter(loc, curr);
+      } catch (error) {
+        // Try the next fallback configuration.
+      }
+    }
+
+    return null;
+  };
+
+  const currencyFormatter = buildCurrencyFormatter();
+
+  const resolveNumeric = value => {
+    if (typeof value === "number") {
+      return Number.isFinite(value) ? value : null;
+    }
+    if (typeof value === "string") {
+      const parsed = Number(value);
+      return Number.isFinite(parsed) ? parsed : null;
+    }
+    return null;
+  };
+
+  const formatPrice = value => {
+    const numeric = resolveNumeric(value);
+    if (numeric === null) {
+      return null;
+    }
+
+    if (currencyFormatter) {
+      try {
+        return currencyFormatter.format(numeric);
+      } catch (error) {
+        // Fall back to plain formatting below.
+      }
+    }
+
+    return numeric.toFixed(2);
+  };
+
+  const formatUnit = value => {
+    if (typeof value !== "string") {
+      return "";
+    }
+    const trimmed = value.trim();
+    return trimmed;
+  };
+
+  const createPriceMarkup = item => {
+    const priceText = formatPrice(item.price);
+    if (!priceText) {
+      return "";
+    }
+
+    const unitText = formatUnit(item.unit);
+    const segments = [
+      "<div class=\"search-result-card__price\">",
+      `<span class=\"search-result-card__price-value\">${priceText}</span>`
+    ];
+
+    if (unitText) {
+      segments.push("<span class=\"search-result-card__price-separator\" aria-hidden=\"true\">·</span>");
+      segments.push(`<span class=\"search-result-card__price-unit\">${unitText}</span>`);
+    }
+
+    segments.push("</div>");
+    return segments.join("");
+  };
+
   const createLabelsMarkup = labels => {
     if (!Array.isArray(labels) || !labels.length) {
       return "";
@@ -135,6 +230,7 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
       const card = document.createElement("article");
       card.className = "search-result-card";
       const labelsMarkup = createLabelsMarkup(item.labels);
+      const priceMarkup = createPriceMarkup(item);
       const aiBadge = item.aiGenerated && aiBadgeLabel
         ? `<span class="search-result-card__badge">${aiBadgeLabel}</span>`
         : "";
@@ -148,6 +244,7 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
               ${labelsMarkup}
               <h3>${item.name}</h3>
               <p>${item.shortDescription}</p>
+              ${priceMarkup}
               <span class="search-result-card__meta">${item.category}</span>
             </div>
           </a>

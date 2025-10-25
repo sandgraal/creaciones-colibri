@@ -795,6 +795,31 @@ body {
   font-size: 0.95rem;
 }
 
+.search-result-card__price {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  font-size: 1rem;
+  margin: 0 0 0.45rem;
+}
+
+.search-result-card__price-value {
+  font-variant-numeric: tabular-nums;
+}
+
+.search-result-card__price-separator {
+  color: rgba(47, 43, 40, 0.55);
+  font-size: 0.9rem;
+}
+
+.search-result-card__price-unit {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: rgba(47, 43, 40, 0.65);
+}
+
 .search-result-card__meta {
   font-weight: 600;
   font-size: 0.85rem;
