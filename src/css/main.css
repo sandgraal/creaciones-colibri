@@ -1191,6 +1191,106 @@ body {
   font-size: 0.9rem;
 }
 
+.shipping-overview {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.shipping-overview__intro {
+  color: var(--color-muted);
+  margin-bottom: clamp(1.25rem, 3vw, 2rem);
+}
+
+.shipping-overview__sections {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+@media (min-width: 960px) {
+  .shipping-overview__sections {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.shipping-overview__section {
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(31, 138, 112, 0.1);
+  border-radius: var(--radius-small);
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+}
+
+.shipping-overview__heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: var(--color-secondary);
+}
+
+.shipping-overview__description {
+  color: var(--color-muted);
+  margin-bottom: 0.75rem;
+}
+
+.shipping-overview__table-wrapper {
+  overflow-x: auto;
+  margin: 0 -0.25rem;
+}
+
+.shipping-overview__table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 420px;
+}
+
+.shipping-overview__table th,
+.shipping-overview__table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(31, 138, 112, 0.12);
+}
+
+.shipping-overview__table th {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  color: var(--color-secondary);
+  white-space: nowrap;
+}
+
+.shipping-overview__table tbody tr:last-child th,
+.shipping-overview__table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.shipping-overview__notes {
+  margin-top: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.shipping-overview__notes-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+  color: var(--color-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.shipping-overview__notes-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--color-muted);
+  display: grid;
+  gap: 0.6rem;
+}
+
+.shipping-overview__note a {
+  color: var(--color-secondary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.shipping-overview__note a:hover,
+.shipping-overview__note a:focus-visible {
+  text-decoration: underline;
+}
+
 .product-detail__subscription {
   margin-top: 1.5rem;
   display: flex;

@@ -119,5 +119,15 @@
     "perks": "Por qué te encantará",
     "subscriptionBilling": "Frecuencia de cobro",
     "subscribeButton": "Iniciar suscripción"
+  },
+  "shipping": {
+    "title": "Cómo funcionan los envíos",
+    "intro": "Mantenemos tarifas predecibles con niveles de precio fijo e incluimos rastreo en cada pedido.",
+    "table": {
+      "condition": "Condición",
+      "rate": "Tarifa",
+      "notes": "Detalles"
+    },
+    "notesHeading": "Qué esperar"
   }
 }

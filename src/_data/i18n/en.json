@@ -119,5 +119,15 @@
     "perks": "Why you'll love it",
     "subscriptionBilling": "Billing cadence",
     "subscribeButton": "Start subscription"
+  },
+  "shipping": {
+    "title": "How shipping works",
+    "intro": "We keep rates predictable with flat-fee tiers and include tracking on every order.",
+    "table": {
+      "condition": "Condition",
+      "rate": "Rate",
+      "notes": "Details"
+    },
+    "notesHeading": "What to expect"
   }
 }
