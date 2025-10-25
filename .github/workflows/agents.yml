@@ -17,7 +17,7 @@ permissions:
 
 jobs:
   run-agents:
-    uses: ./ai/.github/workflows/agents.yml
+    uses: ai/.github/workflows/agents.yml
     with:
       agent: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.agent || '' }}
     secrets: inherit
