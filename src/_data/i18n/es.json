@@ -53,7 +53,8 @@
       "statusSingle": "1 resultado coincide con tus filtros.",
       "statusMultiple": "%count% resultados coinciden con tus filtros.",
       "statusEmpty": "No hay resultados que coincidan con tus filtros.",
-      "statusError": "La búsqueda no está disponible en este momento. Inténtalo de nuevo pronto."
+      "statusError": "La búsqueda no está disponible en este momento. Inténtalo de nuevo pronto.",
+      "aiBadge": "Concepto generado con IA"
     },
     "filters": {
       "categories": "Categorías",
@@ -100,6 +101,10 @@
       "dietaryLabel": "Dietas",
       "addToCart": "Agregar al carrito",
       "viewDetails": "Ver detalles"
+    },
+    "aiGenerated": {
+      "badge": "Concepto generado con IA",
+      "detail": "Este concepto de receta fue generado con apoyo de IA y afinado por nuestro equipo antes de publicarlo."
     }
   },
   "bundles": {

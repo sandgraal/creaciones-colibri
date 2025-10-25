@@ -40,7 +40,8 @@ localeLinks:
   data-search-status-single="{{ searchStrings.statusSingle or '1 result matches your filters.' }}"
   data-search-status-multiple="{{ searchStrings.statusMultiple or '%count% results match your filters.' }}"
   data-search-status-empty="{{ searchStrings.statusEmpty or 'No results match your filters.' }}"
-  data-search-status-error="{{ searchStrings.statusError or searchStrings.errorMessage or 'Search is unavailable right now. Please try again later.' }}">
+  data-search-status-error="{{ searchStrings.statusError or searchStrings.errorMessage or 'Search is unavailable right now. Please try again later.' }}"
+  data-search-ai-badge="{{ searchStrings.aiBadge or 'AI-generated concept' }}">
   <div class="search-panel__header">
     <h2>{{ searchStrings.title or 'Search the pantry' }}</h2>
     <p>{{ searchStrings.intro or 'Look up ingredients, benefits, or product names to find the perfect match.' }}</p>

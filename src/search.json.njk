@@ -16,6 +16,7 @@ eleventyExcludeFromCollections: true
       includedProducts: product.includedProducts or [],
       bundleExtras: product.bundleExtras or [],
       subscription: product.subscription or null,
+      aiGenerated: product.aiGenerated or false,
       shippingNote: product.shippingNote,
       image: product.image.src | url,
       url: product.url | url

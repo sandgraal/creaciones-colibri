@@ -22,6 +22,7 @@ Products live in `src/_data/products.js` as an array of objects. Each entry shou
 | `image.src` | ✅ | Path under `/img/`. Prefer `.webp` or optimized PNG. |
 | `image.alt` | ✅ | Descriptive alt text. |
 | `labels` | Optional | Array of short badges shown on cards (e.g., `"Bundle"`, `"Subscription"`). |
+| `aiGenerated` | Optional | Boolean flag (`true`/`false`) for AI-assisted concepts; surfaces a disclosure badge on listings and detail pages. |
 | `includedHeading` | Optional | Heading override for the “What’s inside” section on detail pages. |
 | `includedProducts` | Optional | Array of objects (`id`, `name`, `note`, optional `quantity`) describing bundle contents. |
 | `bundleExtrasHeading` | Optional | Heading override for bundle perks on detail pages. |
