@@ -1,0 +1,81 @@
+{% set shippingData = shipping or {} %}
+{% if shippingData.domestic or shippingData.international %}
+  {% set translations = collections.i18n and collections.i18n[0].data.i18n %}
+  {% set defaultLocale = site.locale or 'en' %}
+  {% set currentLocale = shippingLocale or locale or defaultLocale %}
+  {% set localeStrings = translations and translations[currentLocale] %}
+  {% set fallbackStrings = translations and translations['en'] %}
+  {% set shippingStrings = localeStrings and localeStrings.shipping %}
+  {% if shippingStrings == null and fallbackStrings %}
+    {% set shippingStrings = fallbackStrings.shipping %}
+  {% endif %}
+  {% set shippingStrings = shippingStrings or {} %}
+  {% set columns = shippingStrings.table or {} %}
+  {% set sections = [shippingData.domestic, shippingData.international] %}
+  <section class="content-section shipping-overview">
+    <h2 class="shipping-overview__title">{{ shippingStrings.title or 'Shipping basics' }}</h2>
+    {% if shippingStrings.intro %}
+      <p class="shipping-overview__intro">{{ shippingStrings.intro }}</p>
+    {% endif %}
+    <div class="shipping-overview__sections">
+      {% for section in sections if section %}
+        {% set sectionTranslations = section.translations and section.translations[currentLocale] %}
+        {% set sectionHeading = sectionTranslations and sectionTranslations.heading or section.heading %}
+        {% set sectionDescription = sectionTranslations and sectionTranslations.description or section.description %}
+        <div class="shipping-overview__section" id="shipping-{{ section.id }}">
+          <h3 class="shipping-overview__heading">{{ sectionHeading }}</h3>
+          {% if sectionDescription %}
+            <p class="shipping-overview__description">{{ sectionDescription }}</p>
+          {% endif %}
+          {% if section.rows and section.rows | length %}
+            <div class="shipping-overview__table-wrapper">
+              <table class="shipping-overview__table">
+                <thead>
+                  <tr>
+                    <th scope="col">{{ columns.condition or 'Condition' }}</th>
+                    <th scope="col">{{ columns.rate or 'Rate' }}</th>
+                    <th scope="col">{{ columns.notes or 'Details' }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for row in section.rows %}
+                    {% set rowTranslations = row.translations and row.translations[currentLocale] %}
+                    {% set rowCondition = rowTranslations and rowTranslations.condition or row.condition %}
+                    {% set rowRate = rowTranslations and rowTranslations.rate or row.rate %}
+                    {% set rowNotes = rowTranslations and rowTranslations.notes or row.notes %}
+                    <tr>
+                      <th scope="row">{{ rowCondition }}</th>
+                      <td>{{ rowRate }}</td>
+                      <td>{{ rowNotes }}</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    {% if shippingData.fulfillmentNotes and shippingData.fulfillmentNotes | length %}
+      <div class="shipping-overview__notes">
+        <h3 class="shipping-overview__notes-heading">{{ shippingStrings.notesHeading or 'What to expect' }}</h3>
+        <ul class="shipping-overview__notes-list">
+          {% for note in shippingData.fulfillmentNotes %}
+            {% set noteTranslations = note.translations and note.translations[currentLocale] %}
+            {% set translatedHtml = noteTranslations and noteTranslations.html %}
+            {% set translatedText = noteTranslations and noteTranslations.text %}
+            {% if translatedHtml %}
+              <li class="shipping-overview__note">{{ translatedHtml | safe }}</li>
+            {% elif translatedText %}
+              <li class="shipping-overview__note">{{ translatedText }}</li>
+            {% elif note.html %}
+              <li class="shipping-overview__note">{{ note.html | safe }}</li>
+            {% elif note.text %}
+              <li class="shipping-overview__note">{{ note.text }}</li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  </section>
+{% endif %}
