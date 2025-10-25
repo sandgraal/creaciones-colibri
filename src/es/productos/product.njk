@@ -25,12 +25,32 @@ locale: es
 {% set product_shipping_note = productData.shippingNote %}
 {% set product_category = productData.category or baseProduct.category %}
 {% set product_heat = productData.heatLevel if productData.heatLevel is defined else baseProduct.heatLevel %}
+{% set translations = collections.i18n and collections.i18n[0].data.i18n %}
+{% set defaultLocale = site.locale | default('en') %}
+{% set currentLocale = locale | default('es') %}
+{% set localeStrings = translations and translations[currentLocale] %}
+{% if localeStrings == null and translations and translations['es'] %}
+  {% set localeStrings = translations['es'] %}
+{% endif %}
+{% set fallbackStrings = translations and translations['en'] %}
+{% set aiStrings = localeStrings and localeStrings.ui and localeStrings.ui.aiGenerated %}
+{% if (aiStrings == null or aiStrings == undefined) and fallbackStrings %}
+  {% set aiStrings = fallbackStrings.ui and fallbackStrings.ui.aiGenerated %}
+{% endif %}
+{% set aiBadgeLabel = aiStrings and aiStrings.badge or 'Concepto generado con IA' %}
+{% set aiDetailNote = aiStrings and aiStrings.detail or 'Este concepto de receta fue generado con apoyo de IA y afinado por nuestro equipo antes de publicarlo.' %}
 
 <article class="product-detail">
   <header class="product-detail__header">
     <a class="product-detail__back" href="{{ '/es/productos/' | url }}">← Volver al catálogo</a>
     <h1>{{ product_name }}</h1>
     <p class="product-detail__summary">{{ product_short }}</p>
+    {% if productData.aiGenerated %}
+      <p class="product-detail__ai-note" role="note">
+        <strong class="product-detail__ai-label">{{ aiBadgeLabel }}</strong>
+        {{ aiDetailNote }}
+      </p>
+    {% endif %}
     {% if product_labels and product_labels | length %}
       <ul class="product-detail__labels">
         {% for label in product_labels %}

@@ -53,7 +53,8 @@
       "statusSingle": "1 result matches your filters.",
       "statusMultiple": "%count% results match your filters.",
       "statusEmpty": "No results match your filters.",
-      "statusError": "Search temporarily unavailable. Please try again soon."
+      "statusError": "Search temporarily unavailable. Please try again soon.",
+      "aiBadge": "AI-generated concept"
     },
     "filters": {
       "categories": "Categories",
@@ -100,6 +101,10 @@
       "dietaryLabel": "Dietary",
       "addToCart": "Add to cart",
       "viewDetails": "View details"
+    },
+    "aiGenerated": {
+      "badge": "AI-generated concept",
+      "detail": "This recipe concept was generated with AI assistance and refined by our team before publishing."
     }
   },
   "bundles": {

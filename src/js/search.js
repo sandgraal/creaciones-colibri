@@ -12,6 +12,7 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
   const errorMessage = searchRoot.dataset.searchError ||
     "Search is unavailable right now. Please try again later.";
   const clearLabel = searchRoot.dataset.searchClearLabel;
+  const aiBadgeLabel = searchRoot.dataset.searchAiBadge;
   const statusMessages = {
     idle: searchRoot.dataset.searchStatusIdle || "",
     cleared: searchRoot.dataset.searchStatusCleared || "",
@@ -134,12 +135,16 @@ if (searchRoot && typeof window.Fuse !== "undefined") {
       const card = document.createElement("article");
       card.className = "search-result-card";
       const labelsMarkup = createLabelsMarkup(item.labels);
+      const aiBadge = item.aiGenerated && aiBadgeLabel
+        ? `<span class="search-result-card__badge">${aiBadgeLabel}</span>`
+        : "";
       card.innerHTML = `
           <a href="${item.url}" class="search-result-card__link">
             <div class="search-result-card__image">
               <img src="${item.image}" alt="${item.name}">
             </div>
             <div class="search-result-card__content">
+              ${aiBadge}
               ${labelsMarkup}
               <h3>${item.name}</h3>
               <p>${item.shortDescription}</p>

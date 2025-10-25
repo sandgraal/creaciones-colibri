@@ -13,11 +13,32 @@ eleventyComputed:
     es: "/es/productos/{{ product.id }}/"
 ---
 
+{% set translations = collections.i18n and collections.i18n[0].data.i18n %}
+{% set defaultLocale = site.locale | default('en') %}
+{% set currentLocale = locale | default(defaultLocale) %}
+{% set localeStrings = translations and translations[currentLocale] %}
+{% if localeStrings == null and translations and translations['en'] %}
+  {% set localeStrings = translations['en'] %}
+{% endif %}
+{% set fallbackStrings = translations and translations['en'] %}
+{% set aiStrings = localeStrings and localeStrings.ui and localeStrings.ui.aiGenerated %}
+{% if (aiStrings == null or aiStrings == undefined) and fallbackStrings %}
+  {% set aiStrings = fallbackStrings.ui and fallbackStrings.ui.aiGenerated %}
+{% endif %}
+{% set aiBadgeLabel = aiStrings and aiStrings.badge or 'AI-generated concept' %}
+{% set aiDetailNote = aiStrings and aiStrings.detail or 'This recipe concept was generated with AI assistance and refined by our team before publishing.' %}
+
 <article class="product-detail">
   <header class="product-detail__header">
     <a class="product-detail__back" href="{{ '/products/' | url }}">← Back to catalog</a>
     <h1>{{ product.name }}</h1>
     <p class="product-detail__summary">{{ product.shortDescription }}</p>
+    {% if product.aiGenerated %}
+      <p class="product-detail__ai-note" role="note">
+        <strong class="product-detail__ai-label">{{ aiBadgeLabel }}</strong>
+        {{ aiDetailNote }}
+      </p>
+    {% endif %}
     {% if product.labels and product.labels | length %}
       <ul class="product-detail__labels">
         {% for label in product.labels %}

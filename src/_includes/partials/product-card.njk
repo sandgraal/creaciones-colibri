@@ -11,6 +11,11 @@
   {% set productCardStrings = fallbackStrings.ui and fallbackStrings.ui.productCard %}
 {% endif %}
 {% set productCardStrings = productCardStrings or {} %}
+{% set aiStrings = localeStrings and localeStrings.ui and localeStrings.ui.aiGenerated %}
+{% if (aiStrings == null or aiStrings == undefined) and fallbackStrings %}
+  {% set aiStrings = fallbackStrings.ui and fallbackStrings.ui.aiGenerated %}
+{% endif %}
+{% set aiBadgeLabel = aiStrings and aiStrings.badge or 'AI-generated concept' %}
 {% set categoryLabel = productCardStrings.categoryLabel or 'Category' %}
 {% set dietaryLabel = productCardStrings.dietaryLabel or 'Dietary' %}
 {% set addToCartLabel = productCardStrings.addToCart or 'Add to cart' %}
@@ -34,6 +39,9 @@
       {% endif %}
     </div>
     <div class="product-card__content">
+      {% if product.aiGenerated %}
+        <span class="product-card__badge">{{ aiBadgeLabel }}</span>
+      {% endif %}
       {% if product.labels and product.labels | length %}
         <ul class="product-card__labels">
           {% for label in product.labels %}
