@@ -48,6 +48,56 @@ const getBundles = () => {
 
 const resolveFromRoot = relativePath => path.join(__dirname, relativePath);
 
+const getSiteMeta = () => {
+  delete require.cache[require.resolve("./src/_data/siteMeta.js")];
+  return require("./src/_data/siteMeta.js");
+};
+
+const normalizePathPrefix = value => {
+  if (!value) {
+    return "/";
+  }
+
+  const trimmed = value.trim();
+  if (!trimmed || trimmed === ".") {
+    return "/";
+  }
+
+  const withLeadingSlash = trimmed.startsWith("/") ? trimmed : `/${trimmed}`;
+  if (withLeadingSlash === "/") {
+    return withLeadingSlash;
+  }
+
+  const withoutTrailing = withLeadingSlash.replace(/\/+$/, "");
+  return withoutTrailing || "/";
+};
+
+const derivePathPrefix = () => {
+  const envOverride = process.env.ELEVENTY_PATH_PREFIX || process.env.PATH_PREFIX;
+  if (envOverride) {
+    return normalizePathPrefix(envOverride);
+  }
+
+  try {
+    const siteMeta = getSiteMeta();
+    const siteUrl = siteMeta && siteMeta.url;
+    if (!siteUrl) {
+      return "/";
+    }
+
+    const { pathname } = new URL(siteUrl);
+    if (!pathname || pathname === "/") {
+      return "/";
+    }
+
+    return normalizePathPrefix(pathname);
+  } catch {
+    return "/";
+  }
+};
+
+const PATH_PREFIX = derivePathPrefix();
+
 const loadProductTranslations = () => {
   const candidates = [
     resolveFromRoot(".cache/i18n/products.es.json"),
@@ -237,7 +287,7 @@ module.exports = function(eleventyConfig) {
   });
 
   return {
-    pathPrefix: "/creaciones-colibri",
+    pathPrefix: PATH_PREFIX,
     dir: {
       input: "src",
       output: ELEVENTY_OUTPUT_DIR
