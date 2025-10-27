@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" aria-labelledby="titulo descripcion" role="img">
+  <title id="titulo">Fractal de colibrí para Colibrí Verde</title>
+  <desc id="descripcion">Matriz simétrica de alas que irradian desde el pecho del colibrí con trazos dorados y fondo de hojas fractales.</desc>
+  <defs>
+    <linearGradient id="dorado" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#FBE7A1" />
+      <stop offset="100%" stop-color="#C08A2A" />
+    </linearGradient>
+    <radialGradient id="verdeNucleo" cx="0.5" cy="0.45" r="0.6">
+      <stop offset="0%" stop-color="#7EDCA0" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#1D8C5A" stop-opacity="0.85" />
+    </radialGradient>
+    <g id="hojaFractal">
+      <path d="M0,0 C5,-12 22,-16 30,-4 C36,6 36,24 24,30 C14,36 0,28 -3,16 Z" fill="#0F5132" fill-opacity="0.18" />
+    </g>
+  </defs>
+
+  <rect width="600" height="600" fill="#021F1A" />
+
+  <g id="fondo" transform="translate(300 300)">
+    <g transform="scale(1.6) rotate(12)">
+      <use href="#hojaFractal" transform="translate(-200,-220)" />
+      <use href="#hojaFractal" transform="translate(120,-250) scale(0.8)" />
+      <use href="#hojaFractal" transform="translate(210,140) rotate(52)" />
+      <use href="#hojaFractal" transform="translate(-260,120) rotate(-36) scale(1.2)" />
+      <use href="#hojaFractal" transform="translate(-40,260) rotate(18) scale(0.9)" />
+      <use href="#hojaFractal" transform="translate(80,210) rotate(-24)" />
+    </g>
+  </g>
+
+  <g id="colibri" transform="translate(300 300)">
+    <ellipse cx="0" cy="40" rx="36" ry="46" fill="#144F3B" fill-opacity="0.9" stroke="url(#dorado)" stroke-width="4" />
+    <path d="M-18,-32 C-70,-40 -120,-88 -140,-126 C-158,-162 -150,-200 -120,-222 C-94,-240 -40,-222 -18,-206 Z" fill="#73E0B4" fill-opacity="0.92" stroke="url(#dorado)" stroke-width="4" />
+    <path d="M18,-32 C70,-40 120,-88 140,-126 C158,-162 150,-200 120,-222 C94,-240 40,-222 18,-206 Z" fill="#73E0B4" fill-opacity="0.92" stroke="url(#dorado)" stroke-width="4" />
+    <path d="M0,-42 L-120,-260" stroke="#FBE7A1" stroke-width="6" stroke-linecap="round" />
+    <circle cx="-130" cy="-268" r="10" fill="#FDECC6" stroke="#C08A2A" stroke-width="3" />
+    <path d="M0,-42 L120,-260" stroke="#FBE7A1" stroke-width="6" stroke-linecap="round" />
+    <circle cx="130" cy="-268" r="10" fill="#FDECC6" stroke="#C08A2A" stroke-width="3" />
+    <path d="M0,-90 C-22,-120 -18,-160 0,-190 C18,-220 48,-230 60,-210 C70,-192 50,-150 30,-120 Z" fill="#1B6E4D" fill-opacity="0.9" stroke="url(#dorado)" stroke-width="3" />
+    <path d="M0,-90 C22,-120 18,-160 0,-190 C-18,-220 -48,-230 -60,-210 C-70,-192 -50,-150 -30,-120 Z" fill="#1B6E4D" fill-opacity="0.9" stroke="url(#dorado)" stroke-width="3" />
+    <circle cx="0" cy="-22" r="18" fill="#0E3628" stroke="#FBE7A1" stroke-width="2" />
+  </g>
+</svg>

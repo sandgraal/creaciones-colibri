@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 206 96" width="206mm" height="96mm" aria-labelledby="titulo descripcion" role="img">
+  <title id="titulo">Plantilla de etiqueta 12oz - Ahumado Dulce</title>
+  <desc id="descripcion">Guía de impresión con bandas, columnas y colocación de fractal en espiral de chile para la salsa Ahumado Dulce.</desc>
+  <metadata>
+    <color-profile nombre="CMYK-sugerido">C0 M78 Y94 K12 base, C40 M92 Y94 K55 sombra, C0 M42 Y54 K0 brillo</color-profile>
+    <notas>Configurar PDF/X-1a, sangrado total 3mm por lado, tipografías Montserrat Alt 700 (titular), Montserrat 500 (subtítulos), Source Sans 400 (texto corrido).</notas>
+  </metadata>
+  <defs>
+    <style><![CDATA[
+      :root { font-family: 'Source Sans Pro', 'Source Sans 3', sans-serif; }
+      .titulo { font-family: 'Montserrat Alternates', 'Montserrat', sans-serif; font-weight: 700; font-size: 9.5mm; letter-spacing: 0.8px; text-transform: uppercase; fill: #FCE3D3; }
+      .subtitulo { font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 3.4mm; fill: #FAD3BF; letter-spacing: 0.4px; }
+      .texto { font-size: 3mm; fill: #FCE3D3; }
+      .micro { font-size: 2.6mm; fill: #FCE3D3; letter-spacing: 0.3px; }
+      .guia { fill: none; stroke: #FFFFFF; stroke-width: 0.2; stroke-dasharray: 1 1; opacity: 0.55; }
+      .columna { fill: none; stroke: rgba(255,255,255,0.42); stroke-width: 0.3; stroke-dasharray: 1.5 1.2; }
+      .tagline { font-family: 'Montserrat Alternates', 'Montserrat', sans-serif; font-weight: 600; font-size: 3.2mm; letter-spacing: 0.6px; fill: #FFD8B7; }
+    ]]></style>
+    <linearGradient id="fondoBase" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#DB4310" />
+      <stop offset="100%" stop-color="#5C1609" />
+    </linearGradient>
+  </defs>
+
+  <!-- Sangrado -->
+  <rect x="0" y="0" width="206" height="96" fill="#5C1609" />
+
+  <!-- Área segura -->
+  <g transform="translate(3 3)">
+    <rect width="200" height="90" fill="url(#fondoBase)" rx="6" />
+
+    <!-- Guías -->
+    <rect class="guia" width="200" height="90" rx="6" />
+    <line class="columna" x1="128" y1="0" x2="128" y2="90" />
+    <rect class="guia" y="0" width="200" height="19.8" />
+
+    <!-- Banda titular -->
+    <g transform="translate(10 6)">
+      <text class="subtitulo" x="0" y="0">Salsa artesanal</text>
+      <text class="titulo" x="0" y="11">Ahumado Dulce</text>
+      <text class="tagline" x="0" y="18">Simetría natural. Pura vida calor.</text>
+    </g>
+
+    <!-- Motivo fractal -->
+    <g id="fractal" transform="translate(10 24)">
+      <rect width="110" height="52" rx="4" fill="#9C2D10" fill-opacity="0.18" />
+      <image href="../fractales/chile-espiral.svg" x="-4" y="-6" width="120" height="120" opacity="0.9" />
+      <g id="barniz" opacity="0.9">
+        <rect width="110" height="52" rx="4" fill="none" stroke="#FFC58E" stroke-width="0.6" />
+      </g>
+      <text class="micro" x="4" y="48">Capa de barniz selectivo: fractal principal</text>
+    </g>
+
+    <!-- Narrativa izquierda -->
+    <g transform="translate(10 82)">
+      <text class="micro">Contenido neto: 354 ml (12 oz)</text>
+    </g>
+
+    <!-- Columna derecha -->
+    <g transform="translate(132 24)">
+      <text class="subtitulo" x="0" y="0">Notas de sabor</text>
+      <text class="texto" x="0" y="6">Chiles secos ahumados con piloncillo y cacao ligero. Final sedoso.</text>
+      <text class="subtitulo" x="0" y="18">Ingredientes</text>
+      <text class="texto" x="0" y="24">Chile de árbol, vinagre de caña, panela, ajo rostizado, especias.</text>
+      <text class="subtitulo" x="0" y="36">Información nutrimental*</text>
+      <text class="texto" x="0" y="42">Porción 1 cda (18g): 20 kcal · 0g grasa · 4g azúcares · 120mg sodio.</text>
+      <text class="micro" x="0" y="54">*Presentar tabla oficial conforme NOM-051.</text>
+      <text class="subtitulo" x="0" y="66">Datos legales</text>
+      <text class="texto" x="0" y="72">Envasado por Creaciones Colibrí · Lote y caducidad: imprimir.</text>
+    </g>
+  </g>
+</svg>

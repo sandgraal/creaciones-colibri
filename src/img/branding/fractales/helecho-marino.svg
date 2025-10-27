@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" aria-labelledby="titulo descripcion" role="img">
+  <title id="titulo">Helecho oceánico para Colibrí Verde marino</title>
+  <desc id="descripcion">Estructura de helecho fractal con recursión en olas verdes y aguamarina, pensada para salsas marinas.</desc>
+  <defs>
+    <linearGradient id="turquesa" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6FE7D2" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#0E8B7D" stop-opacity="0.88" />
+    </linearGradient>
+    <linearGradient id="azulProfundo" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#023C46" />
+      <stop offset="100%" stop-color="#021C29" />
+    </linearGradient>
+    <g id="fronde">
+      <path d="M0,0 C40,-6 78,-30 108,-70 C138,-108 148,-158 128,-202 C88,-174 54,-138 30,-100 Z" fill="url(#turquesa)" fill-opacity="0.93" stroke="#73F2E5" stroke-width="4" />
+      <g id="ramilla">
+        <path d="M0,0 C18,-6 32,-18 44,-34 C60,-54 66,-82 56,-110 C34,-94 18,-72 8,-48 Z" fill="#45C8B0" fill-opacity="0.9" stroke="#9CF5E8" stroke-width="2.6" />
+      </g>
+      <use href="#ramilla" transform="translate(12,-36) rotate(-24) scale(0.76)" />
+      <use href="#ramilla" transform="translate(26,-70) rotate(-42) scale(0.58)" />
+      <use href="#ramilla" transform="translate(40,-98) rotate(-58) scale(0.42)" />
+    </g>
+    <g id="onda">
+      <path d="M0,0 C26,-12 58,-10 84,2 C110,14 132,40 128,64 C124,86 96,104 66,110 C36,116 4,110 -18,98 C-42,84 -52,62 -46,40 C-40,20 -20,8 0,0 Z"
+        fill="#0A6770" fill-opacity="0.18" />
+    </g>
+  </defs>
+
+  <rect width="600" height="600" fill="url(#azulProfundo)" />
+
+  <g id="patronOlas" transform="translate(300 320)">
+    <use href="#onda" transform="translate(-260,-200) rotate(8)" />
+    <use href="#onda" transform="translate(-140,-120) rotate(-12)" />
+    <use href="#onda" transform="translate(-40,-40) rotate(16)" />
+    <use href="#onda" transform="translate(60,40) rotate(-18)" />
+    <use href="#onda" transform="translate(150,120) rotate(12)" />
+    <use href="#onda" transform="translate(240,200) rotate(-10)" />
+  </g>
+
+  <g id="helecho" transform="translate(300 360)">
+    <path d="M-6,168 C-12,104 -24,50 -40,4 C-58,-48 -82,-92 -110,-128" stroke="#63F0E2" stroke-width="6" fill="none" stroke-linecap="round" />
+    <path d="M6,168 C12,104 24,50 40,4 C58,-48 82,-92 110,-128" stroke="#63F0E2" stroke-width="6" fill="none" stroke-linecap="round" />
+    <g id="eje" transform="rotate(18)">
+      <use href="#fronde" transform="translate(0,0)" />
+      <use href="#fronde" transform="translate(6,-86) rotate(-22) scale(0.78)" />
+      <use href="#fronde" transform="translate(14,-148) rotate(-34) scale(0.6)" />
+      <use href="#fronde" transform="translate(20,-198) rotate(-42) scale(0.42)" />
+    </g>
+    <use href="#eje" transform="scale(-1,1) rotate(-36)" />
+  </g>
+</svg>
