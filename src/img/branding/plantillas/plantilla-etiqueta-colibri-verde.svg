@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 206 96" width="206mm" height="96mm" aria-labelledby="titulo descripcion" role="img">
+  <title id="titulo">Plantilla de etiqueta 12oz - Colibrí Verde</title>
+  <desc id="descripcion">Guía de impresión con geometría de colibrí fractal y distribución tipográfica para la salsa Colibrí Verde.</desc>
+  <metadata>
+    <color-profile nombre="CMYK-sugerido">C72 M0 Y54 K0 base, C88 M28 Y70 K56 sombra, C34 M0 Y22 K0 brillo</color-profile>
+    <notas>Configurar PDF/X-1a, aplicar barniz UVI al colibrí principal. Tipografías Montserrat Alt 700, Montserrat 500 y Source Sans 400.</notas>
+  </metadata>
+  <defs>
+    <style><![CDATA[
+      :root { font-family: 'Source Sans Pro', 'Source Sans 3', sans-serif; }
+      .titulo { font-family: 'Montserrat Alternates', 'Montserrat', sans-serif; font-weight: 700; font-size: 9.5mm; letter-spacing: 0.8px; text-transform: uppercase; fill: #E4FFF5; }
+      .subtitulo { font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 3.4mm; fill: #C0F7E4; letter-spacing: 0.4px; }
+      .texto { font-size: 3mm; fill: #E4FFF5; }
+      .micro { font-size: 2.6mm; fill: #C0F7E4; letter-spacing: 0.3px; }
+      .guia { fill: none; stroke: #FFFFFF; stroke-width: 0.2; stroke-dasharray: 1 1; opacity: 0.55; }
+      .columna { fill: none; stroke: rgba(255,255,255,0.38); stroke-width: 0.3; stroke-dasharray: 1.5 1.2; }
+      .tagline { font-family: 'Montserrat Alternates', 'Montserrat', sans-serif; font-weight: 600; font-size: 3.2mm; letter-spacing: 0.6px; fill: #A1F5DC; }
+    ]]></style>
+    <linearGradient id="fondoBase" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#11A87C" />
+      <stop offset="100%" stop-color="#0B3F2D" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="206" height="96" fill="#0B3F2D" />
+
+  <g transform="translate(3 3)">
+    <rect width="200" height="90" fill="url(#fondoBase)" rx="6" />
+
+    <rect class="guia" width="200" height="90" rx="6" />
+    <line class="columna" x1="128" y1="0" x2="128" y2="90" />
+    <rect class="guia" y="0" width="200" height="19.8" />
+
+    <g transform="translate(10 6)">
+      <text class="subtitulo" x="0" y="0">Salsa verde fresca</text>
+      <text class="titulo" x="0" y="11">Colibrí Verde</text>
+      <text class="tagline" x="0" y="18">Simetría natural. Pura vida calor.</text>
+    </g>
+
+    <g id="fractal" transform="translate(10 24)">
+      <rect width="110" height="52" rx="4" fill="#0E6650" fill-opacity="0.18" />
+      <image href="../fractales/colibri-fractal.svg" x="-10" y="-12" width="126" height="126" opacity="0.92" />
+      <g id="barniz" opacity="0.92">
+        <rect width="110" height="52" rx="4" fill="none" stroke="#A9F9E3" stroke-width="0.6" />
+      </g>
+      <text class="micro" x="4" y="48">Aplicar barniz selectivo al colibrí central.</text>
+    </g>
+
+    <g transform="translate(10 82)">
+      <text class="micro">Contenido neto: 354 ml (12 oz)</text>
+    </g>
+
+    <g transform="translate(132 24)">
+      <text class="subtitulo" x="0" y="0">Notas de sabor</text>
+      <text class="texto" x="0" y="6">Tomatillo asado, cilantro fresco y limón criollo. Brillo de jalapeño.</text>
+      <text class="subtitulo" x="0" y="18">Ingredientes</text>
+      <text class="texto" x="0" y="24">Tomatillo, jalapeño, cilantro, ajo, jugo de limón, sal marina.</text>
+      <text class="subtitulo" x="0" y="36">Información nutrimental*</text>
+      <text class="texto" x="0" y="42">Porción 1 cda (18g): 12 kcal · 0g grasa · 2g carbohidratos · 95mg sodio.</text>
+      <text class="micro" x="0" y="54">*Sustituir con tabla oficial aprobada.</text>
+      <text class="subtitulo" x="0" y="66">Datos legales</text>
+      <text class="texto" x="0" y="72">Envasado por Creaciones Colibrí · Lote y caducidad: imprimir.</text>
+    </g>
+  </g>
+</svg>

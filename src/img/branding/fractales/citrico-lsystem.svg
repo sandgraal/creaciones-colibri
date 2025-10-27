@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" aria-labelledby="titulo descripcion" role="img">
+  <title id="titulo">Rebanada cítrica fractal para Ajo Tostado y Piña Brava</title>
+  <desc id="descripcion">Disco de cítrico generado por subdivisiones recursivas y semillas que se repiten en microgajos.</desc>
+  <defs>
+    <radialGradient id="amarilloBase" cx="0.5" cy="0.45" r="0.6">
+      <stop offset="0%" stop-color="#FFE66D" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#E4A11B" stop-opacity="0.9" />
+    </radialGradient>
+    <linearGradient id="luz" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF3B0" />
+      <stop offset="100%" stop-color="#FFCE47" />
+    </linearGradient>
+    <g id="semilla">
+      <path d="M0,0 C18,-10 36,-8 48,6 C60,20 58,40 46,54 C34,68 14,72 0,66 C-16,60 -24,38 -18,20 C-14,8 -6,2 0,0 Z"
+        fill="#FFEFC1" fill-opacity="0.9" stroke="#E4A11B" stroke-width="2" />
+    </g>
+    <g id="gajo">
+      <path d="M0,0 C68,-6 128,-20 184,-52 C240,-84 276,-132 290,-192 C300,-234 298,-276 284,-320 C232,-296 192,-264 148,-226 C108,-192 72,-150 38,-106 Z"
+        fill="url(#amarilloBase)" fill-opacity="0.92" stroke="url(#luz)" stroke-width="6" stroke-linecap="round" />
+      <g id="subgajo">
+        <path d="M0,0 C32,-6 66,-24 92,-54 C124,-92 138,-142 128,-192 C84,-156 48,-120 26,-80 Z" fill="#FFDD5E" fill-opacity="0.88"
+          stroke="#F7C942" stroke-width="3" />
+        <use href="#semilla" transform="translate(18,-46) rotate(-36) scale(0.54)" />
+        <use href="#semilla" transform="translate(40,-88) rotate(-18) scale(0.46)" />
+      </g>
+      <use href="#subgajo" transform="rotate(-24) scale(0.78)" />
+      <use href="#subgajo" transform="rotate(-52) scale(0.58)" />
+    </g>
+  </defs>
+
+  <rect width="600" height="600" fill="#231201" />
+
+  <g transform="translate(300 300)">
+    <circle cx="0" cy="0" r="250" fill="#3A2203" fill-opacity="0.18" />
+    <g id="capaExterior" fill-opacity="0.92">
+      <use href="#gajo" transform="rotate(0)" />
+      <use href="#gajo" transform="scale(-1,1)" />
+      <use href="#gajo" transform="rotate(120)" />
+      <use href="#gajo" transform="rotate(-120)" />
+      <use href="#gajo" transform="rotate(60)" />
+      <use href="#gajo" transform="rotate(-60)" />
+    </g>
+    <g id="coro" fill-opacity="0.9">
+      <circle cx="0" cy="0" r="68" fill="#FFE066" stroke="#E0A325" stroke-width="6" />
+      <use href="#semilla" transform="translate(-10,-14) rotate(-6) scale(0.52)" />
+      <use href="#semilla" transform="translate(20,-8) rotate(36) scale(0.44)" />
+      <use href="#semilla" transform="translate(-14,16) rotate(82) scale(0.4)" />
+      <use href="#semilla" transform="translate(22,22) rotate(140) scale(0.32)" />
+    </g>
+  </g>
+</svg>
