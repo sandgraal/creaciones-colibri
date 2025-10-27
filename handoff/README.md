@@ -1,4 +1,4 @@
-# Handoff Ritual — Let’s Talk CDC
+# Handoff Ritual — Creaciones Colibrì
 
 This folder contains a complete, repo-local **Nightly Prompt Sync** system.
 
