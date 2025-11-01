@@ -2,7 +2,7 @@
 
 This plan tracks the work required to turn our Eleventy-powered repository into a fully featured online store. Phases build on one another so we can launch quickly and iterate with confidence. Checkboxes reflect current status; update them as work progresses or as scope changes.
 
-_Status legend_
+### Status legend
 
 - [x] Completed
 - [ ] Not started (or in progress — see notes)
