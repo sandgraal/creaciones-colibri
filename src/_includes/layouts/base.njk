@@ -247,14 +247,14 @@
       <meta property="og:url" content="{{ canonicalUrl }}">
     {% endif %}
     {% if siteMeta.url and site.alternateLocales %}
-      <link rel="alternate" hreflang="x-default" href="{{ '/' | absoluteUrl(siteMeta.url) }}">
+      <link rel="alternate" hreflang="x-default" href="{{ '/' | url | absoluteUrl(siteMeta.url) }}">
       {% for localeCode in site.alternateLocales %}
         {% if localeCode == site.locale or localeCode == 'en' %}
           {% set localePath = '/' %}
         {% else %}
           {% set localePath = '/' ~ localeCode ~ '/' %}
         {% endif %}
-        <link rel="alternate" hreflang="{{ localeCode }}" href="{{ localePath | absoluteUrl(siteMeta.url) }}">
+        <link rel="alternate" hreflang="{{ localeCode }}" href="{{ localePath | url | absoluteUrl(siteMeta.url) }}">
       {% endfor %}
     {% endif %}
     {% set ogLocale = 'en_US' %}
