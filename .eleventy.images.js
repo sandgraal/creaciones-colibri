@@ -22,21 +22,30 @@ module.exports = async function generateImage(
   }
 
   const inputPath = path.join("src", normalizedSrc.replace(/^\//, ""));
-  const metadata = await Image(inputPath, {
-    widths,
-    formats,
-    urlPath: "/img/generated/",
-    outputDir: `${outputDir}/img/generated/`,
-    sharpWebpOptions: { quality: 70 },
-    sharpJpegOptions: { quality: 75 }
-  });
+  try {
+    const metadata = await Image(inputPath, {
+      widths,
+      formats,
+      urlPath: "/img/generated/",
+      outputDir: `${outputDir}/img/generated/`,
+      sharpWebpOptions: { quality: 70 },
+      sharpJpegOptions: { quality: 75 }
+    });
 
-  const imageAttributes = {
-    class: className,
-    alt,
-    loading: "lazy",
-    decoding: "async"
-  };
+    const imageAttributes = {
+      class: className,
+      alt,
+      loading: "lazy",
+      decoding: "async"
+    };
 
-  return Image.generateHTML(metadata, imageAttributes);
+    return Image.generateHTML(metadata, imageAttributes);
+  } catch (error) {
+    console.warn(
+      `[images] Falling back to original asset for ${normalizedSrc}: ${error.message}`
+    );
+
+    const escapedAlt = alt.replace(/"/g, "&quot;");
+    return `<img class="${className}" src="${normalizedSrc}" alt="${escapedAlt}" loading="lazy" decoding="async">`;
+  }
 };
