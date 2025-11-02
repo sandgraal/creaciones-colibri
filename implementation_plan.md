@@ -44,6 +44,7 @@ This plan tracks the work required to turn our Eleventy-powered repository into 
   - [x] Add cart triggers to product cards/detail pages, including quantity selectors.
   - [x] Ensure cart persistence between page loads via local storage or platform-provided scripts (handled by Snipcart).
   - [ ] Configure tax, shipping rules, and payment methods; test end-to-end purchase flow in sandbox mode (`docs/operations/snipcart-setup.md`). _(Pending final sandbox verification of rates and payment tokens.)_
+    - ℹ️ Before agents or contributors run checkout automation, confirm the Snipcart sandbox API keys are stored as repository secrets (`SNIPCART_PUBLIC_KEY`, `SNIPCART_TEST_SECRET`).
 
 - [x] **Search & filtering** _(templates in `src/products/index.njk`, logic in `src/js/search.js`)_
   - [x] Decide on search strategy: client-side fuzzy search (Fuse.js) with Eleventy-generated JSON index.
