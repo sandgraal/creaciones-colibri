@@ -42,6 +42,13 @@ Follow these steps to connect Snipcart to the Eleventy storefront.
 - Enable **Test mode** in Snipcart and complete the scenarios outlined in `docs/operations/qa-checklist.md`. Use sandbox cards (Stripe: `4242 4242 4242 4242`, PayPal sandbox accounts) and record outcomes in the checklist.
 - Once satisfied, disable test mode, clear test orders, and switch the API key in `.env` if Snipcart provided separate live credentials. Capture the go-live date and responsible operator in the log below.
 
+## 9. Automation
+- **Required repository secrets:**
+  - `SNIPCART_PUBLIC_KEY`
+  - `SNIPCART_TEST_SECRET`
+- **Where to obtain sandbox credentials:** Navigate to **Snipcart Dashboard → Account → API keys** and copy the sandbox Public and Secret keys. Never commit keys directly to the repository; store them via **Repository Settings → Secrets and variables → Actions**.
+- **Rotation procedure:** Update both secrets at least quarterly or when team membership changes. Generate new sandbox keys in Snipcart, replace the values in the repository secrets UI, and trigger a smoke checkout test to confirm automations still pass. Record the rotation date and owner in the automation log maintained with CI artifacts.
+
 Document the date of completion and any deviations here:
 
 ```
