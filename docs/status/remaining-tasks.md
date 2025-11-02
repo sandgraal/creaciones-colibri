@@ -1,8 +1,8 @@
 # Remaining Launch Tasks
 
 ## Commerce Finalization
-- [ ] Finalize Snipcart tax and shipping rules once we lock the shipping-rate matrix.
-- [ ] Execute the full Snipcart sandbox QA checklist after tax/shipping configuration is complete.
+- [ ] Finalize Snipcart tax and shipping rules once we lock the shipping-rate matrix. _(Shipping matrix documented 2025-11-02; awaiting Snipcart sandbox keys to enter settings.)_
+- [ ] Execute the full Snipcart sandbox QA checklist after tax/shipping configuration is complete. _(Blocked until sandbox credentials are provisioned.)_
 
 ## Localization & Content
 - [ ] Conduct a native Spanish tone/nuance review session (schedule with a trusted reviewer) and capture copy overrides.

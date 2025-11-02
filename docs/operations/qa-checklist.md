@@ -7,6 +7,8 @@ Before launching or after significant updates, run through this list to ensure S
 - [ ] Snipcart dashboard test mode is enabled.
 - [ ] Shipping rates and taxes match `docs/operations/shipping.md`.
 
+> **2025-11-02 status:** Shipping matrix + tax guidance finalized, but sandbox API keys are still pending. All checkout scenarios below remain blocked until the dashboard credentials arrive.
+
 ## Tests
 1. **Domestic order (USA)**
    - [ ] Add a single product to the cart from catalog card.
@@ -45,6 +47,10 @@ Before launching or after significant updates, run through this list to ensure S
   - Largest assets are `css/main.css` (30 KB raw / 4.5 KB gz) and catalog indexes (`products/index.html`, `es/productos/index.html`).
   - Revisit bundle/product templates if Lighthouse flags layout shift or interaction delays.
 
+```
+
+``` 
+- 2025-11-02 – QA by automation partner. Checkout tests blocked; awaiting Snipcart + PayPal sandbox credentials before running the matrix documented in `docs/operations/snipcart-test-plan.md`.
 ```
 
 ## Post-test
