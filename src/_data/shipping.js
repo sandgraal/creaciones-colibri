@@ -3,12 +3,12 @@ module.exports = {
     id: "domestic",
     heading: "United States & Puerto Rico",
     description:
-      "Orders ship from Florida with compostable cushioning and USPS tracking for every box.",
+      "Orders ship from Florida with compostable cushioning, USPS tracking, and predictable flat-rate pricing.",
     translations: {
       es: {
         heading: "Estados Unidos y Puerto Rico",
         description:
-          "Enviamos desde Florida con relleno compostable y número de rastreo en cada caja."
+          "Enviamos desde Florida con relleno compostable, número de rastreo y una tarifa plana predecible."
       }
     },
     rows: [
@@ -16,13 +16,13 @@ module.exports = {
         condition: "Order total < $75.00",
         rate: "$8.00 flat rate",
         notes:
-          "Covers USPS Priority Mail Cubic zones 4–6 plus eco-friendly packaging materials.",
+          "Covers USPS Priority Mail Cubic zones 4–6 plus eco-friendly packaging materials and cold-pack insulation when needed.",
         translations: {
           es: {
             condition: "Pedido menor a $75.00",
             rate: "Tarifa plana de $8.00",
             notes:
-              "Cubre USPS Priority Mail Cubic zonas 4–6 y los materiales de empaque sostenibles."
+              "Cubre USPS Priority Mail Cubic zonas 4–6, los materiales de empaque sostenibles y el aislamiento frío cuando haga falta."
           }
         }
       },
@@ -45,12 +45,12 @@ module.exports = {
     id: "international",
     heading: "International pilot destinations",
     description:
-      "Canada, Costa Rica, and select EU countries ship with customs-ready documentation.",
+      "Canada, Costa Rica, and select EU countries ship with customs-ready documentation and bilingual inserts.",
     translations: {
       es: {
         heading: "Destinos internacionales piloto",
         description:
-          "Canadá, Costa Rica y países piloto de la UE reciben documentación lista para aduanas."
+          "Canadá, Costa Rica y países piloto de la UE reciben documentación lista para aduanas e insertos bilingües."
       }
     },
     rows: [

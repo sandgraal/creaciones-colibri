@@ -2,6 +2,8 @@
 
 This guide outlines recommendations for domestic and international fulfillment, sustainable packaging, and next steps. Revisit quarterly as rates or suppliers change.
 
+> **2025-11-02 update:** Finalized the Snipcart shipping + tax matrix so the sandbox matches our pricing model. Domestic orders ship USPS Priority Mail Cubic with a flat fee until the free-shipping threshold, and international orders use the weight tiers below. Stripe Tax remains preferred; when unavailable we enter a manual 7% Florida tax rule.
+
 ## 1. Shipping Overview
 
 ### Domestic (United States)
@@ -47,10 +49,10 @@ Configure a **Custom table** under **Store settings → Shipping → Add new rat
 
 | Condition | Rate | Notes |
 | --------- | ---- | ----- |
-| Order total < $75.00 | Flat $8.00 | Covers USPS Priority Mail Cubic Zone 4–6 plus packaging. |
+| Order total < $75.00 | Flat $8.00 | Covers USPS Priority Mail Cubic Zone 4–6 plus packaging and insulation. |
 | Order total ≥ $75.00 | Free | Encourage bundle purchases; margin modeled in pricing worksheet. |
 
-Enable the rate for United States + Puerto Rico. Keep “stack rates” disabled so only one row applies at a time.
+Enable the rate for United States + Puerto Rico. Keep “stack rates” disabled so only one row applies at a time. Default parcel size: `12 × 9 × 4 in`, which maps to our medium recycled box with compostable filler.
 
 ### 4.2 International Rates
 
@@ -58,17 +60,18 @@ Add a second **Custom table** for international destinations (Canada, Costa Rica
 
 | Condition | Rate | Notes |
 | --------- | ---- | ----- |
-| Parcel weight ≤ 1.1 kg | $34.95 | Mirrors USPS Priority Mail International small parcel. |
+| Parcel weight ≤ 1.1 kg | $34.95 | Mirrors USPS Priority Mail International small parcel pricing with bilingual inserts. |
 | Parcel weight 1.1–2.5 kg | $44.95 | Covers heavier bundles or multi-pack granola orders. |
 | Parcel weight > 2.5 kg | Live carrier quote | Fallback to DHL Express (requires carrier credentials). |
 
-Activate dimensional weight and enter default parcel size `12 × 9 × 4 in` to align with bundle packaging. When DHL credentials are unavailable, temporarily disable the >2.5 kg row and add manual review instructions to the order confirmation email.
+Activate dimensional weight, enter default parcel size `12 × 9 × 4 in`, and set the maximum weight to 4 kg. When DHL credentials are unavailable, temporarily disable the >2.5 kg row and add manual review instructions to the order confirmation email so the buyer knows a follow-up invoice is coming.
 
 ### 4.3 Taxes & Payment Methods
 
-1. **Taxes:** Enable Stripe Tax in **Store settings → Taxes** with nexus set to Florida. Add manual override (7%) if Stripe Tax is unavailable.
+1. **Taxes:** Enable Stripe Tax in **Store settings → Taxes** with nexus set to Florida (Leon County). If Stripe Tax is unavailable, add a manual 7% rate scoped to Florida and enable automatic address validation.
 2. **Payment gateways:** Connect Stripe (primary) and PayPal (secondary) under **Store settings → Payments** so buyers can choose either option. Confirm both are set to test mode while QA is in progress.
 3. **Currency:** Keep USD as default; revisit multi-currency once Canadian demand increases.
+4. **Fraud controls:** Leave 3D Secure enforcement on “Recommended” for Stripe to keep friction low while sandbox testing.
 
 ### 4.4 QA Log
 
