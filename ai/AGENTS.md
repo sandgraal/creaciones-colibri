@@ -13,21 +13,81 @@ provides context for automation that supports the Creaciones Colibrí site.
 
 ## Agent Catalog
 
-| Agent | Purpose | Primary Trigger | Key Steps |
-| --- | --- | --- | --- |
-| `colibri-content` | Regenerate product, bundle and blog content or refresh localized strings. | Manual dispatch via **AI Agents** workflow. | Runs Eleventy build prerequisites, validates product data, prepares content diffs for review. |
-| `colibri-image` | Produce or optimize product and blog imagery for responsive breakpoints. | Manual dispatch via **AI Agents** workflow (select agent). | Calls design tooling (future), enforces naming conventions, writes optimized assets to `src/img/`. |
-| `colibri-packaging` | Render printable packaging templates and label exports. | Manual dispatch via **AI Agents** workflow. | Uses packaging templates (future) and exports PDFs/SVGs into `assets/labels/`. |
-| `colibri-data` | Synchronize structured data (`src/_data/`, `docs/operations/`) with downstream consumers. | Manual dispatch via **AI Agents** workflow. | Checks schema parity, runs translation cache updates, writes consolidated JSON exports. |
-| `colibri-analytics` | Aggregate telemetry and monitoring snapshots (Plausible, Lighthouse) for reporting. | Manual dispatch via **AI Agents** workflow. | Gathers metrics, updates `docs/operations/performance-reports/`, posts summaries. |
+| Agent | Status | Command | Triggers | Description |
+| --- | --- | --- | --- | --- |
+| `colibri-content` | `active` | `npm run build` | `.github/workflows/pages.yml`, manual dispatch via `ai/.github/workflows/agents.yml` | Builds the Eleventy site and publishes GitHub Pages artifacts. |
+| `colibri-image` | `active` | `node scripts/image-optimize.mjs --strict --report=ai/_state/image-report.json` | Manual dispatch via `ai/.github/workflows/agents.yml` | Audits storefront imagery for optimization and missing derivatives. |
+| `colibri-packaging` | `pending` | `node scripts/package-render.mjs --format=csv --out=ai/_state/labels.csv` | Path trigger: `assets/labels/` | Generates packaging label exports for fulfillment partners. |
+| `colibri-data` | `active` | `npm run translate` | Path trigger: `src/_data/`, manual dispatch via `ai/.github/workflows/agents.yml` | Keeps catalog and translation data synchronized before builds. |
+| `colibri-analytics` | `active` | `npm run audit:assets` | Nightly schedule, manual dispatch via `ai/.github/workflows/agents.yml` | Captures performance baselines and validates analytics integrations. |
+| `colibri-chat` | `disabled` | _n/a_ | _n/a_ | Placeholder for a future bilingual support assistant. |
 
-> **Status:** All agents currently execute placeholder steps that log their runs.
-> Expand each agent with concrete scripts or integrations as automation matures.
+> **Activation guidance:** To promote a `pending` or `disabled` agent, align it
+> with the catalog above: implement or verify the documented command, update the
+> manifest `status` to `active`, confirm triggers exist (workflow, path, or
+> schedule), and add run expectations following the subsections below. Run
+> `node ai/scripts/run-agent.mjs --execute --agent <name>` to validate before
+> committing the updated manifest and documentation.
 
 > **Automation note:** The `AI Agents` workflow reads this manifest to decide
 > which commands to run. Only agents marked `active` with a configured
 > `command` execute automatically; entries flagged as `pending` or `disabled`
 > are reported in the workflow summary as skipped.
+
+### `colibri-content` (`active`)
+
+- **Expected inputs:** Product catalog data in `src/_data/products.js`, Eleventy
+  layouts/collections in `src/_includes`, and blog/product content authored per
+  Phase 1 foundations and localization deliverables.
+- **Generated artifacts:** Runs `npm run build` to compile `_site-eleventy/`
+  assets and Pages deployment bundles defined in the deployment & CI tasks.
+- **Validation & rollback:** Confirm the Eleventy build succeeds in GitHub
+  Pages workflows, review diff outputs, and fall back via the documented
+  deployment rollback procedures.
+- **Implementation plan links:**
+  - [Phase 1 — Foundation & Content](../implementation_plan.md#phase-1--foundation--content-week-1-2)
+  - [Phase 3 — Localization](../implementation_plan.md#phase-3--enhancements--marketing-week-5-6)
+  - [Phase 3 — Deployment & CI](../implementation_plan.md#phase-3--enhancements--marketing-week-5-6)
+
+### `colibri-image` (`active`)
+
+- **Expected inputs:** Source imagery organized in `src/img/` and workflow
+  documentation captured during the Phase 1 visual design tasks.
+- **Generated artifacts:** Optimization reports written to
+  `ai/_state/image-report.json` and refreshed responsive assets in `src/img/`
+  per the image optimization workflow.
+- **Validation & rollback:** Inspect the generated report, compare asset sizes
+  against the documented baseline, and restore previous images via version
+  control if optimization fails or regresses quality.
+- **Implementation plan links:**
+  - [Phase 1 — Define product catalog](../implementation_plan.md#phase-1--foundation--content-week-1-2)
+  - [Phase 1 — Visual design](../implementation_plan.md#phase-1--foundation--content-week-1-2)
+
+### `colibri-data` (`active`)
+
+- **Expected inputs:** Structured catalog, pricing, and translation sources in
+  `src/_data/` along with localization milestones outlined for Phase 3.
+- **Generated artifacts:** Runs `npm run translate` to refresh consolidated data
+  exports that keep Eleventy collections and localized content in sync.
+- **Validation & rollback:** Verify schema parity after translation syncs,
+  ensure updated data passes Eleventy build checks, and revert changes from
+  version control if mismatches surface.
+- **Implementation plan links:**
+  - [Phase 1 — Define product catalog](../implementation_plan.md#phase-1--foundation--content-week-1-2)
+  - [Phase 3 — Localization](../implementation_plan.md#phase-3--enhancements--marketing-week-5-6)
+
+### `colibri-analytics` (`active`)
+
+- **Expected inputs:** Analytics configuration, Plausible toggles, and audit
+  scripts established in the analytics and performance tasks.
+- **Generated artifacts:** Executes `npm run audit:assets` to produce performance
+  baselines and supporting reports tracked in `docs/operations/performance-*`.
+- **Validation & rollback:** Compare new audit outputs against prior baselines,
+  document follow-up tasks, and revert to the last known-good metrics if
+  regressions are detected.
+- **Implementation plan links:**
+  - [Phase 3 — Analytics & SEO](../implementation_plan.md#phase-3--enhancements--marketing-week-5-6)
+  - [Phase 3 — Performance & accessibility audit](../implementation_plan.md#phase-3--enhancements--marketing-week-5-6)
 
 ## Existing Helpers
 - **Bootstrap:** `node ai/scripts/bootstrap.mjs` ensures directories exist and
