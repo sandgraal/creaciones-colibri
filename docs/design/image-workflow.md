@@ -26,7 +26,7 @@ This guide explains how we manage product imagery while we gather final photogra
 - Header and hero treatments use the raster exports (`creaciones_colibri_logo-1x1-*.{avif,webp,jpg,png}` and `creaciones_colibri_logo-16x9-*.{avif,webp,jpg}`) depending on the layout.
 - Browser icons rely on the generated PNG set (`32w`, `64w`, `192w`, `512w`); regenerate these sizes from the 640px master if the source artwork changes.
 - Update `src/site.webmanifest.njk` and `src/_includes/layouts/base.njk` when adding, renaming, or resizing icons so the manifest, favicons, and Apple touch icons stay accurate.
-- Safari pinned-tab support is currently disabled; add a monochrome SVG mask icon before re-enabling the `<link rel="mask-icon">` tag in `src/_includes/layouts/base.njk`.
+- Safari pinned tabs use the monochrome SVG (`creaciones_colibri_mask-icon.svg`) that lives alongside the other logo assets; update it when the mark changes and keep the `<link rel="mask-icon">` tag in `src/_includes/layouts/base.njk` pointing at the latest path.
 
 Document updates here when new assets replace placeholders:
 
