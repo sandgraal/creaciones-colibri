@@ -32,12 +32,17 @@ localeLinks:
 
 <section class="hero">
   <div class="hero-media">
-    <picture>
-      <source srcset="{{ '/img/branding/creaciones-colibri-logo.svg' | url }}" type="image/svg+xml">
+    <picture class="hero-logo-wrapper">
+      <source srcset="{{ '/img/logo/creaciones_colibri_logo-16x9-640w.avif' | url }}" type="image/avif">
+      <source srcset="{{ '/img/logo/creaciones_colibri_logo-16x9-640w.webp' | url }}" type="image/webp">
       <img
         class="hero-logo"
-        src="{{ '/img/branding/creaciones-colibri-logo.svg' | url }}"
-        alt="Creaciones Colibrí hummingbird logo"
+        src="{{ '/img/logo/creaciones_colibri_logo-16x9-640w.jpg' | url }}"
+        alt="Creaciones Colibrí primary logo"
+        width="640"
+        height="360"
+        loading="eager"
+        decoding="async"
       >
     </picture>
   </div>

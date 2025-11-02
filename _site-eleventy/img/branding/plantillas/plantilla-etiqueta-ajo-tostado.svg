@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 206 96" width="206mm" height="96mm" aria-labelledby="titulo descripcion" role="img">
+  <title id="titulo">Plantilla de etiqueta 12oz - Ajo Tostado</title>
+  <desc id="descripcion">Guía de impresión con roseta fractal inspirada en gajos de ajo y distribución de información para la salsa Ajo Tostado.</desc>
+  <metadata>
+    <color-profile nombre="CMYK-sugerido">C2 M38 Y78 K0 base, C14 M58 Y100 K26 sombra, C0 M12 Y38 K0 brillo</color-profile>
+    <notas>Exportar en PDF/X-1a, barniz selectivo sobre la roseta de ajo. Tipografías Montserrat Alt 700, Montserrat 500 y Source Sans 400.</notas>
+  </metadata>
+  <defs>
+    <style><![CDATA[
+      :root { font-family: 'Source Sans Pro', 'Source Sans 3', sans-serif; }
+      .titulo { font-family: 'Montserrat Alternates', 'Montserrat', sans-serif; font-weight: 700; font-size: 9.5mm; letter-spacing: 0.8px; text-transform: uppercase; fill: #FFF3D8; }
+      .subtitulo { font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 3.4mm; fill: #F8DEAA; letter-spacing: 0.4px; }
+      .texto { font-size: 3mm; fill: #FFF3D8; }
+      .micro { font-size: 2.6mm; fill: #F8DEAA; letter-spacing: 0.3px; }
+      .guia { fill: none; stroke: #FFFFFF; stroke-width: 0.2; stroke-dasharray: 1 1; opacity: 0.55; }
+      .columna { fill: none; stroke: rgba(255,255,255,0.4); stroke-width: 0.3; stroke-dasharray: 1.5 1.2; }
+      .tagline { font-family: 'Montserrat Alternates', 'Montserrat', sans-serif; font-weight: 600; font-size: 3.2mm; letter-spacing: 0.6px; fill: #FFE9BB; }
+    ]]></style>
+    <linearGradient id="fondoBase" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F2A71B" />
+      <stop offset="100%" stop-color="#935300" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="206" height="96" fill="#935300" />
+
+  <g transform="translate(3 3)">
+    <rect width="200" height="90" fill="url(#fondoBase)" rx="6" />
+
+    <rect class="guia" width="200" height="90" rx="6" />
+    <line class="columna" x1="128" y1="0" x2="128" y2="90" />
+    <rect class="guia" y="0" width="200" height="19.8" />
+
+    <g transform="translate(10 6)">
+      <text class="subtitulo" x="0" y="0">Salsa dorada</text>
+      <text class="titulo" x="0" y="11">Ajo Tostado</text>
+      <text class="tagline" x="0" y="18">Simetría natural. Pura vida calor.</text>
+    </g>
+
+    <g id="fractal" transform="translate(10 24)">
+      <rect width="110" height="52" rx="4" fill="#B37312" fill-opacity="0.16" />
+      <image href="../fractales/citrico-lsystem.svg" x="-10" y="-12" width="126" height="126" opacity="0.9" />
+      <g id="barniz" opacity="0.9">
+        <rect width="110" height="52" rx="4" fill="none" stroke="#FFE5B3" stroke-width="0.6" />
+      </g>
+      <text class="micro" x="4" y="48">Barniz selectivo: roseta de ajo y semillas internas.</text>
+    </g>
+
+    <g transform="translate(10 82)">
+      <text class="micro">Contenido neto: 354 ml (12 oz)</text>
+    </g>
+
+    <g transform="translate(132 24)">
+      <text class="subtitulo" x="0" y="0">Notas de sabor</text>
+      <text class="texto" x="0" y="6">Ajo rostizado lentamente con mantequilla clarificada y cítrico dulce.</text>
+      <text class="subtitulo" x="0" y="18">Ingredientes</text>
+      <text class="texto" x="0" y="24">Ajo, vinagre de sidra, mantequilla clarificada, azúcar mascabado, sal.</text>
+      <text class="subtitulo" x="0" y="36">Información nutrimental*</text>
+      <text class="texto" x="0" y="42">Porción 1 cda (18g): 25 kcal · 1g grasa · 3g carbohidratos · 110mg sodio.</text>
+      <text class="micro" x="0" y="54">*Insertar tabla avalada por laboratorio.</text>
+      <text class="subtitulo" x="0" y="66">Datos legales</text>
+      <text class="texto" x="0" y="72">Envasado por Creaciones Colibrí · Lote y caducidad: imprimir.</text>
+    </g>
+  </g>
+</svg>

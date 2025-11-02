@@ -294,15 +294,14 @@
       <meta property="product:price:amount" content="{{ productData.price }}">
       <meta property="product:price:currency" content="{{ site.snipcart.currency }}">
     {% endif %}
-    <link rel="icon" type="image/svg+xml" href="{{ '/img/branding/creaciones-colibri-logo.svg' | url }}">
-    <link rel="icon" type="image/svg+xml" sizes="any" href="{{ '/img/branding/maskable-icon.svg' | url }}">
-    <link rel="apple-touch-icon" type="image/svg+xml" href="{{ '/img/branding/maskable-icon.svg' | url }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ '/img/logo/creaciones_colibri_logo-1x1-32w.png' | url }}">
+    <link rel="icon" type="image/png" sizes="64x64" href="{{ '/img/logo/creaciones_colibri_logo-1x1-64w.png' | url }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ '/img/logo/creaciones_colibri_logo-1x1-512w.png' | url }}">
     {% if currentLocale == 'es' %}
       <link rel="manifest" href="{{ '/es/site.webmanifest' | url }}">
     {% else %}
       <link rel="manifest" href="{{ '/site.webmanifest' | url }}">
     {% endif %}
-    <link rel="mask-icon" href="{{ '/img/branding/maskable-icon.svg' | url }}" color="#f16745">
     <meta name="msapplication-TileColor" content="#f16745">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -439,11 +438,19 @@
     <a class="skip-link" href="#main-content">{{ skipLinkLabel }}</a>
     <header class="site-header">
       <a class="brand" href="{{ homePath | url }}"{% if isHomeActive %} aria-current="page"{% endif %}>
-        <img
-          class="brand-logo"
-          src="{{ '/img/branding/creaciones-colibri-logo.svg' | url }}"
-          alt="{{ brandAlt }}"
-        >
+        <picture class="brand-logo-wrapper">
+          <source srcset="{{ '/img/logo/creaciones_colibri_logo-1x1-640w.avif' | url }}" type="image/avif">
+          <source srcset="{{ '/img/logo/creaciones_colibri_logo-1x1-640w.webp' | url }}" type="image/webp">
+          <img
+            class="brand-logo"
+            src="{{ '/img/logo/creaciones_colibri_logo-1x1-640w.jpg' | url }}"
+            alt="{{ brandAlt }}"
+            width="640"
+            height="640"
+            loading="eager"
+            decoding="async"
+          >
+        </picture>
         <span class="brand-title">Creaciones Colibrí</span>
       </a>
       <nav class="site-nav">

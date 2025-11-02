@@ -16,14 +16,15 @@
   "theme_color": "#f16745",
   "icons": [
     {
-      "src": "/creaciones-colibri/img/branding/creaciones-colibri-logo.svg",
-      "sizes": "any",
-      "type": "image/svg+xml"
+      "src": "/creaciones-colibri/img/logo/creaciones_colibri_logo-1x1-192w.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "/creaciones-colibri/img/branding/maskable-icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "/creaciones-colibri/img/logo/creaciones_colibri_logo-1x1-512w.png",
+      "sizes": "512x512",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ]

@@ -22,11 +22,11 @@ This guide explains how we manage product imagery while we gather final photogra
 
 ## 4. Favicon & Logo Variants
 
-- Brand assets live in `src/img/branding/`.
-- `creaciones-colibri-logo.svg` powers the hero, header, and Open Graph fallbacks.
-- Browser icons currently rely on SVG exports (`creaciones-colibri-logo.svg` and `maskable-icon.svg`) so the repository stays text-only. When production-ready raster icons are approved, generate them during the build pipeline (e.g., with `sharp`) or host them on the CDN before wiring them into the layout.
-- Update `src/site.webmanifest.njk` and `src/_includes/layouts/base.njk` if you add or rename icons so the manifest and link tags stay accurate.
-- Safari pinned tabs read from `maskable-icon.svg`; keep paths synchronized with the `<link rel="mask-icon">` tag in `src/_includes/layouts/base.njk`.
+- Brand assets now live in the repository-level `logo/` directory and are copied to `/img/logo/` at build time (configured in `.eleventy.js`).
+- Header and hero treatments use the raster exports (`creaciones_colibri_logo-1x1-*.{avif,webp,jpg,png}` and `creaciones_colibri_logo-16x9-*.{avif,webp,jpg}`) depending on the layout.
+- Browser icons rely on the generated PNG set (`32w`, `64w`, `192w`, `512w`); regenerate these sizes from the 640px master if the source artwork changes.
+- Update `src/site.webmanifest.njk` and `src/_includes/layouts/base.njk` when adding, renaming, or resizing icons so the manifest, favicons, and Apple touch icons stay accurate.
+- Safari pinned-tab support is currently disabled; add a monochrome SVG mask icon before re-enabling the `<link rel="mask-icon">` tag in `src/_includes/layouts/base.njk`.
 
 Document updates here when new assets replace placeholders:
 

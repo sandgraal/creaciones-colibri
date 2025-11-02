@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 206 96" width="206mm" height="96mm" aria-labelledby="titulo descripcion" role="img">
+  <title id="titulo">Plantilla de etiqueta 12oz - Piña Brava</title>
+  <desc id="descripcion">Guía de impresión con estrella fractal inspirada en corona de piña y layout de información para la salsa Piña Brava.</desc>
+  <metadata>
+    <color-profile nombre="CMYK-sugerido">C0 M28 Y84 K0 base, C12 M60 Y100 K24 sombra, C2 M2 Y32 K0 brillo</color-profile>
+    <notas>Exportar PDF/X-1a; aplicar barniz UVI sobre la estrella fractal y el título. Tipografías Montserrat Alt 700, Montserrat 500 y Source Sans 400.</notas>
+  </metadata>
+  <defs>
+    <style><![CDATA[
+      :root { font-family: 'Source Sans Pro', 'Source Sans 3', sans-serif; }
+      .titulo { font-family: 'Montserrat Alternates', 'Montserrat', sans-serif; font-weight: 700; font-size: 9.5mm; letter-spacing: 0.8px; text-transform: uppercase; fill: #FFF7D6; }
+      .subtitulo { font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 3.4mm; fill: #FFEAA6; letter-spacing: 0.4px; }
+      .texto { font-size: 3mm; fill: #FFF7D6; }
+      .micro { font-size: 2.6mm; fill: #FFEAA6; letter-spacing: 0.3px; }
+      .guia { fill: none; stroke: #FFFFFF; stroke-width: 0.2; stroke-dasharray: 1 1; opacity: 0.55; }
+      .columna { fill: none; stroke: rgba(255,255,255,0.36); stroke-width: 0.3; stroke-dasharray: 1.5 1.2; }
+      .tagline { font-family: 'Montserrat Alternates', 'Montserrat', sans-serif; font-weight: 600; font-size: 3.2mm; letter-spacing: 0.6px; fill: #FFF1B8; }
+    ]]></style>
+    <linearGradient id="fondoBase" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFC53D" />
+      <stop offset="100%" stop-color="#B36805" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="206" height="96" fill="#B36805" />
+
+  <g transform="translate(3 3)">
+    <rect width="200" height="90" fill="url(#fondoBase)" rx="6" />
+
+    <rect class="guia" width="200" height="90" rx="6" />
+    <line class="columna" x1="128" y1="0" x2="128" y2="90" />
+    <rect class="guia" y="0" width="200" height="19.8" />
+
+    <g transform="translate(10 6)">
+      <text class="subtitulo" x="0" y="0">Salsa tropical</text>
+      <text class="titulo" x="0" y="11">Piña Brava</text>
+      <text class="tagline" x="0" y="18">Simetría natural. Pura vida calor.</text>
+    </g>
+
+    <g id="fractal" transform="translate(10 24)">
+      <rect width="110" height="52" rx="4" fill="#D98912" fill-opacity="0.16" />
+      <image href="../fractales/citrico-lsystem.svg" x="-8" y="-10" width="124" height="124" opacity="0.9" />
+      <g id="barniz" opacity="0.9">
+        <rect width="110" height="52" rx="4" fill="none" stroke="#FFF1BC" stroke-width="0.6" />
+      </g>
+      <text class="micro" x="4" y="48">Barniz selectivo: estrella de corona y semillas.</text>
+    </g>
+
+    <g transform="translate(10 82)">
+      <text class="micro">Contenido neto: 354 ml (12 oz)</text>
+    </g>
+
+    <g transform="translate(132 24)">
+      <text class="subtitulo" x="0" y="0">Notas de sabor</text>
+      <text class="texto" x="0" y="6">Piña asada con chile habanero dorado y especias caribeñas.</text>
+      <text class="subtitulo" x="0" y="18">Ingredientes</text>
+      <text class="texto" x="0" y="24">Piña, chile habanero, vinagre de coco, ajo tostado, sal de mar.</text>
+      <text class="subtitulo" x="0" y="36">Información nutrimental*</text>
+      <text class="texto" x="0" y="42">Porción 1 cda (18g): 18 kcal · 0g grasa · 4g carbohidratos · 80mg sodio.</text>
+      <text class="micro" x="0" y="54">*Sustituir con tabla autorizada.</text>
+      <text class="subtitulo" x="0" y="66">Datos legales</text>
+      <text class="texto" x="0" y="72">Envasado por Creaciones Colibrí · Lote y caducidad: imprimir.</text>
+    </g>
+  </g>
+</svg>

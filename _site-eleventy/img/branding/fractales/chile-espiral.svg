@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" aria-labelledby="titulo descripcion" role="img">
+  <title id="titulo">Espiral de chiles para Ahumado Dulce</title>
+  <desc id="descripcion">Silueta de chile construida con chiles secundarios en espiral logarítmica y un rastro de humo fractal.</desc>
+  <defs>
+    <radialGradient id="rojoBase" cx="0.3" cy="0.3" r="0.9">
+      <stop offset="0%" stop-color="#FF7855" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#8A1B11" stop-opacity="0.9" />
+    </radialGradient>
+    <linearGradient id="resplandor" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFB477" />
+      <stop offset="100%" stop-color="#FF5E32" />
+    </linearGradient>
+    <g id="chileMini">
+      <path d="M0,0 C18,-6 36,-12 56,-10 C74,-8 86,0 88,12 C92,32 72,52 52,58 C32,64 10,60 0,42 C-6,30 -6,12 0,0 Z"
+        fill="url(#rojoBase)" fill-opacity="0.92" stroke="url(#resplandor)" stroke-width="3" stroke-linecap="round" />
+      <path d="M84,8 C92,-6 96,-22 88,-34 C78,-50 48,-54 26,-42 C46,-32 64,-18 72,0 Z" fill="#175C2E" fill-opacity="0.9" />
+    </g>
+    <g id="humoNodo">
+      <path d="M0,0 C16,-22 42,-30 60,-16 C78,-2 84,24 70,42 C54,62 24,60 4,48 C-18,36 -20,14 0,0 Z" fill="#F2D7C4" fill-opacity="0.16" />
+    </g>
+  </defs>
+
+  <rect width="600" height="600" fill="#1B0602" />
+
+  <g id="humo" transform="translate(300 320) rotate(-18)">
+    <use href="#humoNodo" transform="translate(-240,-200) scale(1.2)" />
+    <use href="#humoNodo" transform="translate(-160,-120) rotate(24)" />
+    <use href="#humoNodo" transform="translate(-80,-40) scale(0.9) rotate(-12)" />
+    <use href="#humoNodo" transform="translate(20,40) scale(0.8) rotate(18)" />
+    <use href="#humoNodo" transform="translate(120,120) scale(0.7) rotate(-28)" />
+    <use href="#humoNodo" transform="translate(210,180) scale(0.6) rotate(12)" />
+  </g>
+
+  <g id="espiral" transform="translate(300 320)">
+    <path d="M0,-180 C100,-140 160,-70 180,20 C194,84 184,150 156,204 C120,276 52,330 -30,336 C-96,340 -170,302 -200,238 C-230,174 -210,92 -154,36 C-112,-6 -54,-28 0,-180 Z"
+      fill="url(#rojoBase)" fill-opacity="0.94" stroke="#42120A" stroke-width="6" stroke-linejoin="round" />
+    <g id="ramaEspiral">
+      <use href="#chileMini" transform="translate(-40,-120) scale(0.74) rotate(-16)" />
+      <use href="#chileMini" transform="translate(-20,-40) scale(0.62) rotate(-12)" />
+      <use href="#chileMini" transform="translate(20,30) scale(0.5) rotate(-6)" />
+      <use href="#chileMini" transform="translate(46,86) scale(0.38) rotate(4)" />
+      <use href="#chileMini" transform="translate(66,132) scale(0.28) rotate(10)" />
+      <use href="#chileMini" transform="translate(78,168) scale(0.2) rotate(18)" />
+    </g>
+    <use href="#ramaEspiral" transform="scale(-1,1)" />
+  </g>
+</svg>

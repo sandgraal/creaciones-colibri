@@ -155,6 +155,7 @@ const slugifyString = value =>
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/css": "css" });
   eleventyConfig.addPassthroughCopy({ "src/img": "img" });
+  eleventyConfig.addPassthroughCopy({ "logo": "img/logo" });
   eleventyConfig.addPassthroughCopy({ "src/js": "js" });
   eleventyConfig.addPassthroughCopy({ "node_modules/fuse.js/dist/fuse.min.js": "js/vendor/fuse.min.js" });
   eleventyConfig.addPassthroughCopy({ "src/.nojekyll": ".nojekyll" });
