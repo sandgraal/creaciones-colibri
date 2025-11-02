@@ -7,6 +7,26 @@ This plan tracks the work required to turn our Eleventy-powered repository into 
 - [x] Completed
 - [ ] Not started (or in progress — see notes)
 
+### AI agent handoff
+
+| Task | Agent | Command & Triggers | Human prerequisites |
+| --- | --- | --- | --- |
+| Phase 2 — Configure Snipcart tax, shipping rules, and payment methods | [colibri-data](ai/AGENTS.md#agent-catalog) | `npm run translate`  — Triggers: `path:src/_data/`, `manual:ai/.github/workflows/agents.yml` | Provide Snipcart sandbox credentials and region-specific tax/shipping tables in repository secrets before running. |
+| Phase 3 — Localization | [colibri-content](ai/AGENTS.md#agent-catalog) | `npm run build`  — Triggers: `workflow:.github/workflows/pages.yml`, `manual:ai/.github/workflows/agents.yml` | Ensure updated translation files exist in `src/_data/` and schedule bilingual QA reviewers prior to execution. |
+| Phase 3 — Recruit native speakers for translation review | [colibri-content](ai/AGENTS.md#agent-catalog) | `npm run build`  — Triggers: `workflow:.github/workflows/pages.yml`, `manual:ai/.github/workflows/agents.yml` | Assign human reviewers and share review checklist; agent run should only log completion once approvals are documented. |
+| Phase 3 — Subscriptions & bundles | [colibri-data](ai/AGENTS.md#agent-catalog) | `npm run translate`  — Triggers: `path:src/_data/`, `manual:ai/.github/workflows/agents.yml` | Activate Snipcart subscription features and expose plan identifiers within product data before automation updates bundles. |
+| Phase 3 — Configure recurring payments via e-commerce solution | [colibri-data](ai/AGENTS.md#agent-catalog) | `npm run translate`  — Triggers: `path:src/_data/`, `manual:ai/.github/workflows/agents.yml` | Confirm recurring billing is enabled in the Snipcart dashboard and API keys are rotated into GitHub secrets. |
+| Phase 3 — Complete sandbox checkout + renewal tests | [colibri-analytics](ai/AGENTS.md#agent-catalog) | `npm run audit:assets`  — Triggers: `schedule:nightly`, `manual:ai/.github/workflows/agents.yml` | Provision sandbox payment methods and reserve manual QA time to validate receipts before automation records results. |
+| Phase 3 — Analytics & SEO | [colibri-analytics](ai/AGENTS.md#agent-catalog) | `npm run audit:assets`  — Triggers: `schedule:nightly`, `manual:ai/.github/workflows/agents.yml` | Set the `PLAUSIBLE_DOMAIN` environment variable and create the Plausible project so metrics ingestion succeeds. |
+| Phase 3 — Performance & accessibility audit | [colibri-analytics](ai/AGENTS.md#agent-catalog) | `npm run audit:assets`  — Triggers: `schedule:nightly`, `manual:ai/.github/workflows/agents.yml` | Install Chrome/Lighthouse binaries on the runner image or provide access to hosted Lighthouse service before invoking the audit. |
+| Phase 3 — Run Lighthouse audits for performance, accessibility, best practices, and SEO | [colibri-analytics](ai/AGENTS.md#agent-catalog) | `npm run audit:assets`  — Triggers: `schedule:nightly`, `manual:ai/.github/workflows/agents.yml` | Same as above plus ensure artifact upload permissions exist for JSON/HTML reports. |
+| Phase 3 — Optimize build times, asset sizes, and caching strategy | [colibri-analytics](ai/AGENTS.md#agent-catalog) | `npm run audit:assets`  — Triggers: `schedule:nightly`, `manual:ai/.github/workflows/agents.yml` | Capture baseline metrics and align on acceptable budgets with the engineering team prior to automated tuning. |
+| Phase 3 — Verify keyboard navigation, focus states, and semantic markup | [colibri-content](ai/AGENTS.md#agent-catalog) | `npm run build`  — Triggers: `workflow:.github/workflows/pages.yml`, `manual:ai/.github/workflows/agents.yml` | Publish accessibility checklist and assign manual QA owner to validate focus order while automation ships updated templates. |
+| Phase 3 — Deployment & CI | [colibri-content](ai/AGENTS.md#agent-catalog) | `npm run build`  — Triggers: `workflow:.github/workflows/pages.yml`, `manual:ai/.github/workflows/agents.yml` | Review GitHub Pages secrets and branch protections; obtain human approval for first production deploy. |
+| Phase 4 — Wholesale & private label | [colibri-content](ai/AGENTS.md#agent-catalog) | `npm run build`  — Triggers: `workflow:.github/workflows/pages.yml`, `manual:ai/.github/workflows/agents.yml` | Secure leadership sign-off on wholesale strategy and upload partner requirements into `docs/operations/`. |
+| Phase 4 — Community & events | [colibri-content](ai/AGENTS.md#agent-catalog) | `npm run build`  — Triggers: `workflow:.github/workflows/pages.yml`, `manual:ai/.github/workflows/agents.yml` | Provide event calendar, budget approvals, and partner contact list so automation can publish announcements safely. |
+| Phase 4 — New product development | [colibri-data](ai/AGENTS.md#agent-catalog) | `npm run translate`  — Triggers: `path:src/_data/`, `manual:ai/.github/workflows/agents.yml` | Deliver R&D briefs and compliance guidelines; confirm data schemas for experimental products before syncing. |
+
 ---
 
 ## Phase 1 — Foundation & Content (Week 1–2)
@@ -43,7 +63,7 @@ This plan tracks the work required to turn our Eleventy-powered repository into 
 - [x] **Integrate cart & checkout** _(Snipcart implementation details live in `docs/operations/snipcart-setup.md`)_
   - [x] Add cart triggers to product cards/detail pages, including quantity selectors.
   - [x] Ensure cart persistence between page loads via local storage or platform-provided scripts (handled by Snipcart).
-  - [ ] Configure tax, shipping rules, and payment methods; test end-to-end purchase flow in sandbox mode (`docs/operations/snipcart-setup.md`). _(Pending final sandbox verification of rates and payment tokens.)_
+- [ ] Configure tax, shipping rules, and payment methods; test end-to-end purchase flow in sandbox mode (`docs/operations/snipcart-setup.md`). (agent: [colibri-data](ai/AGENTS.md#agent-catalog); prereq: Snipcart sandbox keys + tax matrices in secrets) _(Pending final sandbox verification of rates and payment tokens.)_
 
 - [x] **Search & filtering** _(templates in `src/products/index.njk`, logic in `src/js/search.js`)_
   - [x] Decide on search strategy: client-side fuzzy search (Fuse.js) with Eleventy-generated JSON index.
@@ -59,32 +79,32 @@ This plan tracks the work required to turn our Eleventy-powered repository into 
 
 ## Phase 3 — Enhancements & Marketing (Week 5–6)
 
-- [ ] **Localization**
+- [ ] **Localization** (agent: [colibri-content](ai/AGENTS.md#agent-catalog); prereq: refreshed translations + scheduled bilingual QA)
   - [x] Add Spanish translations for all content using Eleventy’s i18n plugin or custom data files. _(Home, catálogo, detalle de producto, blog y contacto listos; formularios y metadatos actualizados. Falta revisión nativa.)_
   - [x] Provide language toggle in navigation; ensure URLs and metadata localize correctly.
   - [x] Sync Snipcart checkout UI language with the active locale.
-  - [ ] Recruit native speakers to review translations for tone and accuracy.
+- [ ] Recruit native speakers to review translations for tone and accuracy. (agent: [colibri-content](ai/AGENTS.md#agent-catalog); prereq: assign reviewers & share checklist)
 
-- [ ] **Subscriptions & bundles**
+- [ ] **Subscriptions & bundles** (agent: [colibri-data](ai/AGENTS.md#agent-catalog); prereq: enable Snipcart subscription features + bundle SKUs)
   - [x] Define subscription offerings (e.g., monthly sauce trio, granola of the month).
-  - [ ] Configure recurring payments via chosen e-commerce solution; verify renewal flows.
+- [ ] Configure recurring payments via chosen e-commerce solution; verify renewal flows. (agent: [colibri-data](ai/AGENTS.md#agent-catalog); prereq: activate recurring billing + rotate API keys)
     - [x] Wire Snipcart subscription buttons to automated billing plans in bundle templates so subscriptions add directly to the cart.
-    - [ ] Complete sandbox checkout + renewal tests once Snipcart credentials are active.
+    - [ ] Complete sandbox checkout + renewal tests once Snipcart credentials are active. (agent: [colibri-analytics](ai/AGENTS.md#agent-catalog); prereq: sandbox payment methods + manual QA window)
   - [x] Build bundle product templates that dynamically render from shared product data.
 
-- [ ] **Analytics & SEO**
+- [ ] **Analytics & SEO** (agent: [colibri-analytics](ai/AGENTS.md#agent-catalog); prereq: Plausible project + `PLAUSIBLE_DOMAIN` secret)
   - [x] Configure SEO fundamentals: meta tags, Open Graph, structured data (JSON-LD).
   - [x] Generate sitemap and robots.txt during the Eleventy build.
   - [x] Draft analytics plan and integrate Plausible toggle (requires `PLAUSIBLE_DOMAIN` to activate). Plausible now ships with automatic checkout/newsletter event tracking; final account provisioning and domain configuration remain.
 
-- [ ] **Performance & accessibility audit**
+- [ ] **Performance & accessibility audit** (agent: [colibri-analytics](ai/AGENTS.md#agent-catalog); prereq: Lighthouse tooling accessible to workflow)
   - [x] Add asset audit tooling (`npm run audit:assets`) and document the Lighthouse playbook (`docs/operations/performance-audit.md`).
   - [x] Capture first asset-weight baseline (2025-10-23) — see `docs/operations/performance-reports/2025-10-23-asset-audit.md`.
-  - [ ] Run Lighthouse audits for performance, accessibility, best practices, and SEO; document remediation tasks. _(Use `npm run audit:lighthouse` to generate JSON + HTML reports once Chrome + the Lighthouse CLI are available.)_
-  - [ ] Optimize build times, asset sizes, and caching strategy.
-  - [ ] Verify keyboard navigation, focus states, and semantic markup across pages.
+- [ ] Run Lighthouse audits for performance, accessibility, best practices, and SEO; document remediation tasks. (agent: [colibri-analytics](ai/AGENTS.md#agent-catalog); prereq: install Chrome/Lighthouse + artifact upload permissions) _(Use `npm run audit:lighthouse` to generate JSON + HTML reports once Chrome + the Lighthouse CLI are available.)_
+- [ ] Optimize build times, asset sizes, and caching strategy. (agent: [colibri-analytics](ai/AGENTS.md#agent-catalog); prereq: agreed performance budgets + baseline metrics)
+- [ ] Verify keyboard navigation, focus states, and semantic markup across pages. (agent: [colibri-content](ai/AGENTS.md#agent-catalog); prereq: accessibility checklist + manual keyboard QA)
 
-- [ ] **Deployment & CI** _(in progress)_
+- [ ] **Deployment & CI** _(in progress)_ (agent: [colibri-content](ai/AGENTS.md#agent-catalog); prereq: confirm GitHub Pages secrets + deployment approval gate)
   - [x] Choose hosting provider (GitHub Pages) and configure automated deployment (`.github/workflows/pages.yml`).
   - [x] Ensure Eleventy copies static assets and respects `pathPrefix` for GitHub Pages URLs.
   - [x] Add secrets management guidance for future API keys or environment variables needed during build.
