@@ -24,7 +24,7 @@ Make sure these secrets exist in the repository before triggering deployments:
    - Smoke-test homepage, products, checkout, and blog sections.
    - Check the browser console for Snipcart or form configuration errors.
    - Confirm sitemap and robots endpoints respond (e.g., `/sitemap.xml`, `/robots.txt`).
-4. If secrets changed, update `docs/operations/qa-checklist.md` with notes and notify stakeholders in the team channel.
+4. If secrets changed, add a short note to `docs/operations/qa-checklist.md` so we remember what shifted.
 
 ## 3. Rollback Playbook
 1. **Identify the bad release:** Locate the pull request or commit that introduced the regression.

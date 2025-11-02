@@ -140,8 +140,8 @@ This handbook captures the conventions and best practices for building and maint
 2. Review this handbook and the current `implementation_plan.md` to understand priorities.
 3. Run the project locally (`npm install`, `npm start`) and verify the home page renders with brand styling.
 4. Skim recent pull requests to understand coding style and commit patterns.
-5. Pick an unchecked item from the implementation plan or open issues and coordinate with the team before starting.
-6. Join the team communication channel (Slack/Teams/Discord) and request access to any third-party services (analytics, email marketing) you may need.
+5. Pick an unchecked item from the implementation plan or open issues and note your intent in the task list or commit message so we avoid duplicating efforts.
+6. Make sure you have access to any required third-party services (Snipcart, Formspree, Plausible). If something is missing, add a reminder to `docs/status/remaining-tasks.md`.
 
 ---
 

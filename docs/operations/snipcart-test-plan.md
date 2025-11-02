@@ -44,7 +44,7 @@ Record each scenario in the table below. Attach supporting screenshots or export
 ### 3.1 Test Data
 
 - **Stripe test card:** `4242 4242 4242 4242`, any future expiry, CVC `123`, ZIP `33101`.
-- **PayPal sandbox:** Use business + buyer accounts created under operations email alias.
+- **PayPal sandbox:** Use the sandbox business + buyer accounts from our PayPal developer profile.
 - **International address:**
   - Name: Paula Rojas
   - Address: Avenida Central, Barrio Escalante
@@ -63,9 +63,9 @@ Record each scenario in the table below. Attach supporting screenshots or export
 
 Track outstanding tasks discovered during QA.
 
-| Date | Owner | Issue | Next Step |
-| ---- | ----- | ----- | --------- |
-|      |       |       |           |
+| Date | Logged By | Issue | Next Step |
+| ---- | --------- | ----- | --------- |
+|      |           |       |           |
 
 ## 5. Go-Live Checklist
 

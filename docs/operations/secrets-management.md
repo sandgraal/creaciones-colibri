@@ -15,7 +15,7 @@ This playbook explains how to store and rotate the API keys, form endpoints, and
 | `SITE_LOCALE`, `SITE_ALT_LOCALES` | Control default locale and language switcher. | Read by `src/_data/site.js` to expose localization data. |
 | `TRANSLATION_PROVIDER`, `DEEPL_API_KEY`, `DEEPL_SOURCE_LANG` | Enable machine translation workflow for product copy. | Used by translation scripts under `scripts/`. |
 
-Track any new integrations in this table so operations knows which environments require updates.
+Track any new integrations in this table so it stays clear which environments need updates.
 
 ## 2. Storage Locations
 
@@ -30,11 +30,11 @@ Track any new integrations in this table so operations knows which environments 
 - Document updates to secrets in pull request descriptions or `docs/operations/qa-checklist.md` when they affect launch-readiness.
 
 ### Third-Party Dashboards
-- Restrict access to Snipcart, Plausible, and email marketing tools to the operations team. Create individual user accounts instead of sharing a master login.
-- For shared credentials that cannot be federated, store them in a password manager (1Password, Bitwarden) with MFA enabled.
+- Keep Snipcart, Plausible, and email marketing credentials in a password manager (1Password, Bitwarden) with MFA enabled—no unencrypted notes or chat messages.
+- If we ever invite collaborators, create individual user accounts instead of sharing a master login.
 
 ## 3. Rotation & Revocation
-- Rotate API keys at least annually, or immediately after team changes.
+- Rotate API keys at least annually, or immediately after someone else gains access.
 - When rotating, update the value in all environments (local `.env`, GitHub secrets, deployment hosts) and trigger a rebuild so Eleventy receives the new value.
 - Revoke unused keys in the provider dashboard to limit attack surface.
 

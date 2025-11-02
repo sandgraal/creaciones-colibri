@@ -6,7 +6,7 @@
 - **Identifier:** `colibri-packaging`
 - **Status:** pending
 - **Primary Trigger:** Commits touching `/assets/labels/` (to be introduced) or manual dispatch via `AI Agents`
-- **Owner:** Operations & Production
+- **Owner:** Maintainership (Christopher & Codex)
 
 ## Responsibilities
 - Transform catalog data from `src/_data/products.js` into printable label specs (ingredients, allergens, net weight).
@@ -34,14 +34,14 @@
 ## Runbook
 1. **Prepare data:** Confirm `src/_data/products.js` reflects the latest ingredient and allergen updates.
 2. **Generate export:** Run `node scripts/package-render.mjs` with the appropriate format/fields and store the artifact in `ai/_state/`.
-3. **Review output:** Spot-check label entries for accuracy (unit sizes, ingredient ordering) and share with the operations team.
+3. **Review output:** Spot-check label entries for accuracy (unit sizes, ingredient ordering) and jot any corrections in the shipping guide.
 4. **Distribute:** Upload files to the label printer or fulfillment portal; capture the date and batch in `docs/operations/shipping.md`.
 5. **Archive:** Commit large exports to a storage system or attach to the relevant task ticket; keep the repository free of binary artifacts.
 
 ## Change History
 | Date | Change | Author |
 |------|--------|--------|
-| 2025-10-24 | Drafted initial packaging workflow documentation and export script usage | Automation Team |
+| 2025-10-24 | Drafted initial packaging workflow documentation and export script usage | Project maintainers |
 
 ---
 

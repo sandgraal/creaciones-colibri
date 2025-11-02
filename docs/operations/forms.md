@@ -6,7 +6,7 @@
   1. Create a Formspree project and form endpoint.
   2. Add the endpoint to `.env` (`FORMSPREE_ENDPOINT`).
   3. Deploy; the contact page automatically renders the form. Without the env var, visitors see a fallback message with the support email.
-- Add a webhook/email notification in Formspree to ensure responses land in the team inbox.
+- Add a webhook/email notification in Formspree so replies land in the support inbox you monitor.
 
 ## Newsletter Signup
 - The homepage newsletter block submits to whatever provider action you supply via `NEWSLETTER_ACTION` (e.g., Mailchimp form action, ConvertKit URL).

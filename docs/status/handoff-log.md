@@ -1,9 +1,9 @@
 # Handoff Log
 
-Use this table to capture the latest state of active roadmap items so the next contributor can pick up without guesswork.
+Use this log to capture the latest state of active roadmap items so future-us can restart quickly.
 
-| Date | Owner | Feature / Module | Current State | Next Steps | Blockers |
-| --- | --- | --- | --- | --- | --- |
-| 2025-10-22 | Operations | [Snipcart configuration & QA](../operations/snipcart-setup.md) | Sandbox add/remove flows pass using test keys; tax and shipping rules still mirror placeholder rates. Full QA checklist not executed. | Enter real shipping tiers from `docs/operations/shipping.md`, verify tax regions, then run through the [checkout QA checklist](../operations/qa-checklist.md). | Awaiting finalized shipping cost matrix from finance before locking rates. |
-| 2025-10-22 | Content | [Localization rollout](../operations/localization.md) | Spanish templates, catalog data, forms, and metadata are now localized. Checkout locale mapping now auto-applies via base layout; native tone review still outstanding. | Schedule bilingual reviewer session to approve copy, then verify Snipcart UI renders in Spanish once keys are active. | Native reviewer availability (targeting 2025-10-28). |
-| 2025-10-23 | Engineering | [Performance & accessibility audit](../design/accessibility-review.md) | Ran `npm run audit:assets` to capture the first baseline (see `docs/operations/performance-reports/2025-10-23-asset-audit.md`); Lighthouse playbook already documented. | Run Lighthouse across target URLs, capture reports in `docs/operations/performance-reports/`, and file remediation tasks. | Waiting on stable staging deploy with Snipcart scripts enabled. |
+| Date | Focus Area | Current State | Next Step | Blockers |
+| --- | --- | --- | --- | --- |
+| 2025-10-22 | [Snipcart configuration & QA](../operations/snipcart-setup.md) | Sandbox add/remove flows pass using test keys; tax and shipping rules still mirror placeholder rates. Full QA checklist not executed. | Enter real shipping tiers from `docs/operations/shipping.md`, verify tax regions, then run through the [checkout QA checklist](../operations/qa-checklist.md). | Waiting on ourselves to finalize shipping rate assumptions. |
+| 2025-10-22 | [Localization rollout](../operations/localization.md) | Spanish templates, catalog data, forms, and metadata are localized. Checkout locale mapping auto-applies; native tone review still outstanding. | Schedule a bilingual review session (self-arranged) and, after feedback, verify Snipcart UI renders in Spanish once keys are active. | Need to line up time with a native speaker. |
+| 2025-10-23 | [Performance & accessibility audit](../design/accessibility-review.md) | Ran `npm run audit:assets`; Lighthouse playbook documented. | Run Lighthouse across target URLs, file remediation tasks in `docs/operations/performance-reports/`. | Waiting on local Chrome/Lighthouse setup with Snipcart scripts enabled. |

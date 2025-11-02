@@ -1,6 +1,6 @@
 # Performance & Accessibility Audit Playbook
 
-Use this guide whenever we prepare a release or introduce major UX changes. It pairs the asset-weight report with automated Lighthouse checks so we can spot regressions early and document the results for the team.
+Use this guide whenever we prepare a release or introduce major UX changes. It pairs the asset-weight report with automated Lighthouse checks so we can spot regressions early and document the results for future-us.
 
 ## 1. Prerequisites
 - Node.js 20+ installed locally.

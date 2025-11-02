@@ -58,7 +58,7 @@ Creaciones Colibrí respects your privacy. This document mirrors the customer-fa
 
 - Secrets are managed according to `docs/operations/secrets-management.md` (GitHub Secrets, password manager with MFA).
 - Snipcart and payment gateways handle PCI compliance.
-- Access to dashboards is limited to authorized team members.
+- Access to dashboards is limited to the maintainers; add new users only when absolutely necessary.
 
 ## 7. International Data Transfers
 
